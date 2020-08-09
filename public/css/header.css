@@ -1,0 +1,97 @@
+header a {
+    text-decoration: none;
+}
+
+header {
+    background-color: #337079;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: #fafafa;
+}
+
+header .container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    margin: 0 100px;
+    height: 100px;
+}
+.header-nav {
+    display: flex;
+    background-color: #337079;
+}
+.nav-list {
+    margin: 0 20px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.nav-list:hover {
+    color: tomato;
+}
+
+.hamburger {
+    display: none;
+    width: 32px;
+    height: auto;
+    cursor: pointer;
+}
+.hamburger div {
+    background-color: #fafafa;
+    border-radius: 20px;
+    padding: 2px 5px;
+    margin: 4px 0;
+}
+.hamburger p {
+    text-align: center;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+    header{
+        /* ヘッダー固定 */
+        position: sticky;
+        top: 0;
+        z-index: 2;
+    }
+    header .container {
+
+        margin-left: 0px!important;
+        justify-content: space-evenly;
+        display: flex;
+        align-items: center;
+        margin: 0 100px;
+        height: 100px;
+    }
+
+    .hamburger {
+        display: block;
+    }
+    .header-nav {
+        display: none;
+        position: absolute;
+        flex-direction: column;
+        top: 60px;
+        right: 0;
+        width: 100%;
+        height: auto;
+    }
+    .active {
+        display: flex;
+    }
+    .nav-list {
+        text-align: center;
+        margin: 20px 0;
+        width: 100%;
+    }
+
+    .container{
+        height: auto;
+    }
+
+    .container h1{
+        font-size: 1.5rem;
+    }
+
+}

@@ -1,0 +1,61 @@
+/* PC用 */
+    .profile_icon{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .my_picture{
+        float: left;
+        text-align: center;
+    }
+
+    .my_picture img{
+        width: 70%;
+        height: auto;
+        border-radius: 50%;
+    }
+
+    .self_introduction{
+        float: right;
+        text-align: center;
+    }
+
+    .self_introduction .title{
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+
+    .self_introduction .sentence{
+        text-align: left;
+    }
+
+    .skill_container{
+        margin: 30px;
+    }
+
+    .skill_container_name{
+        text-align: center;
+    }
+
+    .frame_border{
+        border: 1px solid;
+        margin: auto;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .skill_table{
+        width:100%;
+    }
+
+    .skill_table tr{
+        text-align: center;
+    }
+
+
+/* スマホ用 */
+@media screen and (max-width: 600px) {
+    .frame_border{
+        margin-bottom: 10px;
+    }
+}
