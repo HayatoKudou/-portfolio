@@ -25,7 +25,7 @@
                     </div>
                     @endif
 
-                    
+                    <p style="text-align: center;">更新日：{{$update_date}}</p>
 
                     <div id="1" class="row">
                         <div class="profile_title">
@@ -40,7 +40,10 @@
                         <div class="col-md-6 self_introduction">
                             <h4 class="title">自己紹介</h4>
                             <div class="sentence">
-                                <p>はじめまして。私は工藤 颯斗と申します。<br>都内にある受託系の会社でWebエンジニアとして働いています。メイン言語はPHPです。</p>
+                                <p>はじめまして。工藤 颯斗と申します。年齢は21歳です。
+                                    <br>都内にある受託系の会社でWebエンジニアとして働いています。メイン言語はPHPでLaravelを使用することが多いです。
+                                    <br>最近はSPAのサイトを作ってみたく、プライベートでReactなどのフロント言語を勉強中です。
+                                </p>
                             </div>
                             <h4 class="title">経歴</h4>
                             <div class="sentence">

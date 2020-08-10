@@ -11,7 +11,11 @@ use App\Content;
 class MainController extends Controller
 {
     public function main(){
-        return view('mainPage');
+        //ファイル更新日の取得（bladeのみ）
+        $path = base_path('resources/views');
+        date_default_timezone_set('Asia/Tokyo');
+        $update_date = date( "Y-m-d", filemtime($path));
+        return view('mainPage',['update_date' => $update_date]);
     }
 
     public function send_mail(Request $request){

@@ -79,6 +79,11 @@
     margin: auto;
 }
 
+.footer-list{
+    margin: 0 20px;
+    color: white;
+}
+
 @media screen and (max-width: 600px) {
     .follow-me li a::before {
       -webkit-border-radius: 2px;
