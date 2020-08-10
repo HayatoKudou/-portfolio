@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height:100%;">
 <head>
+    <title>hayato portfolio</title>
+    <link rel="icon" href="{{ asset('img/favicon.ico') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -35,6 +37,7 @@
 <main class="py-4" id="main_content">
     @yield('content')
 </main>
+@extends('layouts.footer')
 </html>
 
 <script>

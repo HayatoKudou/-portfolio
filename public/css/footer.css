@@ -66,3 +66,32 @@
 .follow-me li a[href*="youtube.com"]::before        { background-color: #cd201f; content: "\f16a"; }
 .follow-me li a[href$="/feed"]::before              { background-color: #ffa500; content: "\f09e"; }
 .follow-me li a[href$="/subscribe"]::before         { background-color: #363636; content: "\f000";  font-family: blogicon; }
+
+
+
+.footer-nav {
+    display: flex;
+    background-color: #337079;
+    height: 70px;
+}
+
+.footer_a{
+    margin: auto;
+}
+
+@media screen and (max-width: 600px) {
+    .follow-me li a::before {
+      -webkit-border-radius: 2px;
+      border-radius: 2px;
+      color: #fff;
+      display: inline-block;
+      font-family: FontAwesome;
+      font-size: 42px;
+      height: 70px; /* Button height */
+      line-height: 72px; /* Button height */
+      -webkit-transition: all .3s ease;
+      transition: all .3s ease;
+      text-align: center;
+      width: 70px; /* Button width */
+    }
+}

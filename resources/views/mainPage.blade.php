@@ -8,11 +8,25 @@
             <div class="card">
 
                 <div class="card-body" style="background-color: #eae8e8;">
+
                     @if(session()->has('message'))
                     <div class="alert alert-success">
                         <p>{{ session('message') }}</p>
                     </div>
                     @endif
+
+                    @if ($errors->any())
+                    <div class="alert alert-danger" style="width: 30%; margin-right: auto; margin-left: auto;">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+                    
+
                     <div id="1" class="row">
                         <div class="profile_title">
                             <h1><i class="fas fa-user"></i>Profile</h1>
@@ -192,20 +206,10 @@
                     <div class="row">
                         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
                         <ul class="follow-me sns_icon">
-                          <li style="margin-right: 10px;"><a href="https://twitter.com/metalic_kudo_h"></a></li>
+                          <li style="margin-right: 10px;"><a href="https://twitter.com/React_Laravel_"></a></li>
                           <li style="margin-left: 10px; margin-right: 0px;"><a href="https://www.github.com/HayatoKudou"></a></li>
                         </ul>
                     </div>
-
-                    @if ($errors->any())
-                    <div class="alert alert-danger" style="width: 30%; margin-right: auto; margin-left: auto;">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
 
                     <div class="row">
                         <div class="profile_title" style="text-align: center;">

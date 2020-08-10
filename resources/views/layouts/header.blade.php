@@ -4,11 +4,13 @@
     <header>
         <div class="container">
             <h1>Hayato Kudou portfolio</h1>
-            <nav id="Header-Nav" class="header-nav">
-                <a href="#1" class="nav-list">Profile</a>
-                <a href="#2" class="nav-list">Skill</a>
-                <a href="#3" class="nav-list">Contact</a>
-            </nav>
+            <div class="footer_a">
+                <nav id="Header-Nav" class="header-nav">
+                    <a href="#1" class="nav-list">Profile</a>
+                    <a href="#2" class="nav-list">Skill</a>
+                    <a href="#3" class="nav-list">Contact</a>
+                </nav>
+            </div>
             <div id="Hamburger" class="hamburger">
                 <div></div>
                 <div></div>

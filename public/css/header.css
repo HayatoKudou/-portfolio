@@ -1,4 +1,4 @@
-header a {
+conten1header a {
     text-decoration: none;
 }
 
@@ -25,9 +25,10 @@ header .container {
     background-color: #337079;
 }
 .nav-list {
-    margin: 0 20px;
-    font-size: 20px;
+    margin: 0 35px;
+    font-size: 25px;
     font-weight: bold;
+    color: white;
 }
 .nav-list:hover {
     color: tomato;
@@ -65,11 +66,12 @@ header .container {
         display: flex;
         align-items: center;
         margin: 0 100px;
-        height: 90px;
+        height: 82px;
     }
 
     .hamburger {
         display: block;
+        margin-top: 20px;
     }
     .header-nav {
         display: none;
@@ -84,9 +86,21 @@ header .container {
         display: flex;
     }
     .nav-list {
+        /* margin: 0 20px!important; */
         text-align: center;
         margin: 20px 0;
         width: 100%;
+        color: white;
+        font-size: 20px;
+    }
+
+    .footer-list{
+        margin: 0 20px!important;
+        text-align: center;
+        margin: 20px 0;
+        width: 100%;
+        color: white;
+        font-size: 20px;
     }
 
     .container{
@@ -94,7 +108,7 @@ header .container {
     }
 
     .container h1{
-        font-size: 1.5rem;
+        font-size: 2.0rem;
     }
 
 }
