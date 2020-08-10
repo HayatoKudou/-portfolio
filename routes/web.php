@@ -13,11 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
+Route::get('/', 'MainController@main');
 Route::get('/top', 'MainController@main')->name('main');
+Route::post('/', 'MainController@send_mail')->name('send_mail');
 
 
 Route::get('/amazon', 'AmazonController@getApiData')->name('amazon');

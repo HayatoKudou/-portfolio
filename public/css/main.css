@@ -1,7 +1,16 @@
 /* PC用 */
-    .profile_icon{
+    .profile_title{
         margin-left: auto;
         margin-right: auto;
+    }
+
+    .profile_title p{
+        margin-bottom: 5px;
+        margin-top: 15px;
+    }
+
+    .profile_title h1{
+        margin-bottom: 20px;
     }
 
     .my_picture{
@@ -42,6 +51,7 @@
         margin: auto;
         margin-top: 0;
         margin-bottom: 0;
+        background-color: white;
     }
 
     .skill_table{
@@ -52,6 +62,31 @@
         text-align: center;
     }
 
+    .error_message{
+        color: red;
+    }
+
+    .send_btn{
+        width: 30%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 20px;
+    }
+
+    .sns_icon{
+        margin-left: auto!important;
+        margin-right: auto!important;
+    }
+
+    .mail_form{
+        width: 90%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .fas{
+        margin-right: 10px;
+    }
 
 /* スマホ用 */
 @media screen and (max-width: 600px) {

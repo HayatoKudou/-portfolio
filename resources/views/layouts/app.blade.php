@@ -9,10 +9,13 @@
 
     <!-- Scripts -->
     <!-- <script src="/js/jquery.min.js"></script> -->
-    <!-- <script src="/js/app.js"></script> -->
     <script src="/js/app.js"></script>
+    <script src="/js/app.js" defer></script>
     <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+    <!--アイコン-->
+    <script src="https://kit.fontawesome.com/4146f9dc55.js" crossorigin="anonymous"></script>
 
 
     <!-- Fonts -->
@@ -23,6 +26,7 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/header.css" rel="stylesheet">
     <link href="/css/main.css" rel="stylesheet">
+    <link href="/css/footer.css" rel="stylesheet">
 
 </head>
 

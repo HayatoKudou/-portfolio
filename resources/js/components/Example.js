@@ -20,5 +20,6 @@ function Example() {
 export default Example;
 
 if (document.getElementById('example')) {
+    console.log('test');
     ReactDOM.render(<Example />, document.getElementById('example'));
 }

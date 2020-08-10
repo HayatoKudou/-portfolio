@@ -65804,6 +65804,10 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./components/Example */ "./resources/js/components/Example.js");
 
+__webpack_require__(/*! ./components/Form */ "./resources/js/components/Form.js");
+
+__webpack_require__(/*! ./components/Validation */ "./resources/js/components/Validation.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -65886,8 +65890,216 @@ function Example() {
 /* harmony default export */ __webpack_exports__["default"] = (Example);
 
 if (document.getElementById('example')) {
+  console.log('test');
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Example, null), document.getElementById('example'));
 }
+
+/***/ }),
+
+/***/ "./resources/js/components/Form.js":
+/*!*****************************************!*\
+  !*** ./resources/js/components/Form.js ***!
+  \*****************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+ // import Validation from './Validation';
+
+var Form = /*#__PURE__*/function (_React$Component) {
+  _inherits(Form, _React$Component);
+
+  var _super = _createSuper(Form);
+
+  function Form(props) {
+    var _this;
+
+    _classCallCheck(this, Form);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      info: {
+        email: '',
+        content: ''
+      },
+      message: {
+        email: '',
+        content: ''
+      }
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Form, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      var name = event.target.name;
+      var value = event.target.value;
+      var _this$state = this.state,
+          info = _this$state.info,
+          message = _this$state.message;
+      this.setState({
+        info: _objectSpread(_objectSpread({}, info), {}, _defineProperty({}, name, value))
+      });
+      this.setState({
+        message: _objectSpread(_objectSpread({}, message), {}, _defineProperty({}, name, this.validator(name, value)))
+      });
+    }
+  }, {
+    key: "validator",
+    value: function validator(name, value) {
+      switch (name) {
+        case 'email':
+          return this.emailValidation(value);
+
+        case 'content':
+          return this.contentValidation(value);
+      }
+    }
+  }, {
+    key: "emailValidation",
+    value: function emailValidation(value) {
+      if (!value) return '※メールアドレスを入力してください';
+      var regex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      if (!regex.test(value)) return '※正しい形式でメールアドレスを入力してください';
+      return '';
+    }
+  }, {
+    key: "contentValidation",
+    value: function contentValidation(value) {
+      if (!value) return '※内容を入力してください';
+      if (value.length < 8) return '※内容は8文字以上で入力してください';
+      return '';
+    }
+  }, {
+    key: "canSubmit",
+    value: function canSubmit() {
+      if (this.state.message.email == null) {
+        return "disabled";
+      } else if (this.state.message.content == null) {
+        return "disabled";
+      } else {
+        return;
+        ;
+      }
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this$state2 = this.state,
+          info = _this$state2.info,
+          content = _this$state2.content;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "\u30E1\u30FC\u30EB\u30A2\u30C9\u30EC\u30B9\uFF08\u5FC5\u9808\uFF09"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "error_message"
+      }, this.state.message.email), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control mail_form",
+        type: "text",
+        name: "email",
+        value: this.state.info.email,
+        onChange: this.handleChange,
+        size: "30"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "\u304A\u554F\u3044\u5408\u308F\u305B\u5185\u5BB9\uFF08\u5FC5\u9808\uFF09"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "error_message"
+      }, this.state.message.content), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
+        className: "form-control mail_form",
+        name: "content",
+        onChange: this.handleChange,
+        defaultValue: this.state.info.content,
+        cols: "50",
+        rows: "5"
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        id: "send_btn",
+        className: "form-control send_btn",
+        type: "submit",
+        value: "\u9001\u4FE1\u3059\u308B",
+        disabled: !this.state.info.email || !this.state.info.content || this.state.message.email || this.state.message.content
+      }));
+    }
+  }]);
+
+  return Form;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Form);
+
+if (document.getElementById('app')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.StrictMode, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Form, null)), document.getElementById('app'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/Validation.js":
+/*!***********************************************!*\
+  !*** ./resources/js/components/Validation.js ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// const emailValidation = (email: string): string => {
+//   if (!email) return 'メールアドレスを入力してください';
+//
+//   const regex = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+//   if (!regex.test(email)) return '正しい形式でメールアドレスを入力してください';
+//
+//   return '';
+// };
+//
+// const contentValidation = (content: string): string => {
+//   if (!content) return '内容を入力してください';
+//   if (content.length < 200) return '内容は200文字以上で入力してください';
+//
+//   return '';
+// };
+//
+// class Validation {
+//   static formValidate = (type: string, value: string) => {
+//       console.log(type);
+//       console.log(value);
+//     switch (type) {
+//       case 'email':
+//         return emailValidation(value);
+//       case 'content':
+//         return contentValidation(value);
+//     }
+//   };
+// }
+//
+// export default Validation;
 
 /***/ }),
 
