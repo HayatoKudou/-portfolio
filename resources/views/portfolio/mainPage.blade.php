@@ -1,5 +1,5 @@
-@extends('layouts.app')
-@extends('layouts.header')
+@extends('layouts.portfolio.portfolio')
+@extends('layouts.portfolio.header')
 
 @section('content')
 <div class="main_container" id="main_container">
@@ -16,12 +16,10 @@
                     @endif
 
                     @if ($errors->any())
-                    <div class="alert alert-danger" style="width: 30%; margin-right: auto; margin-left: auto;">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
+                    <div class="alert alert-danger" style="text-align: center;">
+                        @foreach ($errors->all() as $error)
+                        <p>・{{ $error }}</p>
+                        @endforeach
                     </div>
                     @endif
 

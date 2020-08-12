@@ -1,0 +1,31 @@
+.blog_container{
+    width: 97%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.info_title{
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.info_title h2{
+    border-bottom: solid 2px;
+}
+
+.info{
+    margin-top: 25px;
+    border-bottom: dotted 1px;
+}
+
+.info p{
+    /* border-bottom: dotted 1px; */
+    margin-bottom: 0px;
+}
+
+
+.side_container{
+    width: 95%;
+    margin-right: auto;
+    margin-left: auto;
+}

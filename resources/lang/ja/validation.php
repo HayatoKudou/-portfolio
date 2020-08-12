@@ -148,7 +148,7 @@ return [
 
     'attributes' => [
         'email' => 'メールアドレス',
-        'content' => '内容',
+        'content' => 'お問い合わせ内容',
     ],
 
 ];

@@ -8,6 +8,10 @@
                     <a href="#1" class="footer-list">Profile</a>
                     <a href="#2" class="footer-list">Skill</a>
                     <a href="#3" class="footer-list">Contact</a>
+                    <div class="footer_font">
+                        <p style="margin: 20px 0 0 0;">name: Hayato Kudou</p>
+                        <p>email: kudoh115@gmail.com</p>
+                    </div>
                 </div>
             </nav>
         </div>

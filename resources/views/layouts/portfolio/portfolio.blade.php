@@ -26,9 +26,9 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/header.css" rel="stylesheet">
-    <link href="/css/main.css" rel="stylesheet">
-    <link href="/css/footer.css" rel="stylesheet">
+    <link href="/css/portfolio/header.css" rel="stylesheet">
+    <link href="/css/portfolio/main.css" rel="stylesheet">
+    <link href="/css/portfolio/footer.css" rel="stylesheet">
 
 </head>
 
@@ -37,7 +37,7 @@
 <main class="py-4" id="main_content">
     @yield('content')
 </main>
-@extends('layouts.footer')
+@extends('layouts.portfolio.footer')
 </html>
 
 <script>

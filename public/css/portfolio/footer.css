@@ -72,7 +72,7 @@
 .footer-nav {
     display: flex;
     background-color: #337079;
-    height: 70px;
+    height: auto;
 }
 
 .footer_a{
@@ -82,6 +82,14 @@
 .footer-list{
     margin: 0 20px;
     color: white;
+}
+
+.footer_font{
+    font-size: 14px;
+}
+
+.footer_font p{
+    text-align: center;
 }
 
 @media screen and (max-width: 600px) {
