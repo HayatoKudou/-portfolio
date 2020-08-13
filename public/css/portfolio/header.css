@@ -29,6 +29,7 @@ header .container {
 
 .title_button h1{
     color: white;
+    /* white-space: nowrap; */
 }
 
 .header-nav {

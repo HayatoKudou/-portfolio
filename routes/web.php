@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Auth::routes();
 
 Route::get('/', 'MainController@main');
 Route::get('/top', 'MainController@main')->name('main');
@@ -20,12 +21,12 @@ Route::get('/maintenance', 'MainController@maintenance')->name('maintenance');
 Route::get('/blog_top', 'MainController@blog_top')->name('blog');
 
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('/', 'Admin\AdminMainController@blog_top')->name('blog')->middleware(['auth', 'password.confirm']);;
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
+    Route::get('/', 'Admin\AdminMainController@blog_top')->name('blog');
     Route::get('/notice_post', 'Admin\AdminMainController@show_notice_post')->name('notice_post');
     Route::post('/', 'Admin\AdminMainController@register_notice_post')->name('notice_post');
     Route::post('/notice_delete', 'Admin\AdminMainController@notice_delete')->name('notice_delete');
 });
 
 
-Route::get('/amazon', 'AmazonController@getApiData')->name('amazon');
+// Route::get('/amazon', 'AmazonController@getApiData')->name('amazon');

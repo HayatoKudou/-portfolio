@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Log;
 use Mail;
+use Twitter;
 use Illuminate\Support\Facades\Validator;
 use App\Content;
 use App\Notice;
@@ -20,7 +21,7 @@ class AdminMainController extends Controller
     }
 
     public function getTwitterData(){
-        $result = \Twitter::get('statuses/user_timeline', array(
+        $result = Twitter::get('statuses/user_timeline', array(
             "count" => 10,
             "exclude_replies" =>  True,
             "include_rts"=>  False,

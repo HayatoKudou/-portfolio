@@ -3,7 +3,7 @@
 
 @section('blog_content')
 <div class="row">
-    <div class="col-md-9">
+    <div class="col-md-9" id="1">
         <div class="blog_container">
             <div class="row">
                 <div class="col-md-12">
@@ -21,7 +21,11 @@
                                     <p>{{$notice->date}}:</p>
                                 </div>
                                 <div class="col-md-10" style="padding-left: 0px;">
+                                    @if($notice->url_flg == 1)
+                                    <a href="{{$notice->url}}">【Qiita】{{$notice->notice_content}}</a>
+                                    @else
                                     <p>{{$notice->notice_content}}</p>
+                                    @endif
                                 </div>
                             </div>
                             @endforeach
@@ -33,7 +37,7 @@
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-3" id="2">
         <div class="card" style="text-align: center;">
             <div class="card-body">
                 <div class="side_bar">

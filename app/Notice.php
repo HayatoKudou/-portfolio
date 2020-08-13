@@ -16,10 +16,12 @@ class Notice extends Model
     protected $fillable = [
         'date',
         'notice_content',
+        'url',
+        'url_flg',
     ];
 
     public static function getNoticeData(){
-        $all_data = Notice::orderBy('id', 'desc')->get();
+        $all_data = Notice::orderBy('date', 'desc')->get();
         return $all_data;
     }
 
