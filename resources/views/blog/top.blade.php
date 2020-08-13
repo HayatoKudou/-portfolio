@@ -11,17 +11,21 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="info_title">
-                                    <h2>お知らせ・更新</h2>
+                                    <h3>お知らせ・更新</h3>
                                 </div>
                             </div>
 
-                            @foreach ($result as $tweet)
-                            <div class="row">
-                                <div class="info">
-                                    <p>{{ $tweet->created_at }}:<br>{{ $tweet->text }}</p>
+                            @foreach($notice_data as $notice)
+                            <div class="row info">
+                                <div class="col-md-2">
+                                    <p>{{$notice->date}}:</p>
+                                </div>
+                                <div class="col-md-10" style="padding-left: 0px;">
+                                    <p>{{$notice->notice_content}}</p>
                                 </div>
                             </div>
                             @endforeach
+
                         </div>
                     </div>
                 </div>
@@ -29,14 +33,17 @@
         </div>
     </div>
 
-    <div class="col-md-3" style="padding-left: 0px;">
-        <div class="card" style="width: 95%;">
+    <div class="col-md-3">
+        <div class="card" style="text-align: center;">
             <div class="card-body">
                 <div class="side_bar">
+                    <h5>Twitter投稿</h5>
+                    @foreach ($result as $tweet)
                     <blockquote class="twitter-tweet" style="width: 90%;">
-                        <a href="https://twitter.com/React_Laravel_/status/1292746858586988545"></a>
+                        <a href="https://twitter.com/React_Laravel_/status/{{ $tweet->id }}"></a>
                     </blockquote>
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                    @endforeach
                 </div>
             </div>
         </div>

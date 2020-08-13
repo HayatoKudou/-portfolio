@@ -7,6 +7,7 @@
             <div class="footer_a">
                 <nav id="Header-Nav" class="header-nav">
                     <a href="http://kudohayatoblog.com/" class="nav-list">portfolio</a>
+                    <a href="http://kudohayatoblog.com/admin/notice_post" class="nav-list">Post</a>
                 </nav>
             </div>
             <div id="Hamburger" class="hamburger">
@@ -22,6 +23,6 @@
 
 <script type="module">
     $('#title_button').on('click', function(){
-        window.location.href = "/blog_top";
+        window.location.href = "admin/";
     });
 </script>

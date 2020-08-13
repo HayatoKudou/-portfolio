@@ -29,3 +29,13 @@
     margin-right: auto;
     margin-left: auto;
 }
+
+.post_form{
+    text-align: center;
+}
+
+.post_form .notice_post{
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}

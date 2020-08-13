@@ -20,4 +20,12 @@ Route::get('/maintenance', 'MainController@maintenance')->name('maintenance');
 Route::get('/blog_top', 'MainController@blog_top')->name('blog');
 
 
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('/', 'Admin\AdminMainController@blog_top')->name('blog')->middleware(['auth', 'password.confirm']);;
+    Route::get('/notice_post', 'Admin\AdminMainController@show_notice_post')->name('notice_post');
+    Route::post('/', 'Admin\AdminMainController@register_notice_post')->name('notice_post');
+    Route::post('/notice_delete', 'Admin\AdminMainController@notice_delete')->name('notice_delete');
+});
+
+
 Route::get('/amazon', 'AmazonController@getApiData')->name('amazon');

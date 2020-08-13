@@ -34,6 +34,15 @@ header .container {
     color: tomato;
 }
 
+.title_button{
+    background-color: #337079;
+    border-width: 0px;
+}
+
+.title_button h1{
+    color: white;
+}
+
 .hamburger {
     display: none;
     width: 32px;

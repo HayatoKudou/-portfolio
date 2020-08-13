@@ -21,6 +21,16 @@ header .container {
     /* margin: 0 100px; */
     height: 90px;
 }
+
+.title_button{
+    background-color: #337079;
+    border-width: 0px;
+}
+
+.title_button h1{
+    color: white;
+}
+
 .header-nav {
     display: flex;
     background-color: #337079;
