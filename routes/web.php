@@ -30,3 +30,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 
 
 // Route::get('/amazon', 'AmazonController@getApiData')->name('amazon');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

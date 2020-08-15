@@ -74,6 +74,11 @@
                                         <td>★★★☆☆</td>
                                     </tr>
                                     <tr>
+                                        <td>javascript</td>
+                                        <td>１年未満</td>
+                                        <td>★★☆☆☆</td>
+                                    </tr>
+                                    <tr>
                                         <td>HTML</td>
                                         <td>１年</td>
                                         <td>★★☆☆☆</td>
@@ -81,21 +86,6 @@
                                     <tr>
                                         <td>CSS</td>
                                         <td>１年</td>
-                                        <td>★★☆☆☆</td>
-                                    </tr>
-                                    <tr>
-                                        <td>javascript</td>
-                                        <td>１年未満</td>
-                                        <td>★★☆☆☆</td>
-                                    </tr>
-                                    <tr>
-                                        <td>jQuery</td>
-                                        <td>１年未満</td>
-                                        <td>★★☆☆☆</td>
-                                    </tr>
-                                    <tr>
-                                        <td>React</td>
-                                        <td>１年未満</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>
                                 </table>
@@ -119,12 +109,27 @@
                                         <td>★★★★☆</td>
                                     </tr>
                                     <tr>
-                                        <td>FuelPHP</td>
+                                        <td>jQuery</td>
+                                        <td>１年未満</td>
+                                        <td>★★☆☆☆</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bootstrap</td>
+                                        <td>１年未満</td>
+                                        <td>★★☆☆☆</td>
+                                    </tr>
+                                    <tr>
+                                        <td>React</td>
+                                        <td>１年未満</td>
+                                        <td>★★☆☆☆</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Redux</td>
                                         <td>１年未満</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>
                                     <tr>
-                                        <td>Redux</td>
+                                        <td>FuelPHP</td>
                                         <td>１年未満</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>

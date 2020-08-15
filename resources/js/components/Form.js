@@ -87,5 +87,6 @@ if (document.getElementById('app')) {
         <React.StrictMode>
         <Form />
         </React.StrictMode>,
-        document.getElementById('app'));
-    }
+        document.getElementById('app')
+    );
+}

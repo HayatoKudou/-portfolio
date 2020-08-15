@@ -31,18 +31,15 @@ class MainController extends Controller
 
     public function getQiitaData(){
         $token = 'e5f492aedaf7d3d94d1e8088a05471c8c2504ef4';
-        $curl = curl_init('https://qiita.com/api/v2/authenticated_user/items?page=1&per_page=10');
-        $option = [
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_HTTPHEADER => [
-                'Authorization: Bearer e5f492aedaf7d3d94d1e8088a05471c8c2504ef4',
-                'Content-Type: application/json',
+        $client = new Client;
+        $result = $client->request('GET', 'https://qiita.com/api/v2/authenticated_user/items?page=1&per_page=10', [
+            'headers' => [
+                'Authorization' => 'Bearer '.$token,
+                'Accept' => 'application/json',
             ],
-        ];
-        curl_setopt_array($curl, $option);
-        $result = curl_exec($curl);
-        $decode_res = json_decode($result);
+        ]);
+        $response_body = (string) $result->getBody();
+        $decode_res = json_decode($response_body);
         $result_data = [];
         foreach ($decode_res as $key => $data) {
             $notice_check = Notice::where('url', $data->url)->first();
