@@ -96,6 +96,7 @@ header .container {
     }
     .active {
         display: flex;
+        opacity: 0.8;
     }
     .nav-list {
         /* margin: 0 20px!important; */

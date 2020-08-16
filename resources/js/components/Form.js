@@ -84,9 +84,7 @@ export default Form;
 
 if (document.getElementById('app')) {
     ReactDOM.render(
-        <React.StrictMode>
-        <Form />
-        </React.StrictMode>,
+        <Form />,
         document.getElementById('app')
     );
 }

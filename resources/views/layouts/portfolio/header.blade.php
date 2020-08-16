@@ -28,7 +28,6 @@ $('a[href^="#"]').click(function(){
     var speed = 500;
     var href= $(this).attr("href");
     var target = $(href == "#" || href == "" ? 'html' : href);
-    console.log(target);
     var top_height = target.offset().top;
     var header_height = $('header').height();
     var position = top_height - header_height;

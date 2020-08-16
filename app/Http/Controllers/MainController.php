@@ -22,7 +22,7 @@ class MainController extends Controller
 
     public function getTwitterData(){
         $result = Twitter::get('statuses/user_timeline', array(
-            "count" => 10,
+            "count" => 8,
             "exclude_replies" =>  True,
             "include_rts"=>  False,
         ));

@@ -45,8 +45,5 @@ var hamburger = document.getElementById('Hamburger');
 hamburger.addEventListener('click', function () {
     var header_nav = document.getElementById('Header-Nav');
     header_nav.classList.toggle("active");
-    // var header_nav_height = header_nav.clientHeight;
-    // var main_container = document.getElementById('main_container');
-    // main_container.style.marginTop = header_nav_height+'px';
 });
 </script>
