@@ -12,6 +12,7 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- require('./components/Example');
- require('./components/Form');
+require('./components/Example');
+require('./components/Form');
 require('./components/Validation');
+require('./components/aim_training/Target');

@@ -26,21 +26,11 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/blog/main.css" rel="stylesheet">
-    <link href="/css/blog/header.css" rel="stylesheet">
 
 </head>
 
 
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content">
-    @yield('blog_content')
+<main class="py-4">
+    @yield('aim_training_content')
 </main>
-
-<script>
-var hamburger = document.getElementById('Hamburger');
-hamburger.addEventListener('click', function () {
-    var header_nav = document.getElementById('Header-Nav');
-    header_nav.classList.toggle("active");
-});
-</script>
