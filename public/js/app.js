@@ -65810,6 +65810,8 @@ __webpack_require__(/*! ./components/Validation */ "./resources/js/components/Va
 
 __webpack_require__(/*! ./components/aim_training/Target */ "./resources/js/components/aim_training/Target.js");
 
+__webpack_require__(/*! ./components/calculator/top */ "./resources/js/components/calculator/top.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -66033,7 +66035,8 @@ var Form = /*#__PURE__*/function (_React$Component) {
         name: "email",
         value: this.state.info.email,
         onChange: this.handleChange,
-        size: "30"
+        size: "30",
+        placeholder: "/^[a-zA-Z0-9.!#$%&'*+\\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$/"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "\u304A\u554F\u3044\u5408\u308F\u305B\u5185\u5BB9\uFF08\u5FC5\u9808\uFF09"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "error_message"
       }, this.state.message.content), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("textarea", {
@@ -66201,10 +66204,284 @@ var AimTraining = /*#__PURE__*/function (_React$Component) {
   return AimTraining;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
-/* harmony default export */ __webpack_exports__["default"] = (Form);
+/* harmony default export */ __webpack_exports__["default"] = (AimTraining);
 
 if (document.getElementById('aim_training')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(AimTraining, null), document.getElementById('aim_training'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/calculator/top.js":
+/*!***************************************************!*\
+  !*** ./resources/js/components/calculator/top.js ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+ // import styles from './style.scss'
+
+var Calculator = /*#__PURE__*/function (_React$Component) {
+  _inherits(Calculator, _React$Component);
+
+  var _super = _createSuper(Calculator);
+
+  function Calculator(props) {
+    var _this;
+
+    _classCallCheck(this, Calculator);
+
+    _this = _super.call(this, props);
+    _this.state = {
+      info: {
+        input_val: '',
+        binary_number: '',
+        octal_number: '',
+        hexadecimal: ''
+      },
+      message: {
+        calculation_speed: 0
+      }
+    };
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.inputChange = _this.inputChange.bind(_assertThisInitialized(_this));
+    _this.inputDelete = _this.inputDelete.bind(_assertThisInitialized(_this));
+    _this.conversion = _this.conversion.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(Calculator, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      var name = event.target.name;
+      var value = this.state.info.input_val + event.target.value;
+      var _this$state = this.state,
+          info = _this$state.info,
+          message = _this$state.message;
+      this.setState({
+        info: _objectSpread(_objectSpread({}, info), {}, _defineProperty({}, name, value))
+      });
+    }
+  }, {
+    key: "inputChange",
+    value: function inputChange(event) {
+      var name = event.target.name;
+      var value = event.target.value;
+      var _this$state2 = this.state,
+          info = _this$state2.info,
+          message = _this$state2.message;
+      this.setState({
+        info: _objectSpread(_objectSpread({}, info), {}, _defineProperty({}, name, value))
+      });
+    }
+  }, {
+    key: "inputDelete",
+    value: function inputDelete() {
+      var input_val = this.state.info.input_val;
+      var after_input_val = input_val.slice(0, -1);
+      var _this$state3 = this.state,
+          info = _this$state3.info,
+          message = _this$state3.message;
+      this.setState({
+        info: _objectSpread(_objectSpread({}, info), {}, {
+          input_val: after_input_val
+        })
+      });
+    }
+  }, {
+    key: "conversion",
+    value: function conversion() {
+      var startTime = performance.now(); // 開始時間
+
+      var value = Number(this.state.info.input_val);
+      var binary_number = value.toString(2);
+      var octal_number = value.toString(8);
+      var hexadecimal = value.toString(16);
+      var endTime = performance.now(); // 終了時間
+
+      var calculation_speed = endTime - startTime;
+      var _this$state4 = this.state,
+          info = _this$state4.info,
+          message = _this$state4.message;
+      this.setState({
+        info: _objectSpread(_objectSpread({}, info), {}, {
+          binary_number: binary_number,
+          octal_number: octal_number,
+          hexadecimal: hexadecimal
+        })
+      });
+      this.setState({
+        message: _objectSpread(_objectSpread({}, message), {}, {
+          calculation_speed: calculation_speed
+        })
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "output"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control",
+        type: "text",
+        name: "input_val",
+        value: this.state.info.input_val,
+        onChange: this.inputChange
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-lg btn-primary",
+        onClick: this.conversion
+      }, "\u5909\u63DB\u3059\u308B")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "calculator_input"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "9",
+        name: "input_val"
+      }, "9"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "8",
+        name: "input_val"
+      }, "8"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "7",
+        name: "input_val"
+      }, "7"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.inputDelete,
+        name: "input_val"
+      }, "CE")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "6",
+        name: "input_val"
+      }, "6"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "5",
+        name: "input_val"
+      }, "5"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "4",
+        name: "input_val"
+      }, "4")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "3",
+        name: "input_val"
+      }, "3"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "2",
+        name: "input_val"
+      }, "2"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "1",
+        name: "input_val"
+      }, "1")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "00",
+        name: "input_val"
+      }, "00"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: "0",
+        name: "input_val"
+      }, "0"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.handleChange,
+        value: ".",
+        name: "input_val"
+      }, ".")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "col-md-6"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "calculation_speed"
+      }, "\u8A08\u7B97\u901F\u5EA6: ", this.state.message.calculation_speed, " ms"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "result_form"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2\u9032\u6570"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control",
+        type: "text",
+        name: "binary_number",
+        value: this.state.info.binary_number,
+        onChange: this.handleChange
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "result_form"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "8\u9032\u6570"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control",
+        type: "text",
+        name: "octal_number",
+        value: this.state.info.octal_number,
+        onChange: this.handleChange
+      })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "result_form"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "16\u9032\u6570"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control",
+        type: "text",
+        name: "hexadecimal",
+        value: this.state.info.hexadecimal,
+        onChange: this.handleChange
+      }))));
+    }
+  }]);
+
+  return Calculator;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (Calculator);
+
+if (document.getElementById('calculator')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Calculator, null), document.getElementById('calculator'));
 }
 
 /***/ }),

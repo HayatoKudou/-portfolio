@@ -28,8 +28,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::post('/notice_delete', 'Admin\AdminMainController@notice_delete')->name('notice_delete');
 });
 
-Route::group(['prefix' => 'aim_training'], function() {
-    Route::get('/', 'AimTraninigController@top');
+// Route::group(['prefix' => 'aim_training'], function() {
+//     Route::get('/', 'AimTraninigController@top');
+// });
+
+Route::group(['prefix' => 'calculator'], function() {
+    Route::get('/', 'CalculatorController@top');
 });
 
 
