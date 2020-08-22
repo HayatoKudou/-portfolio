@@ -83,6 +83,9 @@
         margin-right: auto;
         margin-left: auto;
     }
+    .mail_form::placeholder {
+      font-size: 0.66em;
+    }
 
     .fas{
         margin-right: 10px;
