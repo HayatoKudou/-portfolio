@@ -68,7 +68,7 @@ class Form extends React.Component{
             <div>
             <p>メールアドレス（必須）</p>
             <p className="error_message">{this.state.message.email}</p>
-            <input className="form-control mail_form" type="text" name="email" value={this.state.info.email} onChange={this.handleChange} size="30" />
+            <input className="form-control mail_form" type="text" name="email" value={this.state.info.email} onChange={this.handleChange} size="30" placeholder="/^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" />
             <p>お問い合わせ内容（必須）</p>
             <p className="error_message">{this.state.message.content}</p>
             <textarea className="form-control mail_form" name="content" onChange={this.handleChange} defaultValue={this.state.info.content} cols="50" rows="5"></textarea>

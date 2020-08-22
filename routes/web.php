@@ -28,9 +28,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
     Route::post('/notice_delete', 'Admin\AdminMainController@notice_delete')->name('notice_delete');
 });
 
+Route::group(['prefix' => 'aim_training'], function() {
+    Route::get('/', 'AimTraninigController@top');
+});
+
 
 // Route::get('/amazon', 'AmazonController@getApiData')->name('amazon');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
