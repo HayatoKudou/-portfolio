@@ -1,4 +1,5 @@
 @extends('layouts.calculator.calculator')
+@extends('layouts.calculator.header')
 
 @section('content')
 <div class="main_container" id="main_container">
@@ -6,7 +7,7 @@
         <div class="col-md-9">
             <div class="card">
                 <div class="card-body">
-                    <h2>進数変換器</h2>
+                    <h2>進数変換ツール</h2>
                     <div id="calculator"></div>
                 </div>
             </div>

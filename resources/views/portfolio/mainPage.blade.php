@@ -221,7 +221,7 @@
                         <div class="profile_title" style="text-align: center;">
                             <form action="{{route('send_mail')}}" method="post" id="send_mail">
                                 @csrf
-                                <div id="app"></div>
+                                <div id="contact_form"></div>
                             </form>
                         </div>
                     </div>

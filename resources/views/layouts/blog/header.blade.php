@@ -8,7 +8,14 @@
                 <nav id="Header-Nav" class="header-nav">
                     <a href="#1" class="nav-list">お知らせ</a>
                     <a href="#2" class="nav-list">Twitter投稿</a>
-                    <a href="http://kudohayatoblog.com/" class="nav-list">portfolio</a>
+                    <a href="http://kudohayatoblog.com/portfolio" class="nav-list">portfolio</a>
+                    <ul id="menu">
+                      <li><a class="nav-list" href="#">tools</a>
+                        <ul>
+                          <li><a class="nav-list" href="/calculator">進数変換ツール</a></li>
+                        </ul>
+                      </li>
+                    </ul>
                 </nav>
             </div>
             <div id="Hamburger" class="hamburger">
@@ -27,7 +34,6 @@ $('a[href^="#"]').click(function(){
     var speed = 500;
     var href= $(this).attr("href");
     var target = $(href == "#" || href == "" ? 'html' : href);
-    console.log(target);
     var top_height = target.offset().top;
     var header_height = $('header').height();
     var position = top_height - header_height;

@@ -26,6 +26,7 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/calculator/calculator.css" rel="stylesheet">
+    <link href="/css/calculator/header.css" rel="stylesheet">
 
 </head>
 

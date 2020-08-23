@@ -66061,8 +66061,8 @@ var Form = /*#__PURE__*/function (_React$Component) {
 
 /* harmony default export */ __webpack_exports__["default"] = (Form);
 
-if (document.getElementById('app')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Form, null), document.getElementById('app'));
+if (document.getElementById('contact_form')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Form, null), document.getElementById('contact_form'));
 }
 
 /***/ }),
@@ -66270,9 +66270,16 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       info: {
         input_val: '',
+        convert_val: '',
         binary_number: '',
         octal_number: '',
-        hexadecimal: ''
+        hexadecimal: '',
+        decimal_number: ''
+      },
+      "class": {
+        convert_10: 'col-md-6',
+        convert_N: 'col-md-6 non_display',
+        convert_val: 'form-control convert_val non_display'
       },
       message: {
         calculation_speed: 0
@@ -66280,8 +66287,10 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.inputChange = _this.inputChange.bind(_assertThisInitialized(_this));
+    _this.convertChange = _this.convertChange.bind(_assertThisInitialized(_this));
     _this.inputDelete = _this.inputDelete.bind(_assertThisInitialized(_this));
     _this.conversion = _this.conversion.bind(_assertThisInitialized(_this));
+    _this.changeResultForm = _this.changeResultForm.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -66298,13 +66307,27 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
-    key: "inputChange",
-    value: function inputChange(event) {
+    key: "convertChange",
+    value: function convertChange(event) {
       var name = event.target.name;
       var value = event.target.value;
       var _this$state2 = this.state,
           info = _this$state2.info,
           message = _this$state2.message;
+      this.setState({
+        info: _objectSpread(_objectSpread({}, info), {}, {
+          convert_val: value
+        })
+      });
+    }
+  }, {
+    key: "inputChange",
+    value: function inputChange(event) {
+      var name = event.target.name;
+      var value = event.target.value;
+      var _this$state3 = this.state,
+          info = _this$state3.info,
+          message = _this$state3.message;
       this.setState({
         info: _objectSpread(_objectSpread({}, info), {}, _defineProperty({}, name, value))
       });
@@ -66314,9 +66337,9 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
     value: function inputDelete() {
       var input_val = this.state.info.input_val;
       var after_input_val = input_val.slice(0, -1);
-      var _this$state3 = this.state,
-          info = _this$state3.info,
-          message = _this$state3.message;
+      var _this$state4 = this.state,
+          info = _this$state4.info,
+          message = _this$state4.message;
       this.setState({
         info: _objectSpread(_objectSpread({}, info), {}, {
           input_val: after_input_val
@@ -66324,25 +66347,62 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
       });
     }
   }, {
+    key: "changeResultForm",
+    value: function changeResultForm(event) {
+      var name = event.target.name;
+      var _this$state5 = this.state,
+          info = _this$state5.info,
+          message = _this$state5.message;
+
+      if (name == 'convert_10') {
+        var convert_10 = 'col-md-6';
+        var convert_N = 'col-md-6 non_display';
+        var convert_val = 'form-control convert_val non_display';
+        this.setState({
+          "class": _objectSpread(_objectSpread({}, info), {}, {
+            convert_10: convert_10,
+            convert_N: convert_N,
+            convert_val: convert_val
+          })
+        });
+      } else if (name == 'convert_N') {
+        var _convert_ = 'col-md-6 non_display';
+        var _convert_N = 'col-md-6';
+        var _convert_val = 'form-control convert_val';
+        this.setState({
+          "class": _objectSpread(_objectSpread({}, info), {}, {
+            convert_10: _convert_,
+            convert_N: _convert_N,
+            convert_val: _convert_val
+          })
+        });
+      }
+    }
+  }, {
     key: "conversion",
     value: function conversion() {
       var startTime = performance.now(); // 開始時間
 
-      var value = Number(this.state.info.input_val);
-      var binary_number = value.toString(2);
-      var octal_number = value.toString(8);
-      var hexadecimal = value.toString(16);
+      var num_value = Number(this.state.info.input_val);
+      var str_value = String(this.state.info.input_val);
+      var binary_number = num_value.toString(2); //10→N
+
+      var octal_number = num_value.toString(8);
+      var hexadecimal = num_value.toString(16);
+      var decimal_number = parseInt(str_value, this.state.info.convert_val); //N→10
+
       var endTime = performance.now(); // 終了時間
 
       var calculation_speed = endTime - startTime;
-      var _this$state4 = this.state,
-          info = _this$state4.info,
-          message = _this$state4.message;
+      var _this$state6 = this.state,
+          info = _this$state6.info,
+          message = _this$state6.message;
       this.setState({
         info: _objectSpread(_objectSpread({}, info), {}, {
           binary_number: binary_number,
           octal_number: octal_number,
-          hexadecimal: hexadecimal
+          hexadecimal: hexadecimal,
+          decimal_number: decimal_number
         })
       });
       this.setState({
@@ -66355,21 +66415,30 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
     key: "render",
     value: function render() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container"
+        className: "calculator_container"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-6"
+        className: "col-md-9"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "output"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        className: "form-control",
+        className: "form-control input_val",
         type: "text",
         name: "input_val",
         value: this.state.info.input_val,
         onChange: this.inputChange
+      }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "responsive"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: this.state["class"].convert_val,
+        type: "text",
+        name: "input_val",
+        value: this.state.info.convert_val,
+        onChange: this.convertChange,
+        placeholder: "\u57FA\u6570"
       }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-lg btn-primary",
         onClick: this.conversion
-      }, "\u5909\u63DB\u3059\u308B")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "\u5909\u63DB\u3059\u308B"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "calculator_input"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
@@ -66409,7 +66478,11 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
         onClick: this.handleChange,
         value: "4",
         name: "input_val"
-      }, "4")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "4"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.changeResultForm,
+        name: "convert_10"
+      }, "10\u2192N")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "num_bth",
@@ -66426,7 +66499,11 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
         onClick: this.handleChange,
         value: "1",
         name: "input_val"
-      }, "1")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "1"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "num_bth",
+        onClick: this.changeResultForm,
+        name: "convert_N"
+      }, "N\u219210")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "row"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "num_bth",
@@ -66444,10 +66521,12 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
         value: ".",
         name: "input_val"
       }, ".")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "col-md-6"
+        className: this.state["class"].convert_10
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "calculation_speed"
       }, "\u8A08\u7B97\u901F\u5EA6: ", this.state.message.calculation_speed, " ms"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "convert_10"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "result_form"
       }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "2\u9032\u6570"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
         className: "form-control",
@@ -66470,6 +66549,18 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
         type: "text",
         name: "hexadecimal",
         value: this.state.info.hexadecimal,
+        onChange: this.handleChange
+      })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: this.state["class"].convert_N
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+        className: "calculation_speed"
+      }, "\u8A08\u7B97\u901F\u5EA6: ", this.state.message.calculation_speed, " ms"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, this.state.info.convert_val, "\u9032\u6570 \u2192 10\u9032\u6570"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "result_form"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "10\u9032\u6570"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        className: "form-control",
+        type: "text",
+        name: "binary_number",
+        value: this.state.info.decimal_number,
         onChange: this.handleChange
       }))));
     }

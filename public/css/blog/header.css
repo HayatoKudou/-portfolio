@@ -25,10 +25,11 @@ header .container {
     background-color: #337079;
 }
 .nav-list {
-    margin: 0 35px;
+    margin: 0 25px!important;
     font-size: 25px;
     font-weight: bold;
     color: white;
+    white-space: nowrap;
 }
 .nav-list:hover {
     color: tomato;
@@ -41,6 +42,7 @@ header .container {
 
 .title_button h1{
     color: white;
+    white-space: nowrap;
 }
 
 .hamburger {
@@ -59,6 +61,75 @@ header .container {
     text-align: center;
     font-size: 10px;
     font-weight: bold;
+}
+
+#menu{
+  list-style-type: none;
+  width: 500px;
+  height: 40px;
+  margin: 0 auto;
+  padding: 0;
+}
+#menu li{
+  position: relative;
+  width: 25%;
+  float: left;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+#menu li a{
+  display: block;
+  margin: 0;
+  padding: 7px 0;
+  color: #fff;
+  font-weight: bold;
+  line-height: 1;
+  text-decoration: none;
+}
+#menu li ul{
+  list-style: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin: 0;
+  padding: 0;
+}
+#menu li:last-child ul{
+  width: 100%
+}
+#menu li ul li{
+  overflow: hidden;
+  width: 200%;
+  height: 0;
+  color: #fff;
+  -moz-transition: .2s;
+  -webkit-transition: .2s;
+  -o-transition: .2s;
+  -ms-transition: .2s;
+  transition: .2s;
+}
+#menu li ul li a{
+  margin-left: 0!important;
+  padding: 13px 15px;
+  background: #337079;
+  text-align: left;
+  font-weight: normal;
+  font-size: 17px;
+}
+#menu li:hover > a{
+  color: #e0dc62;
+}
+#menu li:hover ul li{
+  overflow: visible;
+  height: 38px;
+  border-bottom: 1px solid #fff;
+}
+#menu li:hover ul li:first-child{
+  border-top: 0;
+}
+#menu li:hover ul li:last-child{
+  border-bottom: 0;
 }
 
 @media screen and (max-width: 600px) {
@@ -119,6 +190,10 @@ header .container {
 
     .container h1{
         font-size: 2.0rem;
+    }
+
+    #menu{
+        display: none;
     }
 
 }

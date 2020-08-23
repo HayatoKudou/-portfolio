@@ -14,11 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 Auth::routes();
 
-Route::get('/', 'MainController@main');
+// Route::get('/', 'MainController@main');
+Route::get('/', 'MainController@blog_top');
 Route::get('/top', 'MainController@main')->name('main');
 Route::post('/', 'MainController@send_mail')->name('send_mail');
 Route::get('/maintenance', 'MainController@maintenance')->name('maintenance');
 Route::get('/blog_top', 'MainController@blog_top')->name('blog');
+Route::get('/portfolio', 'MainController@main')->name('blog');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {

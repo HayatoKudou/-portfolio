@@ -82,9 +82,9 @@ class Form extends React.Component{
 export default Form;
 
 
-if (document.getElementById('app')) {
+if (document.getElementById('contact_form')) {
     ReactDOM.render(
         <Form />,
-        document.getElementById('app')
+        document.getElementById('contact_form')
     );
 }
