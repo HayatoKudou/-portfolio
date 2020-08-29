@@ -139,7 +139,6 @@ header .container {
         z-index: 2;
     }
     header .container {
-
         margin-left: 0px!important;
         justify-content: space-evenly;
         display: flex;
@@ -166,12 +165,12 @@ header .container {
         opacity: 0.8;
     }
     .nav-list {
-        /* margin: 0 20px!important; */
         text-align: center;
-        margin: 20px 0;
+        margin: 0!important;
         width: 100%;
         color: white;
         font-size: 20px;
+        height: 60px;
     }
 
     .footer-list{

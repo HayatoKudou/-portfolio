@@ -3,11 +3,11 @@
 <body>
     <header>
         <div class="container">
-            <button id="title_button" class="title_button" type="button" name="button"><h1>Hayato Kudou Blog</h1></button>
+            <button id="title_button" class="title_button" type="button" name="button"><h1>Developer Blog</h1></button>
             <div class="footer_a">
                 <nav id="Header-Nav" class="header-nav">
                     <a href="#1" class="nav-list">お知らせ</a>
-                    <a href="#2" class="nav-list">Twitter投稿</a>
+                    <a href="#2" class="nav-list twitter">Twitter投稿</a>
                     <a href="http://kudohayatoblog.com/portfolio" class="nav-list">portfolio</a>
                     <ul id="menu">
                       <li><a class="nav-list" href="#">tools</a>
