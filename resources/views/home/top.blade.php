@@ -1,14 +1,16 @@
-@extends('layouts.blog.blog')
-@extends('layouts.blog.header')
+@extends('layouts.home.blog')
+@extends('layouts.home.header')
 
 @section('blog_content')
 <div class="row">
     <div class="col-md-9" id="1">
         <div class="blog_container">
+
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
+
                             <div class="row">
                                 <div class="info_title">
                                     <h3>お知らせ・更新</h3>

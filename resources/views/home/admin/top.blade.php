@@ -1,5 +1,5 @@
-@extends('layouts.blog.blog')
-@extends('layouts.blog.admin.header')
+@extends('layouts.home.blog')
+@extends('layouts.home.admin.header')
 
 @section('blog_content')
 <div class="row">

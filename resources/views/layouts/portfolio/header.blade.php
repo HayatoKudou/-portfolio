@@ -9,7 +9,6 @@
                     <a href="#1" class="nav-list">Profile</a>
                     <a href="#2" class="nav-list">Skill</a>
                     <a href="#3" class="nav-list">Contact</a>
-                    <a href="http://kudohayatoblog.com/blog_top" class="nav-list">Blog</a>
                 </nav>
             </div>
             <div id="Hamburger" class="hamburger">
@@ -36,6 +35,6 @@ $('a[href^="#"]').click(function(){
 });
 
 $('#title_button').on('click', function(){
-    window.location.href = "/";
+    window.location.href = "/portfolio";
 });
 </script>

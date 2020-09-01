@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height:100%;">
 <head>
-    <title>hayato portfolio</title>
+    <title>駆け出しエンジニアの開発ブログ</title>
     <link rel="icon" href="{{ asset('img/favicon.ico') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,18 +26,16 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/portfolio/header.css" rel="stylesheet">
-    <link href="/css/portfolio/main.css" rel="stylesheet">
-    <link href="/css/portfolio/footer.css" rel="stylesheet">
+    <link href="/css/home/main.css" rel="stylesheet">
+    <link href="/css/home/header.css" rel="stylesheet">
 
 </head>
 
+
 <!-- <main class="py-4"> -->
 <main class="py-4" id="main_content">
-    @yield('content')
+    @yield('blog_content')
 </main>
-@extends('layouts.portfolio.footer')
-</html>
 
 <script>
 var hamburger = document.getElementById('Hamburger');

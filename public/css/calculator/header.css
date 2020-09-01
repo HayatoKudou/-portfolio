@@ -14,24 +14,12 @@ header {
 }
 
 header .container {
+    margin-left: 70px;
     display: flex;
     justify-content: end;
     align-items: center;
-    margin: 0 100px;
-    height: 90px;
-}
-.header-nav {
-    display: flex;
-    background-color: #337079;
-}
-.nav-list {
-    margin: 0 35px;
-    font-size: 25px;
-    font-weight: bold;
-    color: white;
-}
-.nav-list:hover {
-    color: tomato;
+    /* margin: 0 100px; */
+    /* height: 90px; */
 }
 
 .title_button{
@@ -41,6 +29,21 @@ header .container {
 
 .title_button h1{
     color: white;
+    /* white-space: nowrap; */
+}
+
+.header-nav {
+    display: flex;
+    background-color: #337079;
+}
+.nav-list {
+    margin: 0 25px;
+    font-size: 25px;
+    font-weight: bold;
+    color: white;
+}
+.nav-list:hover {
+    color: tomato;
 }
 
 .hamburger {
@@ -61,7 +64,7 @@ header .container {
     font-weight: bold;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 1000px) {
     header{
         /* ヘッダー固定 */
         position: sticky;

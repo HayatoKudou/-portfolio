@@ -38,7 +38,7 @@ class AimTraining extends React.Component{
     }
 }
 
-export default Form;
+export default AimTraining;
 
 
 if (document.getElementById('aim_training')) {
