@@ -73,6 +73,7 @@ header .container {
   height: 40px;
   margin: 0 auto;
   padding: 0;
+  margin-left: 20px;
 }
 #menu li{
   position: relative;

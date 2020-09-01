@@ -29,10 +29,10 @@ class AdminMainController extends Controller
         return $result;
     }
 
-    public function blog_top(){
+    public function home_top(){
         $result = $this->getTwitterData();
         $notice_data = Notice::getNoticeData();
-        return view('blog.admin.top',["result" => $result, "notice_data" => $notice_data]);
+        return view('home.admin.top',["result" => $result, "notice_data" => $notice_data]);
     }
 
     public function show_notice_post(){

@@ -15,16 +15,16 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 
 // Route::get('/', 'MainController@main');
-Route::get('/', 'MainController@blog_top');
+Route::get('/', 'MainController@home_top');
 Route::get('/top', 'MainController@main')->name('main');
 Route::post('/', 'MainController@send_mail')->name('send_mail');
 Route::get('/maintenance', 'MainController@maintenance')->name('maintenance');
-Route::get('/blog_top', 'MainController@blog_top')->name('blog');
+Route::get('/home_top', 'MainController@home_top')->name('blog');
 Route::get('/portfolio', 'MainController@main')->name('blog');
 
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
-    Route::get('/', 'Admin\AdminMainController@blog_top')->name('blog');
+    Route::get('/', 'Admin\AdminMainController@home_top')->name('blog');
     Route::get('/notice_post', 'Admin\AdminMainController@show_notice_post')->name('notice_post');
     Route::post('/', 'Admin\AdminMainController@register_notice_post')->name('notice_post');
     Route::post('/notice_delete', 'Admin\AdminMainController@notice_delete')->name('notice_delete');
@@ -34,8 +34,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 //     Route::get('/', 'AimTraninigController@top');
 // });
 
-Route::group(['prefix' => 'calculator'], function() {
-    Route::get('/', 'CalculatorController@top');
+Route::group(['prefix' => 'tools'], function() {
+    Route::get('/calculator', 'ToolsController@calculator');
 });
 
 

@@ -12,7 +12,7 @@
                     <ul id="menu">
                       <li><a class="nav-list" href="#">tools</a>
                         <ul>
-                          <li><a class="nav-list" href="/calculator">進数変換ツール</a></li>
+                          <li><a class="nav-list" href="tools/calculator">進数変換ツール</a></li>
                         </ul>
                       </li>
                     </ul>
@@ -42,6 +42,6 @@ $('a[href^="#"]').click(function(){
 });
 
 $('#title_button').on('click', function(){
-    window.location.href = "/blog_top";
+    window.location.href = "/";
 });
 </script>

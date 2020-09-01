@@ -26,8 +26,8 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-    <link href="/css/blog/main.css" rel="stylesheet">
-    <link href="/css/blog/header.css" rel="stylesheet">
+    <link href="/css/home/main.css" rel="stylesheet">
+    <link href="/css/home/header.css" rel="stylesheet">
 
 </head>
 

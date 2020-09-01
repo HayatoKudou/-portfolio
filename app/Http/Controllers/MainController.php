@@ -96,10 +96,10 @@ class MainController extends Controller
         return view('portfolio.mainPage',['update_date' => $update_date]);
     }
 
-    public function blog_top(){
+    public function home_top(){
         $result = $this->getTwitterData();
         $this->getQiitaData();
         $notice_data = Notice::getNoticeData();
-        return view('blog.top',["result" => $result, "notice_data" => $notice_data]);
+        return view('home.top',["result" => $result, "notice_data" => $notice_data]);
     }
 }

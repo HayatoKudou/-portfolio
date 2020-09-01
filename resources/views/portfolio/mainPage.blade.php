@@ -23,6 +23,23 @@
                     </div>
                     @endif
 
+                    <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList" style="    background-color: #eae8e8;">
+                      <li itemprop="itemListElement" itemscope
+                          itemtype="https://schema.org/ListItem">
+                        <a itemprop="item" href="/">
+                            <span itemprop="name">Top</span>
+                        </a>
+                        <meta itemprop="position" content="1" />
+                      </li>
+                      <li itemprop="itemListElement" itemscope
+                          itemtype="https://schema.org/ListItem">
+                        <a itemprop="item" href="/portfolio">
+                            <span itemprop="name">portfolio</span>
+                        </a>
+                        <meta itemprop="position" content="2" />
+                      </li>
+                    </ol>
+
                     <p style="text-align: center;">更新日：{{$update_date}}</p>
 
                     <div id="1" class="row">

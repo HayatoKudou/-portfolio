@@ -32,7 +32,6 @@
 
 </head>
 
-
 <!-- <main class="py-4"> -->
 <main class="py-4" id="main_content">
     @yield('content')
