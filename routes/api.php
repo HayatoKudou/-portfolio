@@ -19,3 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('search', 'AmazonController');
+
+// LineからのWebhookを受信
+Route::get('/line/webhook', 'Api\LineController@webhook')->name('line.webhook');
