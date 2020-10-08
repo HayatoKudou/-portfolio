@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+// dd(app());
 Auth::routes();
 
 // Route::get('/', 'MainController@main');
@@ -37,6 +38,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 Route::group(['prefix' => 'tools'], function() {
     Route::get('/calculator', 'ToolsController@calculator');
 });
+
+Route::get('/image_analysis', 'image_analysis@chooce_image')->name('image_analysis');
 
 
 // Route::get('/amazon', 'AmazonController@getApiData')->name('amazon');
