@@ -41,5 +41,7 @@ Route::group(['prefix' => 'tools'], function() {
 
 Route::get('/image_analysis', 'image_analysis@chooce_image')->name('image_analysis');
 
+// Route::post('api/line/webhook', 'Line\LineController@webhook')->name('line.webhook');
+
 
 // Route::get('/amazon', 'AmazonController@getApiData')->name('amazon');

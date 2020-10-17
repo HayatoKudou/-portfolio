@@ -43,6 +43,8 @@
         <div class="card" style="text-align: center;">
             <div class="card-body">
                 <div class="side_bar">
+                    <h5>画像認識Line Bot</h5>
+                    <img src="https://qr-official.line.me/sid/M/800wasae.png">
                     <h5>Twitter投稿</h5>
                     @foreach ($result as $tweet)
                     <blockquote class="twitter-tweet" style="width: 90%;">

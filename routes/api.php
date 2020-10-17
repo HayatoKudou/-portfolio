@@ -18,9 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['namespace' => 'Api'], function() {
-    // LineからのWebhookを受信
-    Route::post('/line/webhook', 'LineController@webhook')->name('line.webhook');
-});
+// Route::group(['namespace' => 'Api'], function() {
+//     // LineからのWebhookを受信
+//     Route::post('/line/webhook', 'LineController@webhook')->name('line.webhook');
+// });
+Route::post('/line/webhook', 'Line\LineController@webhook')->name('line.webhook');
 
 Route::resource('search', 'AmazonController');

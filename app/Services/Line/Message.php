@@ -1,50 +1,34 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Line;
 
 class Message {
 
     public function askAge(): array {
-        $array = [
+        $templete = [
             'type' => 'text',
-            'text' => 'あなたの年齢を教えてください',
+            'text' => '私には会話をするプログラムが搭載されていませんが、以下のプログラムは搭載しています。',
             'quickReply' => [
                 'items' => [
                     [
                         'type' => 'action',
                         'action' => [
                             'type' => 'message',
-                            'label' => '20代',
-                            'text' => '20代'
-                        ]
+                            'label' => '天気',
+                            'text' => '天気'
+                        ],
                     ],
                     [
                         'type' => 'action',
                         'action' => [
                             'type' => 'message',
-                            'label' => '30代',
-                            'text' => '30代'
-                        ]
+                            'label' => 'バルス',
+                            'text' => 'バルス'
+                        ],
                     ],
-                    [
-                        'type' => 'action',
-                        'action' => [
-                            'type' => 'message',
-                            'label' => '40代',
-                            'text' => '40代'
-                        ]
-                    ],
-                    [
-                        'type' => 'action',
-                        'action' => [
-                            'type' => 'message',
-                            'label' => '50代',
-                            'text' => '50代'
-                        ]
-                    ]
                 ]
             ]
         ];
-        return $array;
+        return $templete;
     }
 }
