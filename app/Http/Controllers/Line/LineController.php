@@ -16,6 +16,7 @@ use GuzzleHttp\Client;
 use App\Http\Controllers\Line\ImagRecognitionController;
 use App\Http\Controllers\Line\WeatherController;
 use App\Services\Line\Message;
+use App\Services\Line\WeatherTimeMessage;
 
 class LineController extends Controller
 {
@@ -43,6 +44,14 @@ class LineController extends Controller
                 if($word == "天気"){
                     $weather_model = new WeatherController;
                     $templete = $weather_model->weather($request, $lineBot, $replyToken);
+                    // $weatherTimeMessage_model = new WeatherTimeMessage;
+                    // $templete = $weatherTimeMessage_model->askAge();
+
+                } elseif($word == "6時"){
+                    $templete = [
+                        'type' => 'text',
+                        'text' => '朝早すぎます。もう少し寝かせてください。',
+                    ];
 
                 //退出
                 } elseif($word == "バルス"){
