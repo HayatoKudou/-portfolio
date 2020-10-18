@@ -37,7 +37,7 @@ class AdminMainController extends Controller
 
     public function show_notice_post(){
         $today = date("Y-m-d");
-        return view('blog.admin.notice_post',["today" => $today]);
+        return view('home.admin.notice_post',["today" => $today]);
     }
 
     public function register_notice_post(Request $request){
@@ -56,7 +56,7 @@ class AdminMainController extends Controller
         $notice_model->save();
         $result = $this->getTwitterData();
         $notice_data = Notice::getNoticeData();
-        return view('blog.admin.top',["result" => $result, "notice_data" => $notice_data]);
+        return view('home.admin.top',["result" => $result, "notice_data" => $notice_data]);
     }
 
     public function notice_delete(Request $request){
@@ -65,6 +65,6 @@ class AdminMainController extends Controller
         }
         $result = $this->getTwitterData();
         $notice_data = Notice::getNoticeData();
-        return view('blog.admin.top',["result" => $result, "notice_data" => $notice_data]);
+        return view('home.admin.top',["result" => $result, "notice_data" => $notice_data]);
     }
 }
