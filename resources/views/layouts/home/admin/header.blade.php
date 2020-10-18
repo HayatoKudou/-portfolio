@@ -3,13 +3,21 @@
 <body>
     <header>
         <div class="container">
-            <button id="title_button" class="title_button" type="button" name="button"><h1>Hayato Kudou Blog</h1></button>
+            <button id="title_button" class="title_button" type="button" name="button"><h1>Developer Blog</h1></button>
             <div class="footer_a">
                 <nav id="Header-Nav" class="header-nav">
                     <a href="#1" class="nav-list">お知らせ</a>
                     <a href="#2" class="nav-list">Twitter投稿</a>
                     <a href="http://kudohayatoblog.com/" class="nav-list">portfolio</a>
                     <a href="http://kudohayatoblog.com/admin/notice_post" class="nav-list">投稿</a>
+                    <ul id="menu">
+                      <li><a class="nav-list" href="#">tools</a>
+                        <ul>
+                            <li><a class="nav-list" href="tools/calculator">進数変換ツール</a></li>
+                            <li><a class="nav-list" href="tools/anime">アニメ情報取得</a></li>
+                        </ul>
+                      </li>
+                    </ul>
                 </nav>
             </div>
             <div id="Hamburger" class="hamburger">

@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 
 Route::group(['prefix' => 'tools'], function() {
     Route::get('/calculator', 'ToolsController@calculator');
+    Route::get('/anime', 'AnimeController@top');
 });
 
 Route::get('/image_analysis', 'image_analysis@chooce_image')->name('image_analysis');
