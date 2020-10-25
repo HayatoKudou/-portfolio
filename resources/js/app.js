@@ -17,3 +17,4 @@ require('./components/Form');
 require('./components/Validation');
 require('./components/aim_training/Target');
 require('./components/calculator/top');
+require('./components/anime/top');

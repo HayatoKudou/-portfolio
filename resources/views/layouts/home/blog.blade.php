@@ -26,6 +26,7 @@
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/common.css" rel="stylesheet">
     <link href="/css/home/main.css" rel="stylesheet">
     <link href="/css/home/header.css" rel="stylesheet">
 
