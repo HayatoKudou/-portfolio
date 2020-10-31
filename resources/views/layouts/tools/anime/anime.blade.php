@@ -28,6 +28,7 @@
     <link href="/css/common.css" rel="stylesheet">
     <link href="/css/tools/tools.css" rel="stylesheet">
     <link href="/css/tools/header.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
 </head>
 

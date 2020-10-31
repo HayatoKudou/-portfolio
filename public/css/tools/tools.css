@@ -72,6 +72,28 @@
     margin-right: 10px;
 }
 
+.anime_season_input {
+    margin-right: 10px;
+    width: auto;
+}
+
+.search_title {
+    display: inline;
+}
+
+.search_season {
+    display: inline;
+    margin-top: 10px;
+}
+
+.season_year {
+    margin-right: 5px;
+}
+
+.season_month{
+    margin-right: 30px;
+}
+
 @media screen and (max-width: 600px) {
     .output{
         display: block;
@@ -93,5 +115,20 @@
     }
     .responsive{
         display: flex;
+    }
+    .anime_input {
+        margin-right: 10px;
+        width: 47%;
+    }
+    .anime_season_input {
+        margin-right: 10px;
+        width: auto;
+    }
+    .search_season {
+        display: block;
+        margin-top: 10px;
+    }
+    .search_title {
+        display: inline;
     }
 }
