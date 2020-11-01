@@ -1,9 +1,8 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height:100%;">
 <head>
-    <title>hayato portfolio</title>
-    <link rel="icon" href="{{ asset('img/favicon.ico') }}">
     <meta charset="utf-8">
+    <title>アニメ検索ツール</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -27,23 +26,14 @@
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/common.css" rel="stylesheet">
-    <link href="/css/portfolio/header.css" rel="stylesheet">
-    <link href="/css/portfolio/main.css" rel="stylesheet">
-    <link href="/css/portfolio/footer.css" rel="stylesheet">
+    <link href="/css/tools/tools.css" rel="stylesheet">
+    <link href="/css/tools/header.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
 
 </head>
 
+
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content" style="padding-top: 0px !important;">
+<main class="py-4" id="main_content">
     @yield('content')
 </main>
-@extends('layouts.portfolio.footer')
-</html>
-
-<script>
-var hamburger = document.getElementById('Hamburger');
-hamburger.addEventListener('click', function () {
-    var header_nav = document.getElementById('Header-Nav');
-    header_nav.classList.toggle("active");
-});
-</script>
