@@ -81184,9 +81184,11 @@ __webpack_require__(/*! ./components/Validation */ "./resources/js/components/Va
 
 __webpack_require__(/*! ./components/aim_training/Target */ "./resources/js/components/aim_training/Target.js");
 
-__webpack_require__(/*! ./components/calculator/top */ "./resources/js/components/calculator/top.js");
+__webpack_require__(/*! ./components/tools/calculator/top */ "./resources/js/components/tools/calculator/top.js");
 
-__webpack_require__(/*! ./components/anime/top */ "./resources/js/components/anime/top.js");
+__webpack_require__(/*! ./components/tools/anime/top */ "./resources/js/components/tools/anime/top.js");
+
+__webpack_require__(/*! ./components/tools/program_generate/css_generate */ "./resources/js/components/tools/program_generate/css_generate.js");
 
 /***/ }),
 
@@ -81588,10 +81590,10 @@ if (document.getElementById('aim_training')) {
 
 /***/ }),
 
-/***/ "./resources/js/components/anime/top.js":
-/*!**********************************************!*\
-  !*** ./resources/js/components/anime/top.js ***!
-  \**********************************************/
+/***/ "./resources/js/components/tools/anime/top.js":
+/*!****************************************************!*\
+  !*** ./resources/js/components/tools/anime/top.js ***!
+  \****************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -81708,8 +81710,6 @@ var Anime = /*#__PURE__*/function (_React$Component) {
       var result = '';
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(url, parms) // axios.post(url, parms, {withCredentials: true})
       .then(function (response) {
-        console.log(response);
-
         _this2.setState(_objectSpread(_objectSpread({}, _this2.state.result_data = response.data.works), _this2.state.result_flg = true));
       })["catch"](function (error) {
         // handle error
@@ -81934,10 +81934,10 @@ if (document.getElementById('anime')) {
 
 /***/ }),
 
-/***/ "./resources/js/components/calculator/top.js":
-/*!***************************************************!*\
-  !*** ./resources/js/components/calculator/top.js ***!
-  \***************************************************/
+/***/ "./resources/js/components/tools/calculator/top.js":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/tools/calculator/top.js ***!
+  \*********************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -82295,6 +82295,132 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
 
 if (document.getElementById('calculator')) {
   react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(Calculator, null), document.getElementById('calculator'));
+}
+
+/***/ }),
+
+/***/ "./resources/js/components/tools/program_generate/css_generate.js":
+/*!************************************************************************!*\
+  !*** ./resources/js/components/tools/program_generate/css_generate.js ***!
+  \************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _material_ui_core_styles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @material-ui/core/styles */ "./node_modules/@material-ui/core/esm/styles/index.js");
+/* harmony import */ var _material_ui_core_Card__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @material-ui/core/Card */ "./node_modules/@material-ui/core/esm/Card/index.js");
+/* harmony import */ var _material_ui_core_CardActionArea__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @material-ui/core/CardActionArea */ "./node_modules/@material-ui/core/esm/CardActionArea/index.js");
+/* harmony import */ var _material_ui_core_CardActions__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @material-ui/core/CardActions */ "./node_modules/@material-ui/core/esm/CardActions/index.js");
+/* harmony import */ var _material_ui_core_CardContent__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @material-ui/core/CardContent */ "./node_modules/@material-ui/core/esm/CardContent/index.js");
+/* harmony import */ var _material_ui_core_CardMedia__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @material-ui/core/CardMedia */ "./node_modules/@material-ui/core/esm/CardMedia/index.js");
+/* harmony import */ var _material_ui_core_Button__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @material-ui/core/Button */ "./node_modules/@material-ui/core/esm/Button/index.js");
+/* harmony import */ var _material_ui_core_Typography__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/index.js");
+function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+
+ // import styles from './style.scss'
+
+
+
+
+
+
+
+
+
+
+
+var CssGenerate = /*#__PURE__*/function (_React$Component) {
+  _inherits(CssGenerate, _React$Component);
+
+  var _super = _createSuper(CssGenerate);
+
+  function CssGenerate(props) {
+    var _this;
+
+    _classCallCheck(this, CssGenerate);
+
+    _this = _super.call(this, props);
+    var date = new Date();
+    var year = date.getFullYear();
+    _this.state = {};
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(CssGenerate, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      var target = event.target;
+      var value = target.type === 'checkbox' ? target.checked : target.value;
+      var name = target.name;
+      this.setState(_objectSpread({}, this.state.search_form[name] = value));
+    }
+  }, {
+    key: "handleSubmit",
+    value: function handleSubmit() {
+      var _this2 = this;
+
+      var url = "https://kudohayatoblog.com/tools/anime_search";
+      var parms = this.state.search_form;
+      var result = '';
+      axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(url, parms).then(function (response) {
+        _this2.setState(_objectSpread(_objectSpread({}, _this2.state.result_data = response.data.works), _this2.state.result_flg = true));
+      })["catch"](function (error) {
+        // handle error
+        console.log(error);
+      });
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: ""
+      }, "test");
+    }
+  }]);
+
+  return CssGenerate;
+}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
+
+/* harmony default export */ __webpack_exports__["default"] = (CssGenerate);
+
+if (document.getElementById('css_generate')) {
+  react_dom__WEBPACK_IMPORTED_MODULE_1___default.a.render( /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(CssGenerate, null), document.getElementById('css_generate'));
 }
 
 /***/ }),

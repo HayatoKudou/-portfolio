@@ -25,15 +25,15 @@
                       </li>
                       <li itemprop="itemListElement" itemscope
                           itemtype="https://schema.org/ListItem">
-                        <a itemprop="item" href="/anime">
-                            <span itemprop="name">アニメ情報取得</span>
+                        <a itemprop="item" href="/css_generate">
+                            <span itemprop="name">CSS変換ツール</span>
                         </a>
                         <meta itemprop="position" content="3" />
                       </li>
                     </ol>
 
-                    <h2 style="margin-top: 30px;">アニメ情報検索</h2>
-                    <div id="anime"></div>
+                    <h2 style="margin-top: 30px;">CSS変換ツール</h2>
+                    <div id="css_generate"></div>
 
                 </div>
             </div>

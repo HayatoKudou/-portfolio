@@ -56,7 +56,6 @@ class Anime extends React.Component{
             axios.post(url, parms)
             // axios.post(url, parms, {withCredentials: true})
             .then((response) => {
-                console.log(response);
                 this.setState({
                     ...this.state.result_data = response.data.works,
                     ...this.state.result_flg = true,
