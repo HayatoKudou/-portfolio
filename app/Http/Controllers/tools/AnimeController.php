@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\tools;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Log;
@@ -17,7 +18,8 @@ class AnimeController extends Controller
         Log::debug($request);
         $client = new Client;
         $season_type = $request->season_type;
-        $token = env('ANICT_API');
+        // $token = env('ANICT_API');
+        $token = \Config::get('token.ANICT_API');
 
         //今期
         if($season_type == 3){

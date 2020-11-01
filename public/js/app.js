@@ -81708,6 +81708,8 @@ var Anime = /*#__PURE__*/function (_React$Component) {
       var result = '';
       axios__WEBPACK_IMPORTED_MODULE_2___default.a.post(url, parms) // axios.post(url, parms, {withCredentials: true})
       .then(function (response) {
+        console.log(response);
+
         _this2.setState(_objectSpread(_objectSpread({}, _this2.state.result_data = response.data.works), _this2.state.result_flg = true));
       })["catch"](function (error) {
         // handle error
