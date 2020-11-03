@@ -81188,7 +81188,7 @@ __webpack_require__(/*! ./components/tools/calculator/top */ "./resources/js/com
 
 __webpack_require__(/*! ./components/tools/anime/top */ "./resources/js/components/tools/anime/top.js");
 
-__webpack_require__(/*! ./components/tools/program_generate/css_generate */ "./resources/js/components/tools/program_generate/css_generate.js");
+__webpack_require__(/*! ./components/tools/program_generate/css_generate/css_generate */ "./resources/js/components/tools/program_generate/css_generate/css_generate.js");
 
 /***/ }),
 
@@ -82299,10 +82299,10 @@ if (document.getElementById('calculator')) {
 
 /***/ }),
 
-/***/ "./resources/js/components/tools/program_generate/css_generate.js":
-/*!************************************************************************!*\
-  !*** ./resources/js/components/tools/program_generate/css_generate.js ***!
-  \************************************************************************/
+/***/ "./resources/js/components/tools/program_generate/css_generate/css_generate.js":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/tools/program_generate/css_generate/css_generate.js ***!
+  \*************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
