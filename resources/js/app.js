@@ -16,5 +16,6 @@ require('./components/Example');
 require('./components/Form');
 require('./components/Validation');
 require('./components/aim_training/Target');
-require('./components/calculator/top');
-require('./components/anime/top');
+require('./components/tools/calculator/top');
+require('./components/tools/anime/top');
+require('./components/tools/program_generate/css_generate/css_generate');

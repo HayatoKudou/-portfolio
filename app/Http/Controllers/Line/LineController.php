@@ -22,8 +22,8 @@ class LineController extends Controller
 {
     public function webhook (Request $request)
     {
-        $httpClient = new CurlHTTPClient(env('LINE_ACCESS_TOKEN'));
-        $lineBot = new LINEBot($httpClient, ['channelSecret' => env('LINE_CHANNEL_SECRET')]);
+        $httpClient = new CurlHTTPClient(\Config::get('token.LINE_ACCESS_TOKEN'));
+        $lineBot = new LINEBot($httpClient, ['channelSecret' => \Config::get('token.LINE_CHANNEL_SECRET')]);
 
         //不正アクセス対策
         $signature = $request->header('x-line-signature');
