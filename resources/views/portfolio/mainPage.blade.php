@@ -87,22 +87,22 @@
                                     </tr>
                                     <tr>
                                         <td>PHP</td>
-                                        <td>１年</td>
+                                        <td>１年〜２年</td>
                                         <td>★★★☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>javascript</td>
-                                        <td>１年未満</td>
+                                        <td>１年〜２年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>HTML</td>
-                                        <td>１年</td>
+                                        <td>１年〜２年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>CSS</td>
-                                        <td>１年</td>
+                                        <td>１年〜２年</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>
                                 </table>
@@ -122,28 +122,23 @@
                                     </tr>
                                     <tr>
                                         <td>Laravel</td>
-                                        <td>１年未満</td>
+                                        <td>１年〜２年</td>
                                         <td>★★★★☆</td>
+                                    </tr>
+                                    <tr>
+                                        <td>React</td>
+                                        <td>１年〜２年</td>
+                                        <td>★★☆☆☆</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Redux</td>
+                                        <td>１年〜２年</td>
+                                        <td>★☆☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>jQuery</td>
                                         <td>１年未満</td>
                                         <td>★★☆☆☆</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Bootstrap</td>
-                                        <td>１年未満</td>
-                                        <td>★★☆☆☆</td>
-                                    </tr>
-                                    <tr>
-                                        <td>React</td>
-                                        <td>１年未満</td>
-                                        <td>★★☆☆☆</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Redux</td>
-                                        <td>１年未満</td>
-                                        <td>★☆☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>FuelPHP</td>
@@ -169,7 +164,7 @@
                                     </tr>
                                     <tr>
                                         <td>MySql</td>
-                                        <td>１年</td>
+                                        <td>１年〜２年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                 </table>
@@ -190,26 +185,26 @@
                                     </tr>
                                     <tr>
                                         <td>Git/GitHub</td>
-                                        <td>１年未満</td>
+                                        <td>１年〜２年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>BackLog</td>
-                                        <td>１年未満</td>
+                                        <td>１年〜２年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
-                                        <td>Docker</td>
-                                        <td>１年未満</td>
-                                        <td>★☆☆☆☆</td>
-                                    </tr>
-                                    <tr>
                                         <td>AWS(EC2)</td>
-                                        <td>１年未満</td>
+                                        <td>１年〜２年</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>Apache</td>
+                                        <td>１年〜２年</td>
+                                        <td>★☆☆☆☆</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Docker</td>
                                         <td>１年未満</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>

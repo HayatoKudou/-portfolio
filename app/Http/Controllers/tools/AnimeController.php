@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Log;
 use \Illuminate\Support\Facades\Http;
+use App\Analysis;
 
 class AnimeController extends Controller
 {
     public function top(){
+        $url = url()->current();
+        Analysis::count($url);
         return view('tools.anime.top');
     }
 
