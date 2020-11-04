@@ -10,4 +10,8 @@ class ProgramGenerateController extends Controller
     public function css_generate(){
         return view('tools.program_generate.css_generate');
     }
+
+    public function php_stringCut_generate(){
+        return view('tools.program_generate.css_generate');
+    }
 }

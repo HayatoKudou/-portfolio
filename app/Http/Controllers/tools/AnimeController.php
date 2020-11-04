@@ -43,6 +43,7 @@ class AnimeController extends Controller
             if($request->title != NULL){
                 $url = $url.'&filter_title='.$request->title;
             }
+            Log::debug($url);
             $response = Http::withToken($token)->get($url);
 
         //シーズン指定
@@ -55,7 +56,7 @@ class AnimeController extends Controller
             $url = 'https://api.annict.com/v1/works'.$filter_season_url;
             //タイトルが存在した場合
             if($request->title != NULL){
-                $url = $url.'?filter_title='.$request->title;
+                $url = $url.'&filter_title='.$request->title;
             }
             Log::debug($url);
             $response = Http::withToken($token)->get($url);

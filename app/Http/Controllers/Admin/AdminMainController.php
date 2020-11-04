@@ -9,6 +9,7 @@ use Twitter;
 use Illuminate\Support\Facades\Validator;
 use App\Content;
 use App\Notice;
+use App\Analysis;
 use App\Http\Controllers\Controller;
 
 class AdminMainController extends Controller
@@ -32,7 +33,9 @@ class AdminMainController extends Controller
     public function home_top(){
         $result = $this->getTwitterData();
         $notice_data = Notice::getNoticeData();
-        return view('home.admin.top',["result" => $result, "notice_data" => $notice_data]);
+        $today_access_data = Analysis::getTodayAccessCount();
+        $all_access_data = Analysis::getAllAccessCount();
+        return view('home.admin.top',["result" => $result, "notice_data" => $notice_data, "today_access_data" => $today_access_data, "all_access_data" => $all_access_data]);
     }
 
     public function show_notice_post(){

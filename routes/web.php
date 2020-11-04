@@ -35,8 +35,8 @@ Route::group(['prefix' => 'tools'], function() {
     Route::get('/calculator', 'tools\CalculatorController@top');
     Route::get('/anime', 'tools\AnimeController@top');
     Route::post('/anime_search', 'tools\AnimeController@anime_search');
-    // Route::post('/anime_search', 'tools\AnimeController@anime_search')->middleware('cors');
     Route::get('/css_generate', 'tools\ProgramGenerateController@css_generate');
+    Route::get('/php_stringCut_generate', 'tools\ProgramGenerateController@php_stringCut_generate');
 });
 
 Route::get('/image_analysis', 'image_analysis@chooce_image')->name('image_analysis');
