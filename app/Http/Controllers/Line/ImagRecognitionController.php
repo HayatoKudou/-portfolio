@@ -27,7 +27,7 @@ class ImagRecognitionController extends Controller
                 fwrite($tempfile, $response->getRawBody());
 
                 // APIキー
-                $api_key = env('LINE_API_KEY');
+                $api_key = \Config::get('token.LINE_API_KEY');
 
                 // リクエスト用のJSONを作成
                 $json = json_encode( array(
