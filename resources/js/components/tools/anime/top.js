@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import styles from './style.scss'
+import style from '../../style';
 import axios from 'axios';
 
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 
 class Anime extends React.Component{
     constructor(props){
@@ -23,12 +24,15 @@ class Anime extends React.Component{
                 display: "inline",
                 cursor: "pointer",
             },
+            style_season_season_sort: {display: "none"},
+            style_search_season_sort: {display: "inline"},
             search_form: {
                 title: '',
                 abbreviation: '',
                 season_type: '3',
                 season_year: year,
                 season_month: 'spring',
+                sort_season: 'new_sort',
             },
             result_data: '',
             result_flg: false,
@@ -47,14 +51,11 @@ class Anime extends React.Component{
         });
     }
 
-
     handleSubmit(){
             const url = "https://kudohayatoblog.com/tools/anime_search";
-            // const url = "https://kudohayatoblog.com/tools/anime_search" + '?nocache=' + new Date().getTime();
             const parms = this.state.search_form;
             var result = '';
             axios.post(url, parms)
-            // axios.post(url, parms, {withCredentials: true})
             .then((response) => {
                 this.setState({
                     ...this.state.result_data = response.data.works,
@@ -81,6 +82,32 @@ class Anime extends React.Component{
         });
     }
 
+    openSeasonSortForm(){
+        let style_season_form_season_sort= {
+            display: "inline",
+        }
+        let style_search_form_season_sort= {
+            display: "inline",
+        }
+        this.setState({
+            style_season_season_sort: style_season_form_season_sort,
+            style_search_season_sort: style_search_form_season_sort,
+        });
+    }
+
+    openSearchSortForm(){
+        let style_season_form_season_sort= {
+            display: "none",
+        }
+        let style_search_form_season_sort= {
+            display: "inline",
+        }
+        this.setState({
+            style_season_season_sort: style_season_form_season_sort,
+            style_search_season_sort: style_search_form_season_sort,
+        });
+    }
+
     closeSeasonForm(){
         let style_season_form_change = {
             display: "none",
@@ -92,6 +119,19 @@ class Anime extends React.Component{
         this.setState({
             style_season_form: style_season_form_change,
             style_search_button: style_search_button_change,
+        });
+    }
+
+    closeSeasonSortForm(){
+        let style_season_form_season_sort= {
+            display: "none",
+        }
+        let style_search_form_season_sort= {
+            display: "none",
+        }
+        this.setState({
+            style_season_season_sort: style_season_form_season_sort,
+            style_search_season_sort: style_search_form_season_sort,
         });
     }
 
@@ -138,27 +178,37 @@ class Anime extends React.Component{
             autumn: '秋',
             winter: '冬'
         };
+        const {classes} = this.props;
 
         return (
             <div className="">
                 <div className="search_title">
+                    {/*
+                    <TextField name="title" className={"anime_input " + classes.TheInput} value={this.state.search_form.title}
+                    onChange={this.handleChange} placeholder="タイトル名" id="outlined-basic" label="Outlined" variant="outlined"
+                    />
+                    */}
                     <input className="anime_input" name="title" type="text" value={this.state.search_form.title} onChange={this.handleChange} placeholder="タイトル名" />
-                    <input className="anime_input" name="abbreviation" type="text" value={this.state.search_form.abbreviation} onChange={this.handleChange} placeholder="略称(メンテナンス中)" disabled />
                 </div>
 
                 <div className="search_season">
                     <label className="anime_season_input">
-                        <input type="radio" name="season_type" value="3" onChange={this.handleChange} onClick={()=> this.closeSeasonForm()} checked={this.state.search_form.season_type === '3'} />
+                        <input type="radio" name="season_type" value="3" onChange={this.handleChange} onClick={()=> {this.closeSeasonForm(), this.closeSeasonSortForm()}} checked={this.state.search_form.season_type === '3'} />
                         <span>今期</span>
                     </label>
                     <label className="anime_season_input">
-                        <input type="radio" name="season_type" value="2" onChange={this.handleChange} onClick={()=> this.openSeasonForm()} />
+                        <input type="radio" name="season_type" value="2" onChange={this.handleChange} onClick={()=> {this.openSeasonForm(), this.openSearchSortForm()}} />
                         <span>シーズンを指定</span>
                     </label>
                     <label className="anime_season_input">
-                        <input type="radio" name="season_type" value="1" onChange={this.handleChange} onClick={()=> this.closeSeasonForm()} />
+                        <input type="radio" name="season_type" value="1" onChange={this.handleChange} onClick={()=> {this.closeSeasonForm(), this.openSeasonSortForm()}} />
                         <span>全期間</span>
                     </label>
+                    <select className="anime_season_input" name="sort_season" type="select" value={this.state.search_form.sort_season}
+                    onChange={this.handleChange} style={this.state.style_season_season_sort} >
+                        <option value="new_sort">新しい順</option>
+                        <option value="old_sort">古い順</option>
+                    </select>
                 </div>
 
                 <Button variant="outlined" style={this.state.style_search_button} onClick={() => this.handleSubmit()} >検索</Button>
@@ -171,6 +221,11 @@ class Anime extends React.Component{
                         {Object.entries(season).map(month => {
                             return(<option key={month[0]} value={month[0]}>{month[1]}</option>)
                         })}
+                    </select>
+                    <select className="anime_season_input" name="sort_season" type="select" value={this.state.search_form.sort_season}
+                    onChange={this.handleChange} style={this.state.style_search_season_sort} >
+                        <option value="new_sort">新しい順</option>
+                        <option value="old_sort">古い順</option>
                     </select>
                     <Button variant="outlined" style={_search_button} onClick={() => this.handleSubmit()} >検索</Button>
                 </div>
@@ -214,11 +269,18 @@ class Anime extends React.Component{
     }
 }
 
-export default Anime;
+const styles = theme => ({
+    TheInput: {
+        fontSize: 20,
+        lineHeight: 1
+    }
+});
+Anime = withStyles(styles)(Anime);
 
 
 if (document.getElementById('anime')) {
     ReactDOM.render(
+        // <Anime />,
         <Anime />,
         document.getElementById('anime')
     );
