@@ -25,7 +25,7 @@
                       </li>
                       <li itemprop="itemListElement" itemscope
                           itemtype="https://schema.org/ListItem">
-                        <a itemprop="item" href="/anime">
+                        <a itemprop="item" href="/tools/anime">
                             <span itemprop="name">アニメ情報取得</span>
                         </a>
                         <meta itemprop="position" content="3" />

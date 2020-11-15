@@ -11,6 +11,10 @@ use App\Analysis;
 
 class AnimeController extends Controller
 {
+    function __construct(){
+        $this->token = \Config::get('token.ANICT_API');
+    }
+
     public function top(){
         $url = url()->current();
         Analysis::count($url);
@@ -20,8 +24,6 @@ class AnimeController extends Controller
     public function anime_search(Request $request){
         $client = new Client;
         $season_type = $request->season_type;
-        $token = \Config::get('token.ANICT_API');
-        Log::debug($request);
 
         //今期
         if($season_type == 3){
@@ -63,11 +65,23 @@ class AnimeController extends Controller
             $url = $url.'&filter_title='.$request->title;
         }
         $url = $url.'&per_page=20';
-        Log::debug($url);
 
-        $response = Http::withToken($token)->get($url);
+        $response = Http::withToken($this->token)->get($url);
         $json = $response->getBody()->getContents();
         $result = json_decode($json,true);
         return $result;
     }
+
+    //詳細画面用
+    public function anime_detail(Request $request){
+        $filter_ids = '?filter_work_id='.$request->id;
+        $episodes_url = 'https://api.annict.com/v1/episodes/'.$filter_ids;
+        // $staffs_url = 'https://api.annict.com/v1/staffs/'.$filter_ids;
+        $episodes_response = Http::withToken($this->token)->get($episodes_url);
+        $episodes_json = $episodes_response->getBody()->getContents();
+        Log::debug($episodes_json);
+        $result = json_decode($episodes_json,true);
+        return $result;
+    }
+
 }
