@@ -18,6 +18,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import Pagination from '@material-ui/lab/Pagination';
 
 export default class Anime extends Template {
     constructor(props){
@@ -41,6 +42,10 @@ export default class Anime extends Template {
                 sort_season: 'new_sort',
             },
             result_data: '',
+            result_prev_page: 0,
+            result_next_page: 0,
+            result_total_count: 0,
+            page: 0,
             result_flg: false,
             detail_data: '',
             dialogOpen: false,
@@ -50,6 +55,7 @@ export default class Anime extends Template {
         this.showDetail = this.showDetail.bind(this);
         this.redirect = this.redirect.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.handleClickPagination = this.handleClickPagination.bind(this);
     }
 
     handleChange(event) {
@@ -63,12 +69,16 @@ export default class Anime extends Template {
 
     searchSubmit(){
         const url = "https://kudohayatoblog.com/tools/anime_search";
-        const parms = this.state.search_form;
+        const parms = {search_form: this.state.search_form, page: 1};
         var result = '';
         axios.post(url, parms)
         .then((response) => {
             this.setState({
                 ...this.state.result_data = response.data.works,
+                ...this.state.result_prev_page = response.data.prev_page,
+                ...this.state.result_next_page = response.data.next_page,
+                ...this.state.result_total_count = response.data.total_count,
+                ...this.state.page = Math.ceil(response.data.total_count / 20),
                 ...this.state.result_flg = true,
             });
         })
@@ -83,7 +93,6 @@ export default class Anime extends Template {
         var result = '';
         axios.post(url, parms)
         .then((response) => {
-            console.log(response.data);
             this.setState({
                 ...this.state.detail_data = response.data,
                 //ダイアログ展開
@@ -99,6 +108,28 @@ export default class Anime extends Template {
         this.setState({dialogOpen: false});
     };
 
+    //2ページ移行のデータ取得
+    handleClickPagination(page){
+        const url = "https://kudohayatoblog.com/tools/anime_search";
+        const parms = {search_form: this.state.search_form, page: page};
+        var result = '';
+        axios.post(url, parms)
+        .then((response) => {
+            this.setState({
+                ...this.state.result_data = response.data.works,
+                ...this.state.result_prev_page = response.data.prev_page,
+                ...this.state.result_next_page = response.data.next_page,
+                ...this.state.result_total_count = response.data.total_count,
+                ...this.state.page = Math.ceil(response.data.total_count / 20),
+                ...this.state.result_flg = true,
+            });
+            window.scrollTo(0, 0);
+        })
+        .catch((error) => {
+            console.log(error);
+        })
+    }
+
 
     render(){
         var _root = {width: 150, height: 250, margin: "13px"};
@@ -106,7 +137,7 @@ export default class Anime extends Template {
         var _items = {overflow: "hidden"};
         var _item = {float: "left"};
         var _title = {height: 80};
-        var _title_content = {fontSize: "15px"};
+        var _title_content = {fontSize: "13px"};
         var _media_title = {
             height: 120,
             position: "relative",
@@ -130,16 +161,16 @@ export default class Anime extends Template {
         for(let i=this.state.search_form.season_year; i>=2000; i--) {
           year.push(<option key={i}>{i}</option>);
         }
-
         var monsth = [];
+
         var season = {
             spring: '春',
             summer: '夏',
             autumn: '秋',
             winter: '冬'
         };
-        const {classes} = this.props;
-        // console.log(this.state.dialogOpen);
+
+        console.log(this.state.detail_data);
 
         return (
             <div className="">
@@ -227,7 +258,38 @@ export default class Anime extends Template {
                 </div>
 
 
-                <div>
+                {(this.state.detail_data !== '' && this.state.detail_data.total_count != 0) ?
+                    <div>
+                        <Dialog
+                        open={this.state.dialogOpen}
+                        onClose={() => this.handleClose()}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                        >
+                            <DialogTitle id="alert-dialog-title">
+                                {this.state.detail_data.episodes[0].work.title}
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText id="alert-dialog-description">
+                                {"リリース時期: " + this.state.detail_data.episodes[0].work.season_name_text}<br/>
+                                {"エピソード数: " + this.state.detail_data.episodes[0].work.episodes_count}<br/>
+                                <a href={this.state.detail_data.episodes[0].work.official_site_url}>公式HP</a><br/>
+
+                                </DialogContentText>
+                            </DialogContent>
+                            <DialogActions>
+                            {/*
+                                <Button onClick={handleClose} color="primary">
+                                Disagree
+                                </Button>
+                                <Button onClick={handleClose} color="primary" autoFocus>
+                                Agree
+                                </Button>
+                            */}
+                            </DialogActions>
+                        </Dialog>
+                    </div>
+                :
                     <Dialog
                     open={this.state.dialogOpen}
                     onClose={() => this.handleClose()}
@@ -235,28 +297,13 @@ export default class Anime extends Template {
                     aria-describedby="alert-dialog-description"
                     >
                         <DialogTitle id="alert-dialog-title">
-                            {this.state.detail_data != '' && this.state.detail_data.episodes[0].work.title}
+                            データが見つかりませんでした
                         </DialogTitle>
-                        <DialogContent>
-                            <DialogContentText id="alert-dialog-description">
-                            {this.state.detail_data != '' && "リリース時期: " + this.state.detail_data.episodes[0].work.season_name_text}<br/>
-                            {this.state.detail_data != '' && "エピソード数: " + this.state.detail_data.episodes[0].work.episodes_count}<br/>
-                            <a href={this.state.detail_data != '' && this.state.detail_data.episodes[0].work.official_site_url}>公式HP</a><br/>
-
-                            </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                        {/*
-                            <Button onClick={handleClose} color="primary">
-                            Disagree
-                            </Button>
-                            <Button onClick={handleClose} color="primary" autoFocus>
-                            Agree
-                            </Button>
-                        */}
-                        </DialogActions>
                     </Dialog>
-                </div>
+                }
+
+                {/*ページベート*/}
+                {this.state.page !== 0 && <Pagination count={this.state.page} variant="outlined" onChange={(e, page) => this.handleClickPagination(page)} />}
 
             </div>
         );

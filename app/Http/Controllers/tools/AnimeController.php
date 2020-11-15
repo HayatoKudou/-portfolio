@@ -22,8 +22,9 @@ class AnimeController extends Controller
     }
 
     public function anime_search(Request $request){
+        Log::debug($request);
         $client = new Client;
-        $season_type = $request->season_type;
+        $season_type = $request->search_form['season_type'];
 
         //今期
         if($season_type == 3){
@@ -43,10 +44,10 @@ class AnimeController extends Controller
 
         //シーズン指定
         } elseif($season_type == 2) {
-            if($request->season_year == NULL || $request->season_month == NULL){
+            if($request->search_form['season_year'] == NULL || $request->search_form['season_month'] == NULL){
                 //エラー処理
             }
-            $filter_season_url = '?filter_season='.$request->season_year.'-'.$request->season_month;
+            $filter_season_url = '?filter_season='.$request->search_form['season_year'].'-'.$request->search_form['season_month'];
             $url = 'https://api.annict.com/v1/works/'.$filter_season_url;
 
         //全期間
@@ -55,17 +56,19 @@ class AnimeController extends Controller
         }
 
         //リリース日のソート
-        if($request->sort_season == 'new_sort'){
+        if($request->search_form['sort_season'] == 'new_sort'){
             $url = $season_type == 1 ? $url.'?sort_season=desc' : $url.'&sort_season=desc';
         } else {
             $url = $season_type == 1 ? $url.'?sort_season=asc' : $url.'&sort_season=asc';
         }
-        //タイトルが存在した場合
-        if($request->title != NULL){
-            $url = $url.'&filter_title='.$request->title;
-        }
-        $url = $url.'&per_page=20';
 
+        //タイトルが存在した場合
+        if($request->search_form['title'] != NULL){
+            $url = $url.'&filter_title='.$request->search_form['title'];
+        }
+
+        $page = $request->page;
+        $url = $url.'&per_page=20&page='.$page;
         $response = Http::withToken($this->token)->get($url);
         $json = $response->getBody()->getContents();
         $result = json_decode($json,true);
