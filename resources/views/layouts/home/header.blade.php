@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-<body>
     <header>
         <div class="container">
             <button id="title_button" class="title_button" type="button" name="button"><h1>Developer Blog</h1></button>
@@ -28,7 +27,6 @@
             </div>
         </div>
     </header>
-</body>
 </html>
 
 <script type="module">

@@ -31,6 +31,9 @@
     <link href="/css/portfolio/main.css" rel="stylesheet">
     <link href="/css/portfolio/footer.css" rel="stylesheet">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ asset('/js/loading.js') }}"></script>
+
 </head>
 
 <!-- <main class="py-4"> -->

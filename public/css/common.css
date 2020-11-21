@@ -31,6 +31,14 @@
   text-decoration: underline;
 }
 
+/* #wrap {
+  display: none;
+} */
+
+body {
+  display: none;
+}
+
 #loader-bg {
   display: none;
   position: fixed;
