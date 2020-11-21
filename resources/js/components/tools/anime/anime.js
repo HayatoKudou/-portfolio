@@ -137,7 +137,7 @@ export default class Anime extends Template {
         var _items = {overflow: "hidden"};
         var _item = {float: "left"};
         var _title = {height: 80};
-        var _title_content = {fontSize: "13px"};
+        var _title_content = {fontSize: "15px"};
         var _media_title = {
             height: 120,
             position: "relative",
@@ -240,7 +240,8 @@ export default class Anime extends Template {
                                         }
                                         <CardContent style={_title}>
                                             <Typography gutterBottom variant="h5" component="h6" style={_title_content}>
-                                                {this.state.result_data[x].title}
+                                                {this.state.result_data[x].title.length > 25 ? this.state.result_data[x].title.substr( 0, 25 ) + '...'
+                                                : this.state.result_data[x].title}
                                             </Typography>
                                         </CardContent>
                                     </CardActionArea>

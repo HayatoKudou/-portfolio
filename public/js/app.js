@@ -91771,7 +91771,8 @@ module.exports = function(module) {
  * includes React and other helpers. It's a great starting point while
  * building robust, powerful web applications using React + Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // require('./loading');
+
 /**
  * Next, we will create a fresh React component instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -92445,7 +92446,7 @@ var Anime = /*#__PURE__*/function (_Template) {
         height: 80
       };
       var _title_content = {
-        fontSize: "13px"
+        fontSize: "15px"
       };
       var _media_title = {
         height: 120,
@@ -92601,7 +92602,7 @@ var Anime = /*#__PURE__*/function (_Template) {
           variant: "h5",
           component: "h6",
           style: _title_content
-        }, _this5.state.result_data[x].title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CardActions__WEBPACK_IMPORTED_MODULE_8__["default"], null, _this5.state.result_data[x].official_site_url && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_11__["default"], {
+        }, _this5.state.result_data[x].title.length > 25 ? _this5.state.result_data[x].title.substr(0, 25) + '...' : _this5.state.result_data[x].title))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_CardActions__WEBPACK_IMPORTED_MODULE_8__["default"], null, _this5.state.result_data[x].official_site_url && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_material_ui_core_Button__WEBPACK_IMPORTED_MODULE_11__["default"], {
           size: "small",
           color: "primary",
           onClick: function onClick() {
