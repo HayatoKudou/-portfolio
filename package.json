@@ -28,6 +28,7 @@
         "@material-ui/core": "^4.11.0",
         "@material-ui/icons": "^4.9.1",
         "@material-ui/lab": "^4.0.0-alpha.56",
+        "antd-mobile": "^2.3.4",
         "fetch": "^1.1.0",
         "node-fetch": "^2.6.1",
         "react-dnd": "^11.1.3",

@@ -8,7 +8,7 @@
                     <a href="#1" class="footer-list">Profile</a>
                     <a href="#2" class="footer-list">Skill</a>
                     <a href="#3" class="footer-list">Contact</a>
-                    <a href="https://kudohayatoblog.com/blog_top" class="footer-list">Blog</a>
+                    <a href="{{ config('url.url' )}}" class="footer-list">Blog</a>
                     <div class="footer_font">
                         <p style="margin: 20px 0 0 0;">name: Hayato Kudou</p>
                         <p>email: kudoh115@gmail.com</p>

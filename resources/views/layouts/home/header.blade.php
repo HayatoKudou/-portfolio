@@ -7,7 +7,7 @@
                 <nav id="Header-Nav" class="header-nav">
                     <a href="#1" class="nav-list">お知らせ</a>
                     <a href="#2" class="nav-list twitter">Twitter投稿</a>
-                    <a href="https://kudohayatoblog.com/portfolio" class="nav-list">portfolio</a>
+                    <a href="{{ config('url.url' )}}portfolio" class="nav-list">portfolio</a>
                     <ul id="menu">
                       <li><a class="nav-list" href="#">tools</a>
                         <ul>

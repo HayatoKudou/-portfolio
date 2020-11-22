@@ -8,8 +8,8 @@
                 <nav id="Header-Nav" class="header-nav">
                     <a href="#1" class="nav-list">お知らせ</a>
                     <a href="#2" class="nav-list">Twitter投稿</a>
-                    <a href="http://kudohayatoblog.com/" class="nav-list">portfolio</a>
-                    <a href="http://kudohayatoblog.com/admin/notice_post" class="nav-list">投稿</a>
+                    <a href="{{ config('url.url' )}}" class="nav-list">portfolio</a>
+                    <a href="{{ config('url.url' )}}admin/notice_post" class="nav-list">投稿</a>
                     <ul id="menu">
                       <li><a class="nav-list" href="#">tools</a>
                         <ul>

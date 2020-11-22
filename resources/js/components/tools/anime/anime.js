@@ -20,6 +20,8 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Pagination from '@material-ui/lab/Pagination';
 
+import { ActivityIndicator, WingBlank, WhiteSpace } from 'antd-mobile';
+
 export default class Anime extends Template {
     constructor(props){
         super(props);
@@ -49,6 +51,7 @@ export default class Anime extends Template {
             result_flg: false,
             detail_data: '',
             dialogOpen: false,
+            loading: true,
         };
         this.handleChange = this.handleChange.bind(this);
         this.searchSubmit = this.searchSubmit.bind(this);
@@ -56,7 +59,7 @@ export default class Anime extends Template {
         this.redirect = this.redirect.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.handleClickPagination = this.handleClickPagination.bind(this);
-    }
+    }    
 
     handleChange(event) {
         const target = event.target;
@@ -87,7 +90,9 @@ export default class Anime extends Template {
         })
     }
 
+    //詳細画面ダイアログ
     showDetail(anime_id){
+        this.setState({...this.state.loading = true });
         const url = "https://kudohayatoblog.com/tools/showDetail";
         const parms = {id: anime_id};
         var result = '';
@@ -95,13 +100,14 @@ export default class Anime extends Template {
         .then((response) => {
             this.setState({
                 ...this.state.detail_data = response.data,
-                //ダイアログ展開
                 ...this.state.dialogOpen = true,
+                ...this.state.loading = false,
             });
         })
         .catch((error) => {
             console.log(error);
         })
+        // this.setState({...this.state.loading = false });
     };
 
     handleClose(){
@@ -156,13 +162,12 @@ export default class Anime extends Template {
         var _search_button = {
             cursor: "pointer",
         }
-
+        
         var year = [];
         for(let i=this.state.search_form.season_year; i>=2000; i--) {
-          year.push(<option key={i}>{i}</option>);
-        }
-        var monsth = [];
-
+            year.push(<option key={i}>{i}</option>);
+        }        
+        var month = [];
         var season = {
             spring: '春',
             summer: '夏',
@@ -170,7 +175,19 @@ export default class Anime extends Template {
             winter: '冬'
         };
 
-        console.log(this.state.detail_data);
+        const _loading = { position: "fixed", top: 0, left: 0, width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" };
+        if (this.state.loading) {
+          return (
+            <div>
+                <ActivityIndicator
+                    text="Loading..."
+                    animating = {true}
+                />
+            </div>
+          );
+        }
+
+        console.log(this.state.loading);
 
         return (
             <div className="">
@@ -271,23 +288,21 @@ export default class Anime extends Template {
                                 {this.state.detail_data.episodes[0].work.title}
                             </DialogTitle>
                             <DialogContent>
-                                <DialogContentText id="alert-dialog-description">
                                 {"リリース時期: " + this.state.detail_data.episodes[0].work.season_name_text}<br/>
-                                {"エピソード数: " + this.state.detail_data.episodes[0].work.episodes_count}<br/>
+                                {"エピソード数: " + this.state.detail_data.episodes[0].work.episodes_count + "話構成"}<br/>
+                                {this.state.detail_data.staffs.length != 0 && 
+                                    <details>
+                                        <summary>スタッフ情報</summary>
+                                        {Object.keys(this.state.detail_data.staffs).map(n => {
+                                        return(
+                                            <li key={n}>
+                                                {this.state.detail_data.staffs[n].role_text}: {this.state.detail_data.staffs[n].name}
+                                            </li>)
+                                        })}                                        
+                                    </details>                              
+                                }
                                 <a href={this.state.detail_data.episodes[0].work.official_site_url}>公式HP</a><br/>
-
-                                </DialogContentText>
                             </DialogContent>
-                            <DialogActions>
-                            {/*
-                                <Button onClick={handleClose} color="primary">
-                                Disagree
-                                </Button>
-                                <Button onClick={handleClose} color="primary" autoFocus>
-                                Agree
-                                </Button>
-                            */}
-                            </DialogActions>
                         </Dialog>
                     </div>
                 :

@@ -77,13 +77,23 @@ class AnimeController extends Controller
 
     //詳細画面用
     public function anime_detail(Request $request){
-        $filter_ids = '?filter_work_id='.$request->id;
-        $episodes_url = 'https://api.annict.com/v1/episodes/'.$filter_ids;
-        // $staffs_url = 'https://api.annict.com/v1/staffs/'.$filter_ids;
-        $episodes_response = Http::withToken($this->token)->get($episodes_url);
-        $episodes_json = $episodes_response->getBody()->getContents();
-        Log::debug($episodes_json);
-        $result = json_decode($episodes_json,true);
+        $episodes_url = 'https://api.annict.com/v1/episodes/?sort_id=asc';
+        $episodes_filter_ids = '&filter_work_id='.$request->id;
+        $episodes_url = $episodes_url . $episodes_filter_ids;
+        $episodes_response = Http::withToken($this->token)->get($episodes_url);        
+        $episodes_json = $episodes_response->getBody()->getContents();        
+        $episodes_result = json_decode($episodes_json,true);
+
+        //スタッフ情報取得
+        $staffs_url = 'https://api.annict.com/v1/staffs/?sort_id=asc&fields=name,role_text';
+        $staffs_filter_ids = '&filter_work_id='.$request->id;
+        $staffs_url = $staffs_url . $staffs_filter_ids;
+        $staffs_response = Http::withToken($this->token)->get($staffs_url);        
+        $staffs_json = $staffs_response->getBody()->getContents();        
+        $staffs_result = json_decode($staffs_json,true);
+
+        $result = array_merge ( $staffs_result, $episodes_result );
+
         return $result;
     }
 
