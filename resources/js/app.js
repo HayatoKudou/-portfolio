@@ -21,3 +21,7 @@ require('./components/aim_training/Target');
 require('./components/tools/calculator/top');
 require('./components/tools/anime/top');
 require('./components/tools/program_generate/css_generate/css_generate');
+
+//TypeScript
+// window.message = require("../ts/app").message;
+// require("../ts/app");
