@@ -71,6 +71,12 @@ export default class Anime extends Template {
         });
     }
 
+    //ダイアログを閉じる
+    handleClose(){
+        this.setState({dialogOpen: false});
+    };
+
+    //検索
     searchSubmit(){
         this.setState({...this.state.loading = true });
         const url = "https://kudohayatoblog.com/tools/anime_search";
@@ -108,10 +114,6 @@ export default class Anime extends Template {
         .catch((error) => {
             console.log(error);
         })
-    };
-
-    handleClose(){
-        this.setState({dialogOpen: false});
     };
 
     //2ページ移行のデータ取得
@@ -178,6 +180,7 @@ export default class Anime extends Template {
             winter: '冬'
         };
         
+        //ローディング画面
         if (this.state.loading) {
           return (
             <div style={_loading}>
