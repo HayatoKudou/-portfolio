@@ -22,7 +22,6 @@ class AnimeController extends Controller
     }
 
     public function anime_search(Request $request){
-        Log::debug($request);
         $client = new Client;
         $season_type = $request->search_form['season_type'];
 
@@ -44,9 +43,6 @@ class AnimeController extends Controller
 
         //シーズン指定
         } elseif($season_type == 2) {
-            if($request->search_form['season_year'] == NULL || $request->search_form['season_month'] == NULL){
-                //エラー処理
-            }
             $filter_season_url = '?filter_season='.$request->search_form['season_year'].'-'.$request->search_form['season_month'];
             $url = 'https://api.annict.com/v1/works/'.$filter_season_url;
 
@@ -84,6 +80,14 @@ class AnimeController extends Controller
         $episodes_json = $episodes_response->getBody()->getContents();        
         $episodes_result = json_decode($episodes_json,true);
 
+        //キャスト情報取得
+        $casts_url = 'https://api.annict.com/v1/casts/?sort_id=asc';
+        $casts_filter_ids = '&filter_work_id='.$request->id;
+        $casts_url = $casts_url . $casts_filter_ids;
+        $casts_response = Http::withToken($this->token)->get($casts_url);        
+        $casts_json = $casts_response->getBody()->getContents();        
+        $casts_result = json_decode($casts_json,true);
+
         //スタッフ情報取得
         $staffs_url = 'https://api.annict.com/v1/staffs/?sort_id=asc&fields=name,role_text';
         $staffs_filter_ids = '&filter_work_id='.$request->id;
@@ -92,7 +96,7 @@ class AnimeController extends Controller
         $staffs_json = $staffs_response->getBody()->getContents();        
         $staffs_result = json_decode($staffs_json,true);
 
-        $result = array_merge ( $staffs_result, $episodes_result );
+        $result = array_merge ( $staffs_result, $casts_result, $episodes_result );
 
         return $result;
     }

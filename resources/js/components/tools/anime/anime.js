@@ -48,10 +48,11 @@ export default class Anime extends Template {
             result_next_page: 0,
             result_total_count: 0,
             page: 0,
+            thisPage: 1,
             result_flg: false,
             detail_data: '',
             dialogOpen: false,
-            loading: true,
+            loading: false,
         };
         this.handleChange = this.handleChange.bind(this);
         this.searchSubmit = this.searchSubmit.bind(this);
@@ -71,9 +72,9 @@ export default class Anime extends Template {
     }
 
     searchSubmit(){
+        this.setState({...this.state.loading = true });
         const url = "https://kudohayatoblog.com/tools/anime_search";
         const parms = {search_form: this.state.search_form, page: 1};
-        var result = '';
         axios.post(url, parms)
         .then((response) => {
             this.setState({
@@ -83,6 +84,7 @@ export default class Anime extends Template {
                 ...this.state.result_total_count = response.data.total_count,
                 ...this.state.page = Math.ceil(response.data.total_count / 20),
                 ...this.state.result_flg = true,
+                ...this.state.loading = false,
             });
         })
         .catch((error) => {
@@ -95,7 +97,6 @@ export default class Anime extends Template {
         this.setState({...this.state.loading = true });
         const url = "https://kudohayatoblog.com/tools/showDetail";
         const parms = {id: anime_id};
-        var result = '';
         axios.post(url, parms)
         .then((response) => {
             this.setState({
@@ -107,7 +108,6 @@ export default class Anime extends Template {
         .catch((error) => {
             console.log(error);
         })
-        // this.setState({...this.state.loading = false });
     };
 
     handleClose(){
@@ -116,9 +116,10 @@ export default class Anime extends Template {
 
     //2ページ移行のデータ取得
     handleClickPagination(page){
+        this.setState({...this.state.loading = true });
+        this.setState({...this.state.thisPage = page });
         const url = "https://kudohayatoblog.com/tools/anime_search";
         const parms = {search_form: this.state.search_form, page: page};
-        var result = '';
         axios.post(url, parms)
         .then((response) => {
             this.setState({
@@ -128,6 +129,7 @@ export default class Anime extends Template {
                 ...this.state.result_total_count = response.data.total_count,
                 ...this.state.page = Math.ceil(response.data.total_count / 20),
                 ...this.state.result_flg = true,
+                ...this.state.loading = false,
             });
             window.scrollTo(0, 0);
         })
@@ -162,6 +164,7 @@ export default class Anime extends Template {
         var _search_button = {
             cursor: "pointer",
         }
+        var _loading = {marginTop: '400px'};
         
         var year = [];
         for(let i=this.state.search_form.season_year; i>=2000; i--) {
@@ -174,29 +177,23 @@ export default class Anime extends Template {
             autumn: '秋',
             winter: '冬'
         };
-
-        const _loading = { position: "fixed", top: 0, left: 0, width: "100%", height: "100%", display: "flex", justifyContent: "center", alignItems: "center" };
+        
         if (this.state.loading) {
           return (
-            <div>
-                <ActivityIndicator
-                    text="Loading..."
-                    animating = {true}
-                />
+            <div style={_loading}>
+                <div className="loader"></div>
+                <div className="shadow"></div>
+                <div className="logo">
+                    <a href="https://mariodesigns.co.uk/" target="_blank">
+                    </a>
+                </div>
             </div>
           );
         }
 
-        console.log(this.state.loading);
-
         return (
             <div className="">
                 <div className="search_title">
-                    {/*
-                    <TextField name="title" className={"anime_input " + classes.TheInput} value={this.state.search_form.title}
-                    onChange={this.handleChange} placeholder="タイトル名" id="outlined-basic" label="Outlined" variant="outlined"
-                    />
-                    */}
                     <input className="anime_input" name="title" type="text" value={this.state.search_form.title} onChange={this.handleChange} placeholder="タイトル名" />
                 </div>
 
@@ -206,11 +203,11 @@ export default class Anime extends Template {
                         <span>今期</span>
                     </label>
                     <label className="anime_season_input">
-                        <input type="radio" name="season_type" value="2" onChange={this.handleChange} onClick={()=> {this.openSeasonForm(), this.openSearchSortForm()}} />
+                        <input type="radio" name="season_type" value="2" onChange={this.handleChange} onClick={()=> {this.openSeasonForm(), this.openSearchSortForm()}} checked={this.state.search_form.season_type === '2'} />
                         <span>シーズンを指定</span>
                     </label>
                     <label className="anime_season_input">
-                        <input type="radio" name="season_type" value="1" onChange={this.handleChange} onClick={()=> {this.closeSeasonForm(), this.openSeasonSortForm()}} />
+                        <input type="radio" name="season_type" value="1" onChange={this.handleChange} onClick={()=> {this.closeSeasonForm(), this.openSeasonSortForm()}} checked={this.state.search_form.season_type === '1'} />
                         <span>全期間</span>
                     </label>
                     <select className="anime_season_input" name="sort_season" type="select" value={this.state.search_form.sort_season}
@@ -290,9 +287,31 @@ export default class Anime extends Template {
                             <DialogContent>
                                 {"リリース時期: " + this.state.detail_data.episodes[0].work.season_name_text}<br/>
                                 {"エピソード数: " + this.state.detail_data.episodes[0].work.episodes_count + "話構成"}<br/>
+                                {this.state.detail_data.casts.length != 0 && 
+                                    <details>
+                                        <summary>--キャスト情報--</summary>
+                                        {Object.keys(this.state.detail_data.casts).map(n => {
+                                        return(
+                                            <div key={n}>
+                                                <details>
+                                                    <summary>
+                                                        {this.state.detail_data.casts[n].character.name} cv.
+                                                        {this.state.detail_data.casts[n].name}
+                                                    </summary>
+                                                    <li>誕生日: {this.state.detail_data.casts[n].person.birthday ? this.state.detail_data.casts[n].person.birthday : 'No data'}</li>
+                                                    <li>性別: {this.state.detail_data.casts[n].person.gender_text ? this.state.detail_data.casts[n].person.gender_text : 'No data'}</li>
+                                                    <li>血液型: {this.state.detail_data.casts[n].person.blood_type ? this.state.detail_data.casts[n].person.blood_type : 'No data'}</li>
+                                                    <li>身長: {this.state.detail_data.casts[n].person.height ? this.state.detail_data.casts[n].person.height : 'No data'}</li>
+                                                    <li>{this.state.detail_data.casts[n].person.wikipedia_url ? <a href={this.state.detail_data.casts[n].person.wikipedia_url} target="_blank">wiki</a> : 'wiki: No data'}</li>
+                                                </details>
+                                            </div>
+                                        )
+                                        })}                                        
+                                    </details>                              
+                                }
                                 {this.state.detail_data.staffs.length != 0 && 
                                     <details>
-                                        <summary>スタッフ情報</summary>
+                                        <summary>--スタッフ情報--</summary>
                                         {Object.keys(this.state.detail_data.staffs).map(n => {
                                         return(
                                             <li key={n}>
@@ -301,7 +320,7 @@ export default class Anime extends Template {
                                         })}                                        
                                     </details>                              
                                 }
-                                <a href={this.state.detail_data.episodes[0].work.official_site_url}>公式HP</a><br/>
+                                <a href={this.state.detail_data.episodes[0].work.official_site_url} target="_blank">公式HP</a><br/>
                             </DialogContent>
                         </Dialog>
                     </div>
@@ -319,7 +338,9 @@ export default class Anime extends Template {
                 }
 
                 {/*ページベート*/}
-                {this.state.page !== 0 && <Pagination count={this.state.page} variant="outlined" onChange={(e, page) => this.handleClickPagination(page)} />}
+                {this.state.page !== 0 && 
+                    <Pagination page={this.state.thisPage} count={this.state.page} variant="outlined" onChange={(e, page) => this.handleClickPagination(page)} />
+                }
 
             </div>
         );
