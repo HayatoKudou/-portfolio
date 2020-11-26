@@ -86,14 +86,15 @@
                                         <td>熟練度</td>
                                     </tr>
                                     <tr>
-                                        <td>PHP</td>
+                                        <td>PHP&nbsp;<i class="fas fa-info-circle" id="tooltip1"></i></td>
+                                        <div class="description1">説明を入力してください。</div>
                                         <td>１年〜２年</td>
                                         <td>★★★☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>javascript</td>
                                         <td>１年〜２年</td>
-                                        <td>★★☆☆☆</td>
+                                        <td>★★★☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>HTML</td>
@@ -128,7 +129,7 @@
                                     <tr>
                                         <td>React</td>
                                         <td>１年〜２年</td>
-                                        <td>★★☆☆☆</td>
+                                        <td>★★★☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>Redux</td>
@@ -194,12 +195,12 @@
                                         <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
-                                        <td>AWS(EC2)</td>
+                                        <td>Apache</td>
                                         <td>１年〜２年</td>
-                                        <td>★☆☆☆☆</td>
+                                        <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
-                                        <td>Apache</td>
+                                        <td>AWS(EC2)</td>
                                         <td>１年〜２年</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>
@@ -217,7 +218,7 @@
                     <div id="3" class="row" style="margin-top: 50px;">
                         <div class="profile_title" style="text-align: center;">
                             <h3><i class="fas fa-envelope"></i>お問い合わせ・SNS</h3>
-                            <p>ご意見、ご感想、ご依頼などお気軽にご連絡ください。</p>
+                            <p>ご意見、ご感想などお気軽にご連絡ください。</p>
                         </div>
                     </div>
 
@@ -244,3 +245,16 @@
     </div>
 </div>
 @endsection
+
+<script>
+window.onload = function(){
+    $('.description1').hide();
+    $('#tooltip1').hover(
+    function () {
+        $('.description1').fadeIn('fast');
+    },
+    function () {
+        $('.description1').fadeOut('fast');
+    });
+}
+</script>
