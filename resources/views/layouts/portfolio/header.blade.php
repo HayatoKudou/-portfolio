@@ -46,6 +46,7 @@
                     <a href="#1" class="nav-list">Profile</a>
                     <a href="#2" class="nav-list">Skill</a>
                     <a href="#3" class="nav-list">Contact</a>
+                    <a href="{{ config('url.url' )}}" class="nav-list">Blog</a>                    
                 </nav>
             </div>
             <div id="Hamburger" class="hamburger">
