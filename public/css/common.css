@@ -64,34 +64,39 @@ body {
 }
 
 
-
-#tooltip1{
-  position: relative;
-  cursor: pointer;
-  display: inline-block;
+.cp_tooltip {
+	position: relative;
+	display: inline-block;
+	cursor: pointer;
 }
-.description1 {
-  display: none;
-  position: absolute;
-  padding: 10px;
-  font-size: 12px;
-  line-height: 1.6em;
-  color: #fff;
-  border-radius: 5px;
-  background: #000;
-  width: 100px;
+.cp_tooltip .cp_tooltiptext {
+  font-size: 15px;
+	position: absolute;
+	z-index: 1;
+	bottom: 100%;
+  left: -34px;
+  bottom: 25px;
+	visibility: hidden;
+	width: auto;
+	white-space: nowrap;
+	padding: 0.3em 0.5em;
+	transition: opacity 1s;
+	text-align: center;
+	opacity: 0;
+	color: #ffffff;
+	border-radius: 6px;
+	background-color: black;
 }
-.description1:before {
-  content: "";
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  border: 15px solid transparent;
-  border-top: 15px solid #000;
-  margin-left: -15px;
+.cp_tooltip .cp_tooltiptext::after {
+	position: absolute;
+	top: 100%;
+	left: 40px;
+	/* margin-left: -40px; */
+	content: ' ';
+	border: 5px solid transparent;
+	border-top-color: black;
 }
-#tooltip1:hover .description1{
-  display: inline-block;
-  top: -70px;
-  left: -30px;
+.cp_tooltip:hover .cp_tooltiptext {
+	visibility: visible;
+	opacity: 1;
 }

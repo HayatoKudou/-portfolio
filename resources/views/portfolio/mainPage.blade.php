@@ -82,28 +82,41 @@
                                 <table class="skill_table">
                                     <tr>
                                         <td>技術</td>
-                                        <td>経験年数</td>
+                                        <td>実務経験</td>
                                         <td>熟練度</td>
                                     </tr>
-                                    <tr>
-                                        <td>PHP&nbsp;<i class="fas fa-info-circle" id="tooltip1"></i></td>
-                                        <div class="description1">説明を入力してください。</div>
-                                        <td>１年〜２年</td>
+                                    <tr>                                        
+                                        <td>
+                                            <span style="margin-left: 30px;">PHP</span>
+                                            <div class="cp_tooltip" style="float: right;">
+                                                <i class="fas fa-info-circle"></i>
+                                                <span class="cp_tooltiptext">フレームワークで使用することが多いです。<br>
+                                                APIサーバーで採用することが多く、API処理が得意です！</span>
+                                            </div>
+                                        </td>
+                                        <td>１年〜３年</td>
                                         <td>★★★☆☆</td>
                                     </tr>
                                     <tr>
-                                        <td>javascript</td>
-                                        <td>１年〜２年</td>
+                                        <td>
+                                            <span style="margin-left: 30px;">JavaScript</span>
+                                            <div class="cp_tooltip" style="float: right;">
+                                                <i class="fas fa-info-circle"></i>
+                                                <span class="cp_tooltiptext">ブラウザでの内部処理・非同期通信などで使用することが多いです。<br>
+                                                最近はReactやNode.jsなどサーバーサイドで使用する機会が増えてきました。</span>
+                                            </div>
+                                        </td>
+                                        <td>１年〜３年</td>
                                         <td>★★★☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>HTML</td>
-                                        <td>１年〜２年</td>
+                                        <td>１年〜３年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>CSS</td>
-                                        <td>１年〜２年</td>
+                                        <td>１年〜３年</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>
                                 </table>
@@ -118,23 +131,32 @@
                                 <table class="skill_table">
                                     <tr>
                                         <td>技術</td>
-                                        <td>経験年数</td>
+                                        <td>実務経験</td>
                                         <td>熟練度</td>
                                     </tr>
                                     <tr>
-                                        <td>Laravel</td>
-                                        <td>１年〜２年</td>
+                                         <td>
+                                            <span>Laravel</span>
+                                        </td>
+                                        <td>１年〜３年</td>
                                         <td>★★★★☆</td>
                                     </tr>
                                     <tr>
-                                        <td>React</td>
-                                        <td>１年〜２年</td>
+                                        <td>
+                                            <span style="margin-left: 30px;">React</span>
+                                            <div class="cp_tooltip" style="float: right;">
+                                                <i class="fas fa-info-circle"></i>
+                                                <span class="cp_tooltiptext">Reduxと併せてFlux概念で実装することが多いです。<br>
+                                                最近になってHooksの便利さに気付き、色々と触っています。</span>
+                                            </div>
+                                        </td>
+                                        <td>１年〜３年</td>
                                         <td>★★★☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>Redux</td>
-                                        <td>１年〜２年</td>
-                                        <td>★☆☆☆☆</td>
+                                        <td>１年〜３年</td>
+                                        <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>jQuery</td>
@@ -160,12 +182,12 @@
                                 <table class="skill_table">
                                     <tr>
                                         <td>技術</td>
-                                        <td>経験年数</td>
+                                        <td>実務経験</td>
                                         <td>熟練度</td>
                                     </tr>
                                     <tr>
                                         <td>MySql</td>
-                                        <td>１年〜２年</td>
+                                        <td>１年〜３年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                 </table>
@@ -181,32 +203,27 @@
                                 <table class="skill_table">
                                     <tr>
                                         <td>技術</td>
-                                        <td>経験年数</td>
+                                        <td>実務経験</td>
                                         <td>熟練度</td>
                                     </tr>
                                     <tr>
                                         <td>Git/GitHub</td>
-                                        <td>１年〜２年</td>
+                                        <td>１年〜３年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>BackLog</td>
-                                        <td>１年〜２年</td>
+                                        <td>１年〜３年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>Apache</td>
-                                        <td>１年〜２年</td>
+                                        <td>１年〜３年</td>
                                         <td>★★☆☆☆</td>
                                     </tr>
                                     <tr>
                                         <td>AWS(EC2)</td>
-                                        <td>１年〜２年</td>
-                                        <td>★☆☆☆☆</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Docker</td>
-                                        <td>１年未満</td>
+                                        <td>１年〜３年</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>
                                 </table>
@@ -248,7 +265,6 @@
 
 <script>
 window.onload = function(){
-    $('.description1').hide();
     $('#tooltip1').hover(
     function () {
         $('.description1').fadeIn('fast');
