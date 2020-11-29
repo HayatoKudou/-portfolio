@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height:100%;">
 
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content" style="padding-top: 0px !important;">
+<main class="py-4" id="main_content" style="padding-top: 0px !important; padding-bottom: 0px !important;">
     @yield('content')
 </main>
 @extends('layouts.portfolio.footer')

@@ -74,7 +74,7 @@ body {
 	position: absolute;
 	z-index: 1;
 	bottom: 100%;
-  left: -34px;
+  left: -150px;
   bottom: 25px;
 	visibility: hidden;
 	width: auto;
@@ -90,7 +90,7 @@ body {
 .cp_tooltip .cp_tooltiptext::after {
 	position: absolute;
 	top: 100%;
-	left: 40px;
+	left: 154px;
 	/* margin-left: -40px; */
 	content: ' ';
 	border: 5px solid transparent;
