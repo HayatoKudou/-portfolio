@@ -14,14 +14,15 @@ require('./bootstrap');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./components/Example');
+// require('./components/Example');
 require('./components/Form');
 require('./components/Validation');
-require('./components/aim_training/Target');
+// require('./components/aim_training/Target');
 require('./components/tools/calculator/top');
 require('./components/tools/anime/top');
 require('./components/tools/program_generate/css_generate/css_generate');
+// require('./components/tools/program_generate/js_generate/js_generate');
 
 //TypeScript
 // window.message = require("../ts/app").message;
-// require("../ts/app");
+require("../ts/js_generate");
