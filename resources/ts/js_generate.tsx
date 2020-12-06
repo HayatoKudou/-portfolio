@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
-import {XMLHttpRequest, jQueryAjax} from './source_code';
+import {PHPcurlDefault, LaravelApiDefault, LaravelApiHeader, XMLHttpRequestDefault, jQueryAjaxDefault} from './source_code';
 
 type Props = {
-    language: number;
     code: string;
 }
 
@@ -19,35 +18,107 @@ const Code: React.FC<Props> = ({code}) => {
 
 const Main: React.FC = () => {
 
-    const [language, setLanguage] = useState(0);
-    const [code, setCode] = useState('ここにコードが表示されます。');
+    const [code, setCode] = useState('');
+    const [language, setLanguage] = useState('');    
+    const [method, setMethod] = useState(0);
 
-    function getCode(language: number){
+    const [option_header, setOptionHeader] = useState(0);
+
+    window.onload = function() {
+        getDefaultCode('PHP');
+    };
+
+    //基本コード
+    function getDefaultCode(language: string){
         setLanguage(language);
-        if(language === 1){
-            setCode(XMLHttpRequest);
-        } else if(language === 2){
-            setCode(jQueryAjax);
-        } else if(language === 3){
-            setCode('test3');
+        if(language === 'PHP'){
+            setCode(PHPcurlDefault);
+        } else if(language === 'Laravel'){
+            setCode(LaravelApiDefault);
+        } else if(language === 'JavaScript'){
+            setCode(XMLHttpRequestDefault);
+        } else if(language === 'jQuery'){
+            setCode(jQueryAjaxDefault);
+        } else if(language === 'TypeScript'){
+            setCode(jQueryAjaxDefault);
+        }
+    }
+
+    //オプション付き
+    function getOptionCode(option: string){
+
+        option_header === 0 ? setOptionHeader(1) : setOptionHeader(0);
+
+        console.log(option_header);
+
+        if(option === 'header' && option_header === 0){  //チェック状態を逆に   
+            if(language === 'PHP'){
+                setCode(PHPcurlDefault);
+            } else if(language === 'Laravel'){
+                setCode(LaravelApiHeader);
+            } else if(language === 'JavaScript'){
+                setCode(XMLHttpRequestDefault);
+            } else if(language === 'jQuery'){
+                setCode(jQueryAjaxDefault);
+            } else if(language === 'TypeScript'){
+                setCode(jQueryAjaxDefault);
+            }
+        } else {
+            getDefaultCode(language);
         }
     }
 
     return (
-        <div>
-            <label>
-                <input type="radio" name="language" value={language} onClick={() => getCode(1)} />
-                <span>JavaScript</span>                    
-            </label>
-            <label>
-                <input type="radio" name="language" value={language} onClick={() => getCode(2)} />
-                <span>jQuery</span>                    
-            </label>
-            <label>
-                <input type="radio" name="language" value={language} onClick={() => getCode(3)} />
-                <span>TypeScript</span>                    
-            </label>
-            <Code code={code}></Code>
+        <div className="row">
+            <div className="col-md-4">
+                <div className="row">
+
+                    <div className="col-md-4">
+                        <label>
+                            <input type="radio" name="language" value={language} onClick={() => getDefaultCode('PHP')} defaultChecked />
+                            <span>PHP</span>                    
+                        </label><br />
+                        <label>
+                            <input type="radio" name="language" value={language} onClick={() => getDefaultCode('Laravel')} />
+                            <span>Laravel</span>                    
+                        </label><br />
+                        <label>
+                            <input type="radio" name="language" value={language} onClick={() => getDefaultCode('JavaScript')} />
+                            <span>JavaScript</span>                    
+                        </label><br />
+                        <label>
+                            <input type="radio" name="language" value={language} onClick={() => getDefaultCode('jQuery')} />
+                            <span>jQuery</span>                    
+                        </label><br />
+                        <label>
+                            <input type="radio" name="language" value={language} onClick={() => getDefaultCode('TypeScript')} />
+                            <span>TypeScript</span>                    
+                        </label>
+                    </div>
+
+                    <div className="col-md-4">
+                        <label>
+                            <input type="radio" name="method" value={method} onClick={() => setMethod(1)} defaultChecked />
+                            <span>API</span>           
+                        </label><br />
+                        <label>
+                            <input type="radio" name="method" value={method} onClick={() => setMethod(2)} />
+                            <span>文字列切り取り</span>           
+                        </label>
+                    </div>
+
+                    <div className="col-md-4">
+                        <label>
+                            <input type="checkbox" name="option_header" value={option_header} onClick={() => getOptionCode('header')} />
+                            <span>header</span>           
+                        </label><br />                        
+                    </div>
+
+                </div>
+            </div>
+            <div className="col-md-8">
+                <Code code={code}></Code>
+            </div>            
         </div>
     );
 }
@@ -60,6 +131,6 @@ const App: React.FC = () => {
     );
 }
   
-if (document.getElementById('js_generate')) {
-    ReactDOM.render(<App />, document.getElementById('js_generate'));
+if (document.getElementById('programGenerate')) {
+    ReactDOM.render(<App />, document.getElementById('programGenerate'));
 }

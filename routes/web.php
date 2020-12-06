@@ -38,7 +38,7 @@ Route::group(['prefix' => 'tools'], function() {
     Route::post('/showDetail', 'tools\AnimeController@anime_detail');
     Route::get('/css_generate', 'tools\ProgramGenerateController@css_generate');
     Route::get('/js_generate', 'tools\ProgramGenerateController@js_generate');
-    Route::get('/php_stringCut_generate', 'tools\ProgramGenerateController@php_stringCut_generate');
+    Route::get('/programGenerate', 'tools\ProgramGenerateController@programGenerate');
 });
 
 Route::get('/image_analysis', 'image_analysis@chooce_image')->name('image_analysis');

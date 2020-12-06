@@ -7,15 +7,15 @@ use Illuminate\Http\Request;
 
 class ProgramGenerateController extends Controller
 {
+    public function programGenerate(){
+        return view('tools.program_generate.programGenerate');
+    }
+
     public function css_generate(){
         return view('tools.program_generate.css_generate');
     }
 
     public function js_generate(){
         return view('tools.program_generate.js_generate');
-    }
-
-    public function php_stringCut_generate(){
-        return view('tools.program_generate.css_generate');
     }
 }
