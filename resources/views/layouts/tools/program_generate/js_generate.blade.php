@@ -29,6 +29,10 @@
     <link href="/css/tools/tools.css" rel="stylesheet">
     <link href="/css/tools/header.css" rel="stylesheet">
 
+    <!-- ソースコード -->    
+    <!-- <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script> -->
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+
 </head>
 
 
