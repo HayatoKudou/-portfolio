@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import {PHPcurlDefault, LaravelApiDefault, LaravelApiHeader, XMLHttpRequestDefault, jQueryAjaxDefault} from './source_code';
@@ -6,11 +7,20 @@ type Props = {
     code: string;
 }
 
+declare namespace JSX {
+    interface IntrinsicElements {
+    //     a: React.DetailedHTMLProps<
+    //     React.AnchorHTMLAttributes<HTMLAnchorElement>,
+    //     HTMLAnchorElement
+    //   >;
+    }
+}
+
 const Code: React.FC<Props> = ({code}) => {
     return (
         <div>
             <pre className="prettyprint linenums lang-js">
-            <code>{code}</code>
+                <code>{code}</code>
             </pre>
         </div>
     )
@@ -46,10 +56,7 @@ const Main: React.FC = () => {
 
     //オプション付き
     function getOptionCode(option: string){
-
         option_header === 0 ? setOptionHeader(1) : setOptionHeader(0);
-
-        console.log(option_header);
 
         if(option === 'header' && option_header === 0){  //チェック状態を逆に   
             if(language === 'PHP'){
