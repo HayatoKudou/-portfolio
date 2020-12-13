@@ -8,15 +8,6 @@ type Props = {
     code: string;
 }
 
-declare namespace JSX {
-    interface IntrinsicElements {
-    //     a: React.DetailedHTMLProps<
-    //     React.AnchorHTMLAttributes<HTMLAnchorElement>,
-    //     HTMLAnchorElement
-    //   >;
-    }
-}
-
 const Code: React.FC<Props> = ({code}) => {
     return (
         <div>
