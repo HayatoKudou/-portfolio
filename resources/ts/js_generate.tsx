@@ -1,17 +1,46 @@
-import React, { useState } from 'react';
+
+import * as React from 'react';
+import { useState } from 'react';
 import ReactDOM from 'react-dom';
-import {PHPcurlDefault, LaravelApiDefault, LaravelApiHeader, XMLHttpRequestDefault, jQueryAjaxDefault} from './source_code';
+import {TestApi, PHPcurlDefault, LaravelApiDefault, LaravelApiHeader, XMLHttpRequestDefault, jQueryAjaxDefault} from './source_code';
 
 type Props = {
     code: string;
+    language: string;
 }
 
 const Code: React.FC<Props> = ({code}) => {
     return (
         <div>
             <pre className="prettyprint linenums lang-js">
-            <code>{code}</code>
+                <code>{code}</code>
             </pre>
+        </div>
+    )
+}
+
+const Result: React.FC<Props> = ({code, language}) => {
+
+    const [resultCode, setResultCode] = useState('');
+    const getApiUrl = 'https://kudohayatoblog.com/api/get_api_endPoint';
+    const postApiUrl = 'https://kudohayatoblog.com/api/post_api_endPoint';
+
+    function result(code: string, language: string){
+        if(language == 'PHP'){
+            setResultCode(eval(code));
+        } else if(language == 'JavaScript'){
+            setResultCode(eval(code));
+        }
+    }
+
+    return (
+        <div>
+            <button onClick={() => result(code, language)}>実行</button>
+            {resultCode != '' &&
+                <pre className="prettyprint linenums lang-js">
+                    <code>{resultCode}</code>
+                </pre>
+            }
         </div>
     )
 }
@@ -21,7 +50,6 @@ const Main: React.FC = () => {
     const [code, setCode] = useState('');
     const [language, setLanguage] = useState('');    
     const [method, setMethod] = useState(0);
-
     const [option_header, setOptionHeader] = useState(0);
 
     window.onload = function() {
@@ -32,7 +60,8 @@ const Main: React.FC = () => {
     function getDefaultCode(language: string){
         setLanguage(language);
         if(language === 'PHP'){
-            setCode(PHPcurlDefault);
+            // setCode(PHPcurlDefault);
+            setCode(TestApi);
         } else if(language === 'Laravel'){
             setCode(LaravelApiDefault);
         } else if(language === 'JavaScript'){
@@ -46,14 +75,11 @@ const Main: React.FC = () => {
 
     //オプション付き
     function getOptionCode(option: string){
-
         option_header === 0 ? setOptionHeader(1) : setOptionHeader(0);
-
-        console.log(option_header);
 
         if(option === 'header' && option_header === 0){  //チェック状態を逆に   
             if(language === 'PHP'){
-                setCode(PHPcurlDefault);
+                setCode(PHPcurlDefault);                
             } else if(language === 'Laravel'){
                 setCode(LaravelApiHeader);
             } else if(language === 'JavaScript'){
@@ -117,7 +143,8 @@ const Main: React.FC = () => {
                 </div>
             </div>
             <div className="col-md-8">
-                <Code code={code}></Code>
+                <Code code={code} language={language}></Code>
+                <Result code={code} language={language}></Result>
             </div>            
         </div>
     );

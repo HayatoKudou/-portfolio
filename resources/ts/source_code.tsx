@@ -1,3 +1,7 @@
+export var TestApi: string = `
+alert("sucess");
+`;
+
 export var PHPcurlDefault: string = `
 $url = "https://www.aaa.com/";
 
@@ -10,9 +14,6 @@ curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);//curl_exec()の返り値を文�
 
 //URLの情報を取得し、ブラウザに渡す
 $res =  curl_exec($ch);
-
-//結果を表示する
-var_dump($res);
 
 //セッションを終了する
 curl_close($conn);
@@ -47,16 +48,13 @@ $decode_res = json_decode($response_body);
 export var XMLHttpRequestDefault: string = `
 var xhr = new XMLHttpRequest();
 
-xhr.open(【どんな方法で？】, 【どのサーバーに？】);
+xhr.open("get", getApiUrl);
 xhr.send();
 
-xhr.onreadystatechange = function() {
-
-    if(【いつデータを取得するか？】) {
-
-        //データを取得した後の処理を書く
-    }
-}
+xhr.addEventListener("load", function(){
+    console.log(this);
+    alert(this.response);
+}, false);
 
 `;
 

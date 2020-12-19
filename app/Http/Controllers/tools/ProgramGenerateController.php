@@ -11,6 +11,14 @@ class ProgramGenerateController extends Controller
         return view('tools.program_generate.programGenerate');
     }
 
+    public function get_api_endPoint(){
+        return 'sucess';
+    }
+
+    public function post_api_endPoint(){
+        return 'sucess';
+    }
+
     public function css_generate(){
         return view('tools.program_generate.css_generate');
     }

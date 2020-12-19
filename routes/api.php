@@ -25,3 +25,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('/line/webhook', 'Line\LineController@webhook')->name('line.webhook');
 
 Route::resource('search', 'AmazonController');
+
+Route::get('get_api_endPoint', 'tools\ProgramGenerateController@get_api_endPoint');
+Route::get('post_api_endPoint', 'tools\ProgramGenerateController@post_api_endPoint');
