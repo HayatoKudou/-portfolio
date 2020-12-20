@@ -12,7 +12,7 @@ class ProgramGenerateController extends Controller
     }
 
     public function get_api_endPoint(){
-        return 'sucess';
+        return response()->json(['status' => 'success']);
     }
 
     public function post_api_endPoint(){
