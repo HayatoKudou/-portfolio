@@ -23,7 +23,7 @@
                     </div>
                     @endif
 
-                    <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList" style="    background-color: #eae8e8;">
+                    <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList" style="margin-top: 80px; background-color: #eae8e8;">
                       <li itemprop="itemListElement" itemscope
                           itemtype="https://schema.org/ListItem">
                         <a itemprop="item" href="/">
@@ -55,14 +55,15 @@
                         <div class="col-md-6 self_introduction">
                             <h4 class="title">自己紹介</h4>
                             <div class="sentence">
-                                <p>はじめまして。工藤 颯斗と申します。年齢は21歳です。
-                                    <br>都内にある受託系の会社でWebエンジニアとして働いています。メイン言語はPHPでLaravelを使用することが多いです。
+                                <p>はじめまして。私は都内にある受託系の会社でWebエンジニアとして働いています。                                    
+                                    <br>メイン言語はPHPでLaravelを使用することが多いです。
+                                    <br>担当箇所は、詳細設計・実装・テスト・保守で、少人数での0→1開発が多いです。
                                     <br>最近はSPAのサイトを作ってみたく、プライベートでReactなどのフロント言語を勉強中です。
                                 </p>
                             </div>
                             <h4 class="title">経歴</h4>
                             <div class="sentence">
-                                <p>→高校卒業<br>→新卒でSES系企業に入社、クラウドの監視業務を担当<br>→受託系企業に入社、web開発業務を担当</p>
+                                <p>2018.4.   新卒でSES系企業に入社、クラウドの監視業務を担当<br>2019.12.   受託系企業に入社、web開発業務を担当</p>
                             </div>
                         </div>
                     </div>
@@ -83,15 +84,15 @@
                                     <tr>
                                         <td>技術</td>
                                         <td>実務経験</td>
-                                        <td>熟練度</td>
+                                        <td></td>
                                     </tr>
                                     <tr>                                        
                                         <td>
                                             <span style="margin-left: 30px;">PHP</span>
                                             <div class="cp_tooltip" style="float: right;">
                                                 <i class="fas fa-info-circle"></i>
-                                                <span class="cp_tooltiptext">フレームワークで使用することが多いです。<br>
-                                                APIサーバーで採用することが多く、API処理が得意です！</span>
+                                                <span class="cp_tooltiptext">メイン言語で、フレームワークで主に使用しています。<br>
+                                                </span>
                                             </div>
                                         </td>
                                         <td>１年〜３年</td>
@@ -132,7 +133,7 @@
                                     <tr>
                                         <td>技術</td>
                                         <td>実務経験</td>
-                                        <td>熟練度</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                          <td>
@@ -146,7 +147,7 @@
                                             <span style="margin-left: 30px;">React</span>
                                             <div class="cp_tooltip" style="float: right;">
                                                 <i class="fas fa-info-circle"></i>
-                                                <span class="cp_tooltiptext">Reduxと併せてFlux概念で実装することが多いです。<br>
+                                                <span class="cp_tooltiptext">Reduxと併せてFluxで実装することが多いです。<br>
                                                 最近になってHooksの便利さに気付き、色々と触っています。</span>
                                             </div>
                                         </td>
@@ -183,7 +184,7 @@
                                     <tr>
                                         <td>技術</td>
                                         <td>実務経験</td>
-                                        <td>熟練度</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>MySql</td>
@@ -204,7 +205,7 @@
                                     <tr>
                                         <td>技術</td>
                                         <td>実務経験</td>
-                                        <td>熟練度</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td>Git/GitHub</td>
