@@ -108,10 +108,10 @@ const Main: React.FC = () => {
                             <input type="radio" name="language" value={language} onClick={() => getDefaultCode('JavaScript')} defaultChecked />
                             <span>JavaScript</span>                    
                         </label><br />
-                        <label>
+                        {/* <label>
                             <input type="radio" name="language" value={language} onClick={() => getDefaultCode('jQuery')} />
                             <span>jQuery</span>                    
-                        </label><br />
+                        </label><br /> */}
                     </div>
 
                     <div className="col-md-9">
@@ -146,14 +146,14 @@ const Main: React.FC = () => {
                                 }                                
                             </div>
                         }                                              
-                        <label>
+                        {/* <label>
                             <input type="radio" name="method" value={method} onClick={() => setMethod('文字列切り取り')} />
                             <span>文字列切り取り</span>           
                         </label>
                         {method == '文字列切り取り' &&
                             <div className="program_option">                         
                             </div>
-                        }   
+                        }    */}
                     </div>
                 </div>
             </div>
