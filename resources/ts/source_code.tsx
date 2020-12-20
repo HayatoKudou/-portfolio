@@ -1,9 +1,5 @@
-export var TestApi: string = `
-alert("sucess");
-`;
-
-export var PHPcurlDefault: string = `
-$url = "https://www.aaa.com/";
+export var PHP_API_Default: string = `
+$url = "https://kudohayatoblog.com/api/get_api_endPoint";
 
 //cURLセッションを初期化する
 $ch = curl_init();
@@ -20,7 +16,12 @@ curl_close($conn);
 
 `;
 
-export var LaravelApiDefault: string = `
+export var PHP_API_option_header: string = `
+var url = "";
+alert(url);
+`;
+
+export var Laravel_API_Default: string = `
 use GuzzleHttp\Client;
 
 $client = new Client;
@@ -45,26 +46,52 @@ $decode_res = json_decode($response_body);
 
 `;
 
-export var XMLHttpRequestDefault: string = `
+export var JavaScript_API_Default: string = `
 var xhr = new XMLHttpRequest();
+var url = "https://kudohayatoblog.com/api/get_api_endPoint";
 
-xhr.open("get", getApiUrl);
+xhr.open("GET", url);
 xhr.send();
 
 xhr.addEventListener("load", function(){
-    console.log(this);
     alert(this.response);
+    console.log(this);
 }, false);
 
 `;
 
-export var jQueryAjaxDefault: string = `
-var xmlDocument = [create xml document];
+export var JavaScript_API_option_header: string = `
+var xhr = new XMLHttpRequest();
+var url = "https://kudohayatoblog.com/api/get_api_endPoint";
+
+xhr.open("GET", url);
+xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+xhr.send();
+
+xhr.addEventListener("load", function(){
+    alert(this.response);
+    console.log(this);
+}, false);
+
+`;
+
+export var jQuery_API_Default: string = `
+var url = "https://kudohayatoblog.com/api/get_api_endPoint";
+$.ajax({
+    type: "GET",
+    url: url
+  });
+
+ `;
+
+ export var jQuery_API_option_header: string = `
+ var url = "https://kudohayatoblog.com/api/get_api_endPoint";
  $.ajax({
-   url: "page.php",
-   processData: false,
-   data: xmlDocument,
-   success: handleResponse
- });
+    type: "GET",
+    url: url,
+    headers: {
+        "Content-Type", "application/json;charset=UTF-8",
+      },
+  });
 
  `;

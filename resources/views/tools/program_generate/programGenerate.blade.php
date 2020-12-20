@@ -31,8 +31,7 @@
                         <meta itemprop="position" content="3" />
                       </li>
                     </ol>
-
-                    <h2 style="margin-top: 30px;">プログラム生成ツール</h2>
+                    
                     <div id="programGenerate"></div>
 
                 </div>
