@@ -17,6 +17,7 @@ class CreateNoticeTable extends Migration
             $table->id();
             $table->string('date');
             $table->string('notice_content');
+            $table->integer('url_flg');
             $table->string('url');
             $table->timestamps();
         });
