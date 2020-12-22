@@ -89,15 +89,15 @@ class MainController extends Controller
         //更新日時取得
         $update_date = $this->getUpdateDate();
         //メール送信
-        Mail::send('emails.mail', [
-            'email' => $request->email,
-            'content' => $request->content,
-        ], function($message){
-            $message->to('kudoh115@gmail.com')
-            ->from('hayatoportfolio@gmail.com')
-            ->subject('ポートフォリオからのお問い合わせ');
-        });
-        $request->session()->flash('message', 'ご連絡ありがとうございます。数日以内にご返信いたします。今しばらくお待ちください。');
+        // Mail::send('emails.mail', [
+        //     'email' => $request->email,
+        //     'content' => $request->content,
+        // ], function($message){
+        //     $message->to('kudoh115@gmail.com')
+        //     ->from('hayatoportfolio@gmail.com')
+        //     ->subject('ポートフォリオからのお問い合わせ');
+        // });
+        // $request->session()->flash('message', 'ご連絡ありがとうございます。数日以内にご返信いたします。今しばらくお待ちください。');
         return view('portfolio.mainPage',['update_date' => $update_date]);
     }
 
