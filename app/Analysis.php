@@ -19,13 +19,15 @@ class Analysis extends Model
     public static function count($url){
         $today = date('Ymd');
         $double_check = self::where('date', $today)->where('url', $url)->exists();
+        \Log::debug($url);
         if($double_check){
-            $analysis_model = self::where('date', $today)->where('url', $url)->increment('count',1);
+            $analysis_model = self::where('date', $today)->where('url', $url)->increment('count');
         } else {
             $analysis_model = new self;
             $analysis_model->fill([
                 'url' => $url,
                 'date' => $today,
+                'count' => 1,
             ]);
             $analysis_model->save();
         }

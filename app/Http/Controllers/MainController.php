@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class MainController extends Controller
 {
     public function getUpdateDate(){
-        $path = base_path('resources/views');
+        $path = base_path('resources/views/home');
         date_default_timezone_set('Asia/Tokyo');
         $update_date = date( "Y-m-d", filemtime($path));
         return $update_date;
