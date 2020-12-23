@@ -17,6 +17,7 @@ class CreateAnalysisTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('url');
+            $table->integer('count')->nullable();
             $table->string('date');
         });
     }
