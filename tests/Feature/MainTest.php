@@ -12,12 +12,20 @@ use Log;
 
 class MainTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
+    //validate用
+    public function exampleEmailSendMailData(){
+        return [
+            'vali_ok' => ['email', 'kudoh115@gmail.com', true],
+            'vali_required' => ['email', '', false],
+            'vali_max' => ['email', str_repeat('a', 256), false],
+            'vali_email' => ['email', 'test', false],
+        ];
+    }
 
+    /**
+     * @dataProvider exampleEmailSendMailData
+     * @dataProvider insertData
+     */
     public function testExample(){
         $main_con = new MainController;
         
