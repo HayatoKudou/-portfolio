@@ -10,7 +10,7 @@ $factory->define(App\Analysis::class, function (Faker $faker) {
     return [
         // データをセット
         'url' => $faker->url,
-        'count' => $faker->count,
+        'count' => 1,
         'date' => $date,
     ];
 });
