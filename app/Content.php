@@ -21,7 +21,7 @@ class Content extends Model
     public function validator($request){
         $rules = [
             'email' => 'required|max:255|email',
-            // 'content' => 'required|max:255',
+            'content' => 'required|max:255',
         ];
     $validator = Validator::make($request, $rules);
     return $validator;

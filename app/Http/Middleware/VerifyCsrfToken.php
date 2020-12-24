@@ -14,5 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         // 'http://kudohayatoblog.com/tools/anime_search',
         // 'https://kudohayatoblog.com/tools/anime_search',
+        'http://*',
     ];
 }

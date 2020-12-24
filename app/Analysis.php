@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Log;
 
 class Analysis extends Model
 {
@@ -19,9 +20,9 @@ class Analysis extends Model
     public static function count($url){
         $today = date('Ymd');
         $double_check = self::where('date', $today)->where('url', $url)->exists();
-        \Log::debug($url);
+        Log::debug($url);
         if($double_check){
-            $analysis_model = self::where('date', $today)->where('url', $url)->increment('count');
+            $analysis_model = self::where('date', $today)->where('url', $url)->increment('count', 1);
         } else {
             $analysis_model = new self;
             $analysis_model->fill([
