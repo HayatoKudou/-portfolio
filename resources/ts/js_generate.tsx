@@ -8,29 +8,43 @@ import {CheckBox} from './components/checkboxComponent';
 
 type Props = {
     code: string;
-    language: string;
+    language?: string;
+    method?: string;
 }
 
 const Code: React.FC<Props> = ({code}) => {
     return (
         <div>
-            <pre className="prettyprint linenums lang-js">
+            <pre className="prettyprint linenums lang-js program_pre_form">
                 <code>{code}</code>
             </pre>
         </div>
     )
 }
 
-const Result: React.FC<Props> = ({code, language}) => {
+const Result: React.FC<Props> = ({code, method}) => {
 
     const [resultCode, setResultCode] = useState('');
+    const closure = `
+    (function (data) {
+        return data;
+    }(result));
+        `;
 
+    //返り値取得の為即時関数をつける
+    var run_code = method === 'STR' ? code + closure : code;   
+    
     return (
-        <div>
-            <button onClick={() => setResultCode(eval(code))}>実行</button>
-            <pre className="prettyprint linenums lang-js">
-                <code>{resultCode}</code>
-            </pre>
+        <div className="row">
+            <div className="col-md-2">
+                <button className="program_run_button" onClick={() => setResultCode(eval(run_code))}>Run</button>
+                <button className="program_reset_button" onClick={() => setResultCode('')}>Reset</button>
+            </div>  
+            <div className="col-md-10">
+                <pre className="prettyprint linenums lang-js program_result_form">
+                    <code className="prettyprint linenums lang-js">{resultCode}</code>
+                </pre>
+            </div>          
         </div>
     )
 }
@@ -85,10 +99,16 @@ const Main: React.FC = () => {
             setOptionMethod(option_val);
             setCode(code.replace(option_method, option_val)); //コード変換
         //header設定
-        } else if(option_name === 'option_header' && option_val == 0){      
-            CodeName = language + '_' + method + '_' + option_name;               
-            setOptionHeader(1);
-            setCode(source_code[CodeName].replace('GET', option_method)); //メソッドの設定を同期
+        } else if(option_name === 'option_header'){ 
+            if(option_val == 0){
+                CodeName = language + '_' + method + '_' + option_name;               
+                setOptionHeader(1);
+                setCode(source_code[CodeName].replace('GET', option_method)); //メソッドの設定を同期
+            } else {
+                setOptionHeader(0);
+                setOptionContentTypeFlag(0);
+                getDefaultCode(language, method); 
+            }  
         //URL設定
         } else if(option_name === 'option_api_url'){
             if ( option_api_url.length == 0 ) { 
@@ -153,9 +173,7 @@ const Main: React.FC = () => {
         
         //その他
         } else {
-            setOptionHeader(0);
-            setOptionContentTypeFlag(0);
-            getDefaultCode(language);            
+                    
         }
     }
 
@@ -209,7 +227,7 @@ const Main: React.FC = () => {
             </div>
             <div className="col-md-7">
                 <Code code={code} language={language}></Code>
-                <Result code={code} language={language}></Result>
+                <Result code={code} language={language} method={method}></Result>
             </div>            
         </div>
     );

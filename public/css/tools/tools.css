@@ -104,12 +104,29 @@
     padding: 10px;
 }
 
+.program_pre_form {
+    min-height: 300px;
+}
+
 .program_option_input {
     width: 100%;
 }
 
 .program_radio_form {
     margin-right: 10px;
+}
+
+.program_run_button {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.program_reset_button {
+    width: 100%;
+}
+
+.program_result_form {
+    height: 100%;
 }
 
 @media screen and (max-width: 600px) {
