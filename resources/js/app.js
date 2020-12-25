@@ -22,7 +22,3 @@ require('./components/tools/calculator/top');
 require('./components/tools/anime/top');
 require('./components/tools/program_generate/css_generate/css_generate');
 // require('./components/tools/program_generate/js_generate/js_generate');
-
-//TypeScript
-// window.message = require("../ts/app").message;
-require("../ts/js_generate");
