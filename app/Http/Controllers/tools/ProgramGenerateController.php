@@ -16,7 +16,7 @@ class ProgramGenerateController extends Controller
     }
 
     public function post_api_endPoint(){
-        return 'sucess';
+        return response()->json(['status' => 'success']);
     }
 
     public function css_generate(){

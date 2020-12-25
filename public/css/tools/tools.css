@@ -108,6 +108,10 @@
     width: 100%;
 }
 
+.program_radio_form {
+    margin-right: 10px;
+}
+
 @media screen and (max-width: 600px) {
     .output{
         display: block;
