@@ -105,15 +105,17 @@
 }
 
 .program_pre_form {
-    min-height: 300px;
+    height: 330px;
 }
 
 .program_option_input {
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .program_radio_form {
     margin-right: 10px;
+    cursor: pointer;
 }
 
 .program_run_button {

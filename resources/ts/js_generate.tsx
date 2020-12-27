@@ -6,6 +6,9 @@ import * as source_code from './source_code';
 import {Radio} from './components/radioComponent';
 import {CheckBox} from './components/checkboxComponent';
 
+import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+
 type Props = {
     code: string;
     language?: string;
@@ -25,6 +28,7 @@ const Code: React.FC<Props> = ({code}) => {
 const Result: React.FC<Props> = ({code, method}) => {
 
     const [resultCode, setResultCode] = useState('');
+    var result = '';
     const closure = `
     (function (data) {
         return data;
@@ -57,10 +61,11 @@ const Main: React.FC = () => {
 
     //APIオプション
     const [option_method, setOptionMethod] = useState('GET');
-    const [option_header, setOptionHeader] = useState(0);
+    const [option_header, setOptionHeader] = useState(1);
     const [option_api_url, setOptionApiUrl] = useState('https://kudohayatoblog.com/api/api_endPoint');
     const [option_header_content_type_flag, setOptionContentTypeFlag] = useState(0);    
     const [option_header_content_type, setOptionContentType] = useState('Content-Type", "application/json;charset=UTF-8');   
+    const [option_header_onreadystatechange, setOptionOnreadystatechangeFlag] = useState(1);       
     
     //文字列操作オプション
     const [option_str_text, setOptionStrText] = useState('javascript文字列');
@@ -70,18 +75,24 @@ const Main: React.FC = () => {
     var CodeName = 'JavaScript_API_Default'; //呼び出すモジュール名
 
     window.onload = function() {
-        getDefaultCode('JavaScript', 'API');
+        getDefaultCode('JavaScript', 'API', 'option_header_onreadystatechange');
     };
 
     //基本コード
-    function getDefaultCode(language_arg: string, method_arg: string = ''){
+    function getDefaultCode(language_arg: string, method_arg: string = '', option_arg: string = 'Default'){
         setLanguage(language_arg);
         setMethod(method_arg);
-        CodeName = language_arg + '_' + method_arg + '_' + 'Default';
+        CodeName = language_arg + '_' + method_arg + '_' + option_arg;
         if(method_arg == 'API' && (language != language_arg || method != method_arg)){
-            setCode(source_code[CodeName].replace('GET', option_method)); //メソッドの設定を同期
+            setCode(source_code[CodeName].replace('GET', option_method)); //メソッドの設定を同期           
         } else {
-            setCode(source_code[CodeName]);
+            //初回のみ
+            if(option_arg === 'option_header_onreadystatechange'){
+                var defaultCode = language_arg + '_' + method_arg + '_' + 'Default';
+                setCode(source_code[defaultCode] + source_code[CodeName]);
+            } else {
+                setCode(source_code[CodeName]);
+            }             
         }
     }
 
@@ -120,16 +131,28 @@ const Main: React.FC = () => {
             }
         //Content-Type表示設定
         } else if(option_name === 'option_header_content_type_flag'){
-            if(option_val == 0){
+            CodeName = language + '_' + method + '_' + option_name; 
+            if(option_val == 0){                
+                setCode(code.replace('xhr.send();', source_code[CodeName]));
                 setOptionContentTypeFlag(1);
             } else {
+                setCode(code.replace(source_code[CodeName].replace('Content-Type", "application/json;charset=UTF-8', option_header_content_type), 'xhr.send();'));
                 setOptionContentTypeFlag(0);
             }
         //Content-Type設定
         } else if(option_name === 'option_header_content_type'){
             setCode(code.replace(option_header_content_type, option_val));
             setOptionContentType(option_val);
-        
+        //onreadystatechange
+        } else if(option_name === 'option_header_onreadystatechange') {
+            CodeName = language + '_' + method + '_' + option_name; 
+            if(option_val == 0){                
+                setCode(code + source_code[CodeName]);                
+                setOptionOnreadystatechangeFlag(1);
+            } else {
+                setCode(code.replace(source_code[CodeName], ''));
+                setOptionOnreadystatechangeFlag(0);
+            }
 
         /*文字列操作オプション*/
         //text設定
@@ -200,10 +223,11 @@ const Main: React.FC = () => {
                                 <br />
                                 {option_header == 1 &&          
                                     <div>
-                                        <CheckBox name="option_header_content_type_flag" value={option_header_content_type_flag} onClick={(e) => getOptionCode(e)} option="Content-Type" state={option_header_content_type_flag} /> 
+                                        <CheckBox name="option_header_content_type_flag" value={option_header_content_type_flag} onClick={(e) => getOptionCode(e)} option="Content-Type" state={option_header_content_type_flag} /><br/>
                                         {option_header_content_type_flag === 1 &&
                                             <input className="program_option_input" type="text" name="option_header_content_type" value={option_header_content_type} onChange={(e) => getOptionCode(e)}/>
                                         }
+                                        <CheckBox name="option_header_onreadystatechange" value={option_header_onreadystatechange} onClick={(e) => getOptionCode(e)} option="onreadystatechange" state={option_header_onreadystatechange} /> 
                                     </div>                        
                                 } 
                                 <input type="button" value="reset" name="option_api_reset" onClick={(e) => getOptionCode(e)} />                               
@@ -212,8 +236,10 @@ const Main: React.FC = () => {
                         <Radio name="method" value="STR" onClick={() => getDefaultCode(language, 'STR')} option="文字列操作" state={method} />
                         {method == 'STR' &&
                             <div className="program_option">
-                                <input type="text" name="option_str_text" value={option_str_text} onChange={(e) => getOptionCode(e)} /><br/>                                
+                                <input type="text" name="option_str_text" value={option_str_text} onChange={(e) => getOptionCode(e)} /><br/>            
+                                <Tooltip title="Add" arrow>
                                 <Radio className="program_radio_form" name="option_str" value="substr" onClick={(e) => getOptionCode(e)} option="substr" state={option_str} />
+                                </Tooltip>                                                    
                                 <Radio className="program_radio_form" name="option_str" value="substring" onClick={(e) => getOptionCode(e)} option="substring" state={option_str} />
                                 <Radio className="program_radio_form" name="option_str" value="slice" onClick={(e) => getOptionCode(e)} option="slice" state={option_str} />
                                 <br/>
