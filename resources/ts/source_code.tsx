@@ -9,8 +9,7 @@ xhr.send();
 
 export var JavaScript_API_option_header_content_type_flag: string = 
 `xhr.send();
-xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-`;
+xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");`;
 
 export var JavaScript_API_option_header_onreadystatechange: string = 
 `xhr.onreadystatechange = function () {

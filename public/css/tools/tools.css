@@ -105,7 +105,7 @@
 }
 
 .program_pre_form {
-    height: 330px;
+    height: 350px;
 }
 
 .program_option_input {
@@ -127,8 +127,29 @@
     width: 100%;
 }
 
+.program_cp_tooltip {
+    margin-left: 5px;
+}
+
+.program_cp_tooltip_text {
+    cursor: text;
+    margin-bottom: 15px;
+}
+
+.option_reset_button{
+    margin-top: 10px;
+}
 .program_result_form {
     height: 100%;
+}
+
+.program_accordion_summury {
+    height: 40px;
+    min-height: 40px;
+}
+
+.program_accordion_font_size {
+    font-size: 18px;
 }
 
 @media screen and (max-width: 600px) {
