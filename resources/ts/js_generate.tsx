@@ -31,7 +31,6 @@ const Code: React.FC<Props> = ({code}) => {
 const Result: React.FC<Props> = ({code, method}) => {
 
     const [resultCode, setResultCode] = useState('');
-    var result = '';
     const closure = `
     (function (data) {
         return data;
@@ -68,6 +67,7 @@ const Main: React.FC = () => {
     const [option_header_content_type_flag, setOptionContentTypeFlag] = useState(0);    
     const [option_header_content_type, setOptionContentType] = useState('Content-Type", "application/json;charset=UTF-8');   
     const [option_header_onreadystatechange, setOptionOnreadystatechangeFlag] = useState(1);       
+    const [option_header_readyState, setOptionReadyState] = useState(0);           
     
     //文字列操作オプション
     const [option_str_text, setOptionStrText] = useState('javascript文字列');
@@ -147,6 +147,16 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                 setCode(code.replace(source_code[CodeName], ''));
                 setOptionOnreadystatechangeFlag(0);
             }
+        //readyState
+        } else if(option_name === 'option_header_readyState') {
+            CodeName = language + '_' + method + '_' + option_name; 
+            if(option_val == 0){                
+                setCode(code + source_code[CodeName]);                
+                setOptionReadyState(1);
+            } else {
+                setCode(code.replace(source_code[CodeName], ''));
+                setOptionReadyState(0);
+            }            
 
         /*文字列操作オプション*/
         //text設定
@@ -206,80 +216,90 @@ xhr.setRequestHeader("${option_header_content_type}");`;
 
                     <div className="col-md-9">
                         <span>【 関数 】</span><br/>
-                        <Radio name="method" value="API" onClick={() => getDefaultCode(language, 'API')} option="API" state={method} />            
-                        <br />                 
-                        {method == 'API' &&
-
-                            <div className="program_option">
-                                <Radio className="program_radio_form" name="option_method" value="GET" onClick={(e) => getOptionCode(e)} option="GET" state={option_method} />
-                                <Radio className="program_radio_form" name="option_method" value="POST" onClick={(e) => getOptionCode(e)} option="POST" state={option_method} />
-                                <input className="program_option_input" type="text" name="option_api_url" value={option_api_url} onChange={(e) => getOptionCode(e)} /> 
-                                <Accordion>
-                                    <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
-                                    <Typography className="program_accordion_font_size">headerオプション</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails className="program_accordion_font_size">
-                                        <div>
-                                            <CheckBox name="option_header_content_type_flag" value={option_header_content_type_flag} onClick={(e) => getOptionCode(e)} option="Content-Type" state={option_header_content_type_flag} /><br/>                                        
-                                            {option_header_content_type_flag === 1 &&
-                                                <input className="program_option_input" type="text" name="option_header_content_type" value={option_header_content_type} onChange={(e) => getOptionCode(e)}/>
-                                            }
-                                        </div>
-                                    </AccordionDetails>
-                                </Accordion>
-                                <Accordion>
-                                    <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
-                                    <Typography className="program_accordion_font_size">プロパティ</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails className="program_accordion_font_size">                                        
-                                        <CheckBox name="option_header_onreadystatechange" value={option_header_onreadystatechange} onClick={(e) => getOptionCode(e)} option="onreadystatechange" state={option_header_onreadystatechange} />
-                                        <div className="cp_tooltip program_cp_tooltip" >
-                                            <i className="fas fa-info-circle"></i>
-                                            <span className="cp_tooltiptext program_cp_tooltip_text">EventHandlerで、これはreadyState属性が変化する度に呼び出されます。</span>
-                                        </div>                                        
-                                    </AccordionDetails>
-                                </Accordion>
-                                <Accordion>
-                                    <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
-                                    <Typography className="program_accordion_font_size">イベントハンドラー</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails className="program_accordion_font_size">
-                                        {/* <CheckBox name="option_header_onreadystatechange" value={option_header_onreadystatechange} onClick={(e) => getOptionCode(e)} option="onreadystatechange" state={option_header_onreadystatechange} /> */}
-                                    </AccordionDetails>
-                                </Accordion>          
-                                <Accordion>
-                                    <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
-                                    <Typography className="program_accordion_font_size">メソッド</Typography>
-                                    </AccordionSummary>
-                                    <AccordionDetails className="program_accordion_font_size">
-                                        {/* <CheckBox name="option_header_onreadystatechange" value={option_header_onreadystatechange} onClick={(e) => getOptionCode(e)} option="onreadystatechange" state={option_header_onreadystatechange} /> */}
-                                    </AccordionDetails>
-                                </Accordion>
-                                <div className="option_reset_button">
-                                    <input type="button" value="reset" name="option_api_reset" onClick={(e) => getOptionCode(e)} />
-                                </div>                                                               
-                            </div>
+                        <div className="program_scroll_form">
+                            <Radio name="method" value="API" onClick={() => getDefaultCode(language, 'API', 'option_header_onreadystatechange')} option="API" state={method} />&nbsp;&nbsp;
+                            <Radio name="method" value="STR" onClick={() => getDefaultCode(language, 'STR')} option="文字列操作" state={method} />
+                            <br />                 
+                            {method == 'API' &&
+                                <div className="program_option">
+                                    <Radio className="program_radio_form" name="option_method" value="GET" onClick={(e) => getOptionCode(e)} option="GET" state={option_method} />
+                                    <Radio className="program_radio_form" name="option_method" value="POST" onClick={(e) => getOptionCode(e)} option="POST" state={option_method} />
+                                    <input className="program_option_input" type="text" name="option_api_url" value={option_api_url} onChange={(e) => getOptionCode(e)} /> 
+                                    <Accordion>
+                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
+                                            <Typography className="program_accordion_font_size">ヘッダー</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails className="program_accordion_font_size">
+                                            <div>
+                                                <CheckBox name="option_header_content_type_flag" value={option_header_content_type_flag} onClick={(e) => getOptionCode(e)} option="Content-Type" state={option_header_content_type_flag} /><br/>                                        
+                                                {option_header_content_type_flag === 1 &&
+                                                    <input className="program_option_input" type="text" name="option_header_content_type" value={option_header_content_type} onChange={(e) => getOptionCode(e)}/>
+                                                }
+                                            </div>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                    <Accordion>
+                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
+                                            <Typography className="program_accordion_font_size">プロパティ</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails className="program_accordion_font_size">
+                                            <div>
+                                                <CheckBox name="option_header_onreadystatechange" value={option_header_onreadystatechange} onClick={(e) => getOptionCode(e)} option="onreadystatechange" state={option_header_onreadystatechange} />
+                                                <div className="cp_tooltip program_cp_tooltip" >
+                                                    <i className="fas fa-info-circle"></i>
+                                                    <span className="cp_tooltiptext program_cp_tooltip_text">EventHandlerで、これはreadyState属性が変化する度に呼び出されます。</span>
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <CheckBox name="option_header_readyState" value={option_header_readyState} onClick={(e) => getOptionCode(e)} option="readyState" state={option_header_readyState} />
+                                                <div className="cp_tooltip program_cp_tooltip" >
+                                                    <i className="fas fa-info-circle"></i>
+                                                    <span className="cp_tooltiptext program_cp_tooltip_text">リクエストの状態を unsigned short で返します。</span>
+                                                </div> 
+                                            </div>
+                                        </AccordionDetails>
+                                    </Accordion>
+                                    <Accordion>
+                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
+                                            <Typography className="program_accordion_font_size">イベントハンドラー</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails className="program_accordion_font_size">
+                                        </AccordionDetails>
+                                    </Accordion>          
+                                    <Accordion>
+                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
+                                        <Typography className="program_accordion_font_size">メソッド</Typography>
+                                        </AccordionSummary>
+                                        <AccordionDetails className="program_accordion_font_size">
+                                        </AccordionDetails>
+                                    </Accordion>
+                                    <div className="option_reset_button">
+                                        <input type="button" value="reset" name="option_api_reset" onClick={(e) => getOptionCode(e)} />
+                                    </div>                                                               
+                                </div>
+                            }
                             
-                        }                                              
-                        <Radio name="method" value="STR" onClick={() => getDefaultCode(language, 'STR')} option="文字列操作" state={method} />
-                        {method == 'STR' &&
-                            <div className="program_option">
-                                <input type="text" name="option_str_text" value={option_str_text} onChange={(e) => getOptionCode(e)} /><br/>            
-                                <Radio className="program_radio_form" name="option_str" value="substr" onClick={(e) => getOptionCode(e)} option="substr" state={option_str} />                                              
-                                <Radio className="program_radio_form" name="option_str" value="substring" onClick={(e) => getOptionCode(e)} option="substring" state={option_str} />
-                                <Radio className="program_radio_form" name="option_str" value="slice" onClick={(e) => getOptionCode(e)} option="slice" state={option_str} />
-                                <br/>
-                                <Radio className="program_radio_form" name="option_str" value="split" onClick={(e) => getOptionCode(e)} option="split" state={option_str} />
-                                <br/>
-                                <input type="button" value="reset" name="option_str_reset" onClick={(e) => getOptionCode(e)} />   
-                            </div>
-                        }                           
+                            {method == 'STR' &&
+                                <div className="program_option">
+                                    <input type="text" name="option_str_text" value={option_str_text} onChange={(e) => getOptionCode(e)} /><br/>            
+                                    <Radio className="program_radio_form" name="option_str" value="substr" onClick={(e) => getOptionCode(e)} option="substr" state={option_str} />                                              
+                                    <Radio className="program_radio_form" name="option_str" value="substring" onClick={(e) => getOptionCode(e)} option="substring" state={option_str} />
+                                    <Radio className="program_radio_form" name="option_str" value="slice" onClick={(e) => getOptionCode(e)} option="slice" state={option_str} />
+                                    <br/>
+                                    <Radio className="program_radio_form" name="option_str" value="split" onClick={(e) => getOptionCode(e)} option="split" state={option_str} />
+                                    <br/>
+                                    <input type="button" value="reset" name="option_str_reset" onClick={(e) => getOptionCode(e)} />   
+                                </div>
+                            }
+                        </div>                           
                     </div>
                 </div>
             </div>
-            <div className="col-md-7">
-                <Code code={code} language={language}></Code>
-                <Result code={code} language={language} method={method}></Result>
+            <div className="col-md-7 program_code_form">
+                <div className="program_code_form_sub">
+                    <Code code={code} language={language}></Code>
+                    <Result code={code} language={language} method={method}></Result>
+                </div>
             </div>            
         </div>
     );

@@ -37,6 +37,6 @@
 
 
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content" style="padding-top: 0px !important;">
+<main class="py-4" id="main_content" style="padding: 0px !important;">
     @yield('content')
 </main>

@@ -24,6 +24,9 @@ export var JavaScript_API_option_header_onreadystatechange: string =
 };
 `;
 
+export var JavaScript_API_option_header_readyState: string = 
+`alert(xhr.readyState);`;
+
 export var JavaScript_STR_Default: string = `
 var str = "javascript文字列";
 
