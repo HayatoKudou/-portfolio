@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import * as source_code from './source_code';
 import {Radio} from './components/radioComponent';
 import {CheckBox} from './components/checkboxComponent';
+import {Tooltip} from './components/tooltipComponent';
+import {Table} from './components/tableComponent';
 
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -60,14 +62,17 @@ const Main: React.FC = () => {
     const [code, setCode] = useState(''); //基本ソースコード
     const [language, setLanguage] = useState('JavaScript');    
     const [method, setMethod] = useState('API');
+    const [option_count, setOptionCount] = useState(0); //オプション数 = インデント数
 
     //APIオプション
     const [option_method, setOptionMethod] = useState('GET');
+    const [options, setOptions] = useState('alert(xhr);');  //alert部分
     const [option_api_url, setOptionApiUrl] = useState('https://kudohayatoblog.com/api/api_endPoint');
     const [option_header_content_type_flag, setOptionContentTypeFlag] = useState(0);    
     const [option_header_content_type, setOptionContentType] = useState('Content-Type", "application/json;charset=UTF-8');   
     const [option_header_onreadystatechange, setOptionOnreadystatechangeFlag] = useState(1);       
     const [option_header_readyState, setOptionReadyState] = useState(0);           
+    const [option_header_response, setOptionResponse] = useState(0);           
     
     //文字列操作オプション
     const [option_str_text, setOptionStrText] = useState('javascript文字列');
@@ -85,16 +90,21 @@ const Main: React.FC = () => {
         setLanguage(language_arg);
         setMethod(method_arg);
         CodeName = language_arg + '_' + method_arg + '_' + option_arg;
-        if(method_arg == 'API' && (language != language_arg || method != method_arg)){
-            setCode(source_code[CodeName].replace('GET', option_method)); //メソッドの設定を同期           
-        } else {
-            //初回のみ
+        if(method_arg == 'API'){
             if(option_arg === 'option_header_onreadystatechange'){
                 var defaultCode = language_arg + '_' + method_arg + '_' + 'Default';
-                setCode(source_code[defaultCode] + source_code[CodeName]);
+                if(option_header_readyState){
+                    setOptions(options + source_code['JavaScript_API_option_header_readyState']);
+                }
+                if(option_header_response){
+                    setOptions(source_code['JavaScript_API_option_header_response']);
+                }
+                setCode(source_code[defaultCode].replace('GET', option_method) + source_code[CodeName]);
             } else {
-                setCode(source_code[CodeName]);
-            }             
+                setCode(source_code[CodeName].replace('GET', option_method));
+            }                       
+        } else {
+            setCode(source_code[CodeName]);           
         }
     }
 
@@ -107,100 +117,116 @@ const Main: React.FC = () => {
         var content_type_code = 
 `xhr.send();
 xhr.setRequestHeader("${option_header_content_type}");`;
-        console.log(option_name + ': ' + option_val);
+        console.log(language + ': ' + method + ': ' + option_name + ': ' + option_val);
 
         /*APIオプション*/
-        //get・post設定
-        if(option_name ==='option_method'){
-            setOptionMethod(option_val);
-            setCode(code.replace(option_method, option_val)); //コード変換
-        //URL設定
-        } else if(option_name === 'option_api_url'){
-            if ( option_api_url.length == 0 ) { 
-                setCode(code.replace('var url = "', 'var url = "' + option_val));     
-                setOptionApiUrl(option_val);
-            } else {                
-                setCode(code.replace('var url = "' + option_api_url, 'var url = "' + option_val));
-                setOptionApiUrl(option_val);
-            }
-        //Content-Type表示設定
-        } else if(option_name === 'option_header_content_type_flag'){
-            CodeName = language + '_' + method + '_' + option_name; 
-            if(option_val == 0){                
-                setCode(code.replace('xhr.send();', content_type_code));
-                setOptionContentTypeFlag(1);
+        if(method === 'API'){
+            //get・post設定
+            if(option_name ==='option_method'){
+                setOptionMethod(option_val);
+                setCode(code.replace(option_method, option_val)); //コード変換
+            //URL設定
+            } else if(option_name === 'option_api_url'){
+                if ( option_api_url.length == 0 ) { 
+                    setCode(code.replace('var url = "', 'var url = "' + option_val));     
+                    setOptionApiUrl(option_val);
+                } else {                
+                    setCode(code.replace('var url = "' + option_api_url, 'var url = "' + option_val));
+                    setOptionApiUrl(option_val);
+                }
+            //Content-Type表示設定
+            } else if(option_name === 'option_header_content_type_flag'){
+                CodeName = language + '_' + method + '_' + option_name; 
+                if(option_val == 0){                
+                    setCode(code.replace('xhr.send();', content_type_code));
+                    setOptionContentTypeFlag(1);
+                } else {
+                    setCode(code.replace(content_type_code, 'xhr.send();'));
+                    setOptionContentTypeFlag(0);
+                }
+            //Content-Type設定
+            } else if(option_name === 'option_header_content_type'){
+                setCode(code.replace(option_header_content_type, option_val));
+                setOptionContentType(option_val);
+            //onreadystatechange
+            } else if(option_name === 'option_header_onreadystatechange') {
+                CodeName = language + '_' + method + '_' + option_name; 
+                if(option_val == 0){                
+                    setCode(code + source_code[CodeName]);                
+                    setOptionOnreadystatechangeFlag(1);
+                } else {
+                    setCode(code.replace(source_code[CodeName], ''));
+                    setOptionOnreadystatechangeFlag(0);
+                }
+            //readyState
+            } else if(option_name === 'option_header_readyState') {
+                CodeName = language + '_' + method + '_' + option_name;
+                if(option_val == 0){
+                    setOptions(options + source_code[CodeName]);
+                    setCode(code.replace(options, options + source_code[CodeName]));                
+                    setOptionReadyState(1);                    
+                } else {
+                    setOptions(options.replace(source_code[CodeName], ''));
+                    setCode(code.replace(source_code[CodeName], ''));                                     
+                    setOptionReadyState(0);                    
+                }       
+            //response
+            } else if(option_name === 'option_header_response'){     
+                CodeName = language + '_' + method + '_' + option_name; 
+                if(option_val == 0){        
+                    setOptions(options + source_code[CodeName]);                                   
+                    setCode(code.replace(options, options + source_code[CodeName]));           
+                    setOptionResponse(1);                    
+                } else {
+                    //オプションが空になる場合
+                    console.log(options);
+                    console.log(source_code[CodeName]);
+                    setOptions(options.replace(source_code[CodeName], ''));
+                    setCode(code.replace(source_code[CodeName], ''));                                    
+                    setOptionResponse(0);                    
+                }              
+            //APIオプションリセット
+            } else if(option_name === 'option_api_reset'){
+                async function resolveSample(){
+                    setOptionMethod('GET');
+                    setOptionApiUrl('https://kudohayatoblog.com/api/api_endPoint');
+                    setOptionContentTypeFlag(0);
+                    setOptionContentType('Content-Type", "application/json;charset=UTF-8');
+                    setOptionOnreadystatechangeFlag(1);
+                }
+                resolveSample().then(() => {
+                    //初期化
+                    getDefaultCode('JavaScript', 'API', 'option_header_onreadystatechange');
+                })
             } else {
-                setCode(code.replace(content_type_code, 'xhr.send();'));
-                setOptionContentTypeFlag(0);
+                
             }
-        //Content-Type設定
-        } else if(option_name === 'option_header_content_type'){
-            setCode(code.replace(option_header_content_type, option_val));
-            setOptionContentType(option_val);
-        //onreadystatechange
-        } else if(option_name === 'option_header_onreadystatechange') {
-            CodeName = language + '_' + method + '_' + option_name; 
-            if(option_val == 0){                
-                setCode(code + source_code[CodeName]);                
-                setOptionOnreadystatechangeFlag(1);
-            } else {
-                setCode(code.replace(source_code[CodeName], ''));
-                setOptionOnreadystatechangeFlag(0);
-            }
-        //readyState
-        } else if(option_name === 'option_header_readyState') {
-            CodeName = language + '_' + method + '_' + option_name; 
-            if(option_val == 0){                
-                setCode(code + source_code[CodeName]);                
-                setOptionReadyState(1);
-            } else {
-                setCode(code.replace(source_code[CodeName], ''));
-                setOptionReadyState(0);
-            }            
-
-        /*文字列操作オプション*/
-        //text設定
-        } else if(option_name === 'option_str_text') {
-            if ( option_str_text.length == 0 ) { 
-                setCode(code.replace('var str = "', 'var str = "' + option_val));     
-                setOptionStrText(option_val);
-            } else {                
-                setCode(code.replace('var str = "' + option_str_text, 'var str = "' + option_val));
-                setOptionStrText(option_val);
-            }
-        //メソッド設定
-        } else if(option_name === 'option_str'){
-            CodeName = language + '_' + method + '_' + option_val;
-            setCode(source_code[CodeName]);
-            setOptionStr(option_val);
-            setCode(source_code[CodeName].replace('javascript文字列', option_str_text)); //メソッドの設定を同期
-
-
-        //APIオプションリセット
-        } else if(option_name === 'option_api_reset'){
-            async function resolveSample(){
-                setOptionMethod('GET');
-                setOptionApiUrl('https://kudohayatoblog.com/api/api_endPoint');
-                setOptionContentTypeFlag(0);
-                setOptionContentType('Content-Type", "application/json;charset=UTF-8');
-                setOptionOnreadystatechangeFlag(1);
-            }
-            resolveSample().then(() => {
-                //初期化
-                getDefaultCode('JavaScript', 'API', 'option_header_onreadystatechange');
-            })
-  
-
-        //文字列操作オプションリセット
-        } else if(option_name === 'option_str_reset') {
-            setOptionStrText('javascript文字列');
-            setOptionStr('');
-            //初期化
-            getDefaultCode(language, method);
         
-        //その他
-        } else {
-                    
+        /*文字列操作オプション*/
+        } else if(method === 'STR'){
+            //text設定
+            if(option_name === 'option_str_text') {
+                if ( option_str_text.length == 0 ) { 
+                    setCode(code.replace('var str = "', 'var str = "' + option_val));     
+                    setOptionStrText(option_val);
+                } else {                
+                    setCode(code.replace('var str = "' + option_str_text, 'var str = "' + option_val));
+                    setOptionStrText(option_val);
+                }
+            //メソッド設定
+            } else if(option_name === 'option_str'){
+                CodeName = language + '_' + method + '_' + option_val;
+                setCode(source_code[CodeName]);
+                setOptionStr(option_val);
+                setCode(source_code[CodeName].replace('javascript文字列', option_str_text)); //メソッドの設定を同期
+
+            //文字列操作オプションリセット
+            } else if(option_name === 'option_str_reset') {
+                setOptionStrText('javascript文字列');
+                setOptionStr('');
+                //初期化
+                getDefaultCode(language, method);
+            }
         }
     }
 
@@ -245,17 +271,21 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                                         <AccordionDetails className="program_accordion_font_size">
                                             <div>
                                                 <CheckBox name="option_header_onreadystatechange" value={option_header_onreadystatechange} onClick={(e) => getOptionCode(e)} option="onreadystatechange" state={option_header_onreadystatechange} />
-                                                <div className="cp_tooltip program_cp_tooltip" >
-                                                    <i className="fas fa-info-circle"></i>
-                                                    <span className="cp_tooltiptext program_cp_tooltip_text">EventHandlerで、これはreadyState属性が変化する度に呼び出されます。</span>
-                                                </div>
+                                                <Tooltip detail="EventHandlerで、これはreadyState属性が変化する度に呼び出されます。" />
                                             </div>
                                             <div>
                                                 <CheckBox name="option_header_readyState" value={option_header_readyState} onClick={(e) => getOptionCode(e)} option="readyState" state={option_header_readyState} />
-                                                <div className="cp_tooltip program_cp_tooltip" >
-                                                    <i className="fas fa-info-circle"></i>
-                                                    <span className="cp_tooltiptext program_cp_tooltip_text">リクエストの状態を unsigned short で返します。</span>
-                                                </div> 
+                                                <Tooltip detail="リクエストの状態を unsigned short で返します。" />
+                                                {option_header_readyState === 1 &&
+                                                    <Table />
+                                                }
+                                            </div>
+                                            <div>
+                                                <CheckBox name="option_header_response" value={option_header_response} onClick={(e) => getOptionCode(e)} option="response" state={option_header_response} />
+                                                <Tooltip 
+                                                    detail="リクエストのエンティティ本文を含む ArrayBuffer, Blob, Document, JavaScript オブジェクト," 
+                                                    detail2="DOMString の何れかを、 XMLHttpRequest.responseType の値に応じて返します。"
+                                                />
                                             </div>
                                         </AccordionDetails>
                                     </Accordion>

@@ -133,14 +133,19 @@
     width: 100%;
 }
 
-.program_cp_tooltip {
-    margin-left: 5px;
+.tool_tip_icon {
+    cursor: pointer;
 }
 
-.program_cp_tooltip_text {
+.program_cp_tooltip {
+    margin-left: 5px;
     cursor: text;
     margin-bottom: 15px;
     z-index: 2 !important;
+}
+
+.program_cp_tooltip_text_2 {
+    display: block;
 }
 
 .program_code_form {
@@ -167,6 +172,20 @@
 .program_accordion_font_size {
     display: block;
     font-size: 18px;
+}
+
+.program_readyState_table {
+    font-size: 0.7vw;
+}
+
+.program_readyState_table tr {
+    border-color: gray;
+    border-style: solid;
+    border-width: 1px 0;
+}
+
+.program_readyState_table .program_readyState_table_center {
+    text-align: center;
 }
 
 @media screen and (max-width: 600px) {

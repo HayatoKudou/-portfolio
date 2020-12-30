@@ -13,12 +13,9 @@ xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");`;
 
 export var JavaScript_API_option_header_onreadystatechange: string = 
 `xhr.onreadystatechange = function () {
-    if(xhr.readyState === XMLHttpRequest.DONE) {
-        var status = xhr.status;
-        if (status === 0 || (status >= 200 && status < 400)) {
-            alert(xhr.response);
-        } else {
-            alert(xhr.response);
+    if(xhr.readyState === xhr.DONE) {
+        if (xhr.status >= 200 && xhr.status < 400) {
+            alert(xhr);
         }
     }
 };
@@ -26,6 +23,9 @@ export var JavaScript_API_option_header_onreadystatechange: string =
 
 export var JavaScript_API_option_header_readyState: string = 
 `alert(xhr.readyState);`;
+
+export var JavaScript_API_option_header_response: string = 
+`alert(xhr.response);`;
 
 export var JavaScript_STR_Default: string = `
 var str = "javascript文字列";
