@@ -22,10 +22,11 @@ type Props = {
 
 const Code: React.FC<Props> = ({code}) => {
     return (
-        <div>
+        <div>            
             <pre className="prettyprint linenums lang-js program_pre_form">
-                <code>{code}</code>
-            </pre>
+                <div className="copy-btn" data-clipboard-target="#code1">Copy</div>
+                <code id="code1">{code}</code>
+            </pre>            
         </div>
     )
 }

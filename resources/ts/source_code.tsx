@@ -1,5 +1,5 @@
-export var JavaScript_API_Default: string = `
-var xhr = new XMLHttpRequest();
+export var JavaScript_API_Default: string = 
+`var xhr = new XMLHttpRequest();
 var url = "https://kudohayatoblog.com/api/api_endPoint";
 
 xhr.open("GET", url);
