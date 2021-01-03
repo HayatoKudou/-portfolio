@@ -33,7 +33,7 @@
     <!-- <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script> -->
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
     <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
-    <script>new ClipboardJS('.copy-btn');</script>
+    <script>new ClipboardJS('.copy_btn');</script>
 
 </head>
 

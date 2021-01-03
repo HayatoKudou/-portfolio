@@ -20,11 +20,14 @@ type Props = {
     method?: string;
 }
 
-const Code: React.FC<Props> = ({code}) => {
+const Code: React.FC<Props> = ({code, language}) => {
     return (
         <div>            
             <pre className="prettyprint linenums lang-js program_pre_form">
-                <div className="copy-btn" data-clipboard-target="#code1">Copy</div>
+                <div className="program_btn">
+                    <p className="program_language_title">{language}</p>
+                    <p className="copy_btn" data-clipboard-target="#code1">Copy</p>   
+                </div>                
                 <code id="code1">{code}</code>
             </pre>            
         </div>
@@ -68,6 +71,9 @@ const Main: React.FC = () => {
     //APIオプション
     const [option_method, setOptionMethod] = useState('GET');
     const [options, setOptions] = useState('alert(xhr);');  //alert部分
+    const [header_count, setHeaderCount] = useState(0);  //ヘッダー数
+    const [property_count, setPropertyCount] = useState(1);  //プロパティ数
+    const [method_count, setMethodCount] = useState(0);  //メソッド数
     const [option_api_url, setOptionApiUrl] = useState('https://kudohayatoblog.com/api/api_endPoint');
     const [option_header_content_type_flag, setOptionContentTypeFlag] = useState(0);    
     const [option_header_content_type, setOptionContentType] = useState('Content-Type", "application/json;charset=UTF-8');   
@@ -88,19 +94,23 @@ const Main: React.FC = () => {
 
     //基本コード
     function getDefaultCode(language_arg: string, method_arg: string = '', option_arg: string = 'Default'){
+        
         setLanguage(language_arg);
         setMethod(method_arg);
         CodeName = language_arg + '_' + method_arg + '_' + option_arg;
+        var defaultCode = language_arg + '_' + method_arg + '_' + 'Default';
+
         if(method_arg == 'API'){
-            if(option_arg === 'option_header_onreadystatechange'){
-                var defaultCode = language_arg + '_' + method_arg + '_' + 'Default';
+            if(option_arg === 'reset'){
+                setCode(source_code[defaultCode].replace(option_method, 'GET') + source_code['JavaScript_API_option_header_onreadystatechange']);
+            } else if(option_arg === 'option_header_onreadystatechange'){                
                 if(option_header_readyState){
                     setOptions(options + source_code['JavaScript_API_option_header_readyState']);
                 }
                 if(option_header_response){
                     setOptions(source_code['JavaScript_API_option_header_response']);
                 }
-                setCode(source_code[defaultCode].replace('GET', option_method) + source_code[CodeName]);
+                setCode(source_code[defaultCode].replace('GET', option_method) + source_code[CodeName]); 
             } else {
                 setCode(source_code[CodeName].replace('GET', option_method));
             }                       
@@ -141,9 +151,11 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                 if(option_val == 0){                
                     setCode(code.replace('xhr.send();', content_type_code));
                     setOptionContentTypeFlag(1);
+                    setHeaderCount(header_count+1);
                 } else {
                     setCode(code.replace(content_type_code, 'xhr.send();'));
                     setOptionContentTypeFlag(0);
+                    setHeaderCount(header_count-1);
                 }
             //Content-Type設定
             } else if(option_name === 'option_header_content_type'){
@@ -155,9 +167,11 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                 if(option_val == 0){                
                     setCode(code + source_code[CodeName]);                
                     setOptionOnreadystatechangeFlag(1);
+                    setPropertyCount(property_count+1);
                 } else {
                     setCode(code.replace(source_code[CodeName], ''));
                     setOptionOnreadystatechangeFlag(0);
+                    setPropertyCount(property_count-1);
                 }
             //readyState
             } else if(option_name === 'option_header_readyState') {
@@ -166,10 +180,12 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                     setOptions(options + source_code[CodeName]);
                     setCode(code.replace(options, options + source_code[CodeName]));                
                     setOptionReadyState(1);                    
+                    setPropertyCount(property_count+1);
                 } else {
                     setOptions(options.replace(source_code[CodeName], ''));
                     setCode(code.replace(source_code[CodeName], ''));                                     
-                    setOptionReadyState(0);                    
+                    setOptionReadyState(0);            
+                    setPropertyCount(property_count-1);        
                 }       
             //response
             } else if(option_name === 'option_header_response'){     
@@ -178,13 +194,13 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                     setOptions(options + source_code[CodeName]);                                   
                     setCode(code.replace(options, options + source_code[CodeName]));           
                     setOptionResponse(1);                    
+                    setPropertyCount(property_count+1);
                 } else {
                     //オプションが空になる場合
-                    console.log(options);
-                    console.log(source_code[CodeName]);
                     setOptions(options.replace(source_code[CodeName], ''));
                     setCode(code.replace(source_code[CodeName], ''));                                    
                     setOptionResponse(0);                    
+                    setPropertyCount(property_count-1);
                 }              
             //APIオプションリセット
             } else if(option_name === 'option_api_reset'){
@@ -194,10 +210,15 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                     setOptionContentTypeFlag(0);
                     setOptionContentType('Content-Type", "application/json;charset=UTF-8');
                     setOptionOnreadystatechangeFlag(1);
+                    setOptionReadyState(0);
+                    setOptionResponse(0);
+                    setHeaderCount(0);
+                    setPropertyCount(1);
+                    setMethodCount(0);
                 }
                 resolveSample().then(() => {
                     //初期化
-                    getDefaultCode('JavaScript', 'API', 'option_header_onreadystatechange');
+                    getDefaultCode('JavaScript', 'API', 'reset');
                 })
             } else {
                 
@@ -254,9 +275,10 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                                     <input className="program_option_input" type="text" name="option_api_url" value={option_api_url} onChange={(e) => getOptionCode(e)} /> 
                                     <Accordion>
                                         <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
-                                            <Typography className="program_accordion_font_size">ヘッダー</Typography>
+                                            <Typography className="program_accordion_title">ヘッダー</Typography>
+                                            <Typography className="program_accordion_option_count">{header_count}</Typography>
                                         </AccordionSummary>
-                                        <AccordionDetails className="program_accordion_font_size">
+                                        <AccordionDetails className="program_accordion_title">
                                             <div>
                                                 <CheckBox name="option_header_content_type_flag" value={option_header_content_type_flag} onClick={(e) => getOptionCode(e)} option="Content-Type" state={option_header_content_type_flag} /><br/>                                        
                                                 {option_header_content_type_flag === 1 &&
@@ -267,41 +289,39 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                                     </Accordion>
                                     <Accordion>
                                         <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
-                                            <Typography className="program_accordion_font_size">プロパティ</Typography>
+                                            <Typography className="program_accordion_title">プロパティ</Typography>
+                                            <Typography className="program_accordion_option_count">{property_count}</Typography>
                                         </AccordionSummary>
-                                        <AccordionDetails className="program_accordion_font_size">
-                                            <div>
+                                        <AccordionDetails className="program_accordion_title">
+                                            <div className="program_accordion_title_sub">
                                                 <CheckBox name="option_header_onreadystatechange" value={option_header_onreadystatechange} onClick={(e) => getOptionCode(e)} option="onreadystatechange" state={option_header_onreadystatechange} />
                                                 <Tooltip detail="EventHandlerで、これはreadyState属性が変化する度に呼び出されます。" />
                                             </div>
-                                            <div>
+                                            <div className={option_header_readyState === 1 ? "program_accordion_title_sub_auto" : "program_accordion_title_sub"}>
                                                 <CheckBox name="option_header_readyState" value={option_header_readyState} onClick={(e) => getOptionCode(e)} option="readyState" state={option_header_readyState} />
                                                 <Tooltip detail="リクエストの状態を unsigned short で返します。" />
                                                 {option_header_readyState === 1 &&
                                                     <Table />
                                                 }
                                             </div>
-                                            <div>
+                                            <div className="program_accordion_title_sub">
                                                 <CheckBox name="option_header_response" value={option_header_response} onClick={(e) => getOptionCode(e)} option="response" state={option_header_response} />
                                                 <Tooltip 
                                                     detail="リクエストのエンティティ本文を含む ArrayBuffer, Blob, Document, JavaScript オブジェクト," 
-                                                    detail2="DOMString の何れかを、 XMLHttpRequest.responseType の値に応じて返します。"
+                                                    detail2="DOMString の何らかを、 XMLHttpRequest.responseType の値に応じて返します。"
                                                 />
                                             </div>
                                         </AccordionDetails>
-                                    </Accordion>
+                                    </Accordion>     
                                     <Accordion>
                                         <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
-                                            <Typography className="program_accordion_font_size">イベントハンドラー</Typography>
+                                        <Typography className="program_accordion_title">メソッド</Typography>
+                                        <Typography className="program_accordion_option_count">{method_count}</Typography>
                                         </AccordionSummary>
-                                        <AccordionDetails className="program_accordion_font_size">
-                                        </AccordionDetails>
-                                    </Accordion>          
-                                    <Accordion>
-                                        <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
-                                        <Typography className="program_accordion_font_size">メソッド</Typography>
-                                        </AccordionSummary>
-                                        <AccordionDetails className="program_accordion_font_size">
+                                        <AccordionDetails className="program_accordion_title">
+                                            <div className="program_accordion_title_sub">
+
+                                            </div>
                                         </AccordionDetails>
                                     </Accordion>
                                     <div className="option_reset_button">
@@ -312,13 +332,26 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                             
                             {method == 'STR' &&
                                 <div className="program_option">
-                                    <input type="text" name="option_str_text" value={option_str_text} onChange={(e) => getOptionCode(e)} /><br/>            
-                                    <Radio className="program_radio_form" name="option_str" value="substr" onClick={(e) => getOptionCode(e)} option="substr" state={option_str} />                                              
-                                    <Radio className="program_radio_form" name="option_str" value="substring" onClick={(e) => getOptionCode(e)} option="substring" state={option_str} />
-                                    <Radio className="program_radio_form" name="option_str" value="slice" onClick={(e) => getOptionCode(e)} option="slice" state={option_str} />
-                                    <br/>
-                                    <Radio className="program_radio_form" name="option_str" value="split" onClick={(e) => getOptionCode(e)} option="split" state={option_str} />
-                                    <br/>
+                                    <input type="text" className="program_str_text" name="option_str_text" value={option_str_text} onChange={(e) => getOptionCode(e)} />
+                                    <div className="program_str_title">
+                                        <Radio className="program_radio_form" name="option_str" value="substr" onClick={(e) => getOptionCode(e)} option="substr" state={option_str} />   
+                                        <Tooltip detail="substr() メソッドは、文字列の一部を、指定した位置から後方向指定した文字数だけ返します。"/>
+                                    </div>
+                                    <div className="program_str_title">
+                                        <Radio className="program_radio_form" name="option_str" value="substring" onClick={(e) => getOptionCode(e)} option="substring" state={option_str} />
+                                        <Tooltip detail="substring() メソッドは string オブジェクトの開始・終了位置の間、または文字列の最後までの部分集合を返します。"/>
+                                    </div>
+                                    <div className="program_str_title">
+                                        <Radio className="program_radio_form" name="option_str" value="slice" onClick={(e) => getOptionCode(e)} option="slice" state={option_str} />
+                                        <Tooltip 
+                                            detail="slice() メソッドは、start と end が配列の中の項目のインデックスを表している場合、"
+                                            detail2="start から end まで (end は含まれない) で選択された配列の一部の浅いコピーを新しい配列オブジェクトに作成して返します。元の配列は変更されません。"
+                                        />
+                                    </div>
+                                    <div className="program_str_title">
+                                        <Radio className="program_radio_form" name="option_str" value="split" onClick={(e) => getOptionCode(e)} option="split" state={option_str} />
+                                        <Tooltip detail="split() メソッドは、 String を指定した区切り文字列で分割することにより、文字列の配列に分割します。"/>
+                                    </div>
                                     <input type="button" value="reset" name="option_str_reset" onClick={(e) => getOptionCode(e)} />   
                                 </div>
                             }

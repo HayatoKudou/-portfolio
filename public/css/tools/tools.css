@@ -104,20 +104,17 @@
     padding: 10px;
 }
 
-.program_scroll_form {
-    /* overflow: scroll; */
-    /* overflow: visible; */
-    /* height: 65vh; */
-}
-
 .program_pre_form {
-    height: 60vh;
+    height: 65vh;
     padding-top: 20px;
 }
 
-.copy-btn {
+.program_btn {
+    padding-right: 20px;    
+}
+
+.copy_btn {
     text-align: right;
-    padding-right: 20px;
     cursor: pointer;
 }
 
@@ -153,6 +150,7 @@
 
 .program_cp_tooltip_text_2 {
     display: block;
+    text-align: left;
 }
 
 .program_code_form {
@@ -162,6 +160,7 @@
 .program_code_form_sub {
     position: fixed;
     width: 55%;
+    top: 80px;
 }
 
 .option_reset_button{
@@ -171,14 +170,35 @@
     height: 100%;
 }
 
-.program_accordion_summury {
+.program_accordion_summury {    
     height: 40px;
     min-height: 40px;
 }
 
-.program_accordion_font_size {
+.program_accordion_summury div {
+    display: inherit;
+    padding-right: 20px;
+}
+
+.program_accordion_title {    
     display: block;
     font-size: 18px;
+    float: left;
+    width: 100%;
+}
+
+.program_accordion_title_sub{
+    height: 30px;
+}
+
+.program_accordion_title_sub_auto {
+    height: auto;
+}
+
+.program_accordion_option_count {
+    float: right;
+    color: red;
+    font-size: 17px;
 }
 
 .program_readyState_table {
@@ -193,6 +213,19 @@
 
 .program_readyState_table .program_readyState_table_center {
     text-align: center;
+}
+
+.program_language_title {
+    float: left;
+    color: #7ad4ef;
+}
+
+.program_str_text {
+    width: 100%;
+}
+
+.program_str_title {
+    height: 30px;
 }
 
 @media screen and (max-width: 600px) {
