@@ -12,6 +12,7 @@ use LINE\LINEBot\HTTPClient\CurlHTTPClient;
 use LINE\LINEBot\MessageBuilder\RawMessageBuilder;
 use Exception;
 use GuzzleHttp\Client;
+use Log;
 
 class ImagRecognitionController extends Controller
 {
@@ -88,6 +89,7 @@ class ImagRecognitionController extends Controller
                 //     ] );
 
                 $result = json_decode( $json, true );
+                Log::debug($result);
 
                 //文字データ検出
                 if(isset($result['responses'][0]['fullTextAnnotation']['text'])){
@@ -165,6 +167,11 @@ class ImagRecognitionController extends Controller
                                 "contents" => $contents,
                             ]
                         ]
+                    ];
+                } else {
+                    $templete = [
+                        'type' => 'text',
+                        'text' => "エラーが発生しました。ただいま解析しております、しばらくお待ちください。",
                     ];
                 }
                 return $templete;

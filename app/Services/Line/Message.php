@@ -22,8 +22,8 @@ class Message {
                         'type' => 'action',
                         'action' => [
                             'type' => 'message',
-                            'label' => 'バルス',
-                            'text' => 'バルス'
+                            'label' => '退会',
+                            'text' => '退会'
                         ],
                     ],
                 ]

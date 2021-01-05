@@ -54,7 +54,7 @@ class LineController extends Controller
                     ];
 
                 //退出
-                } elseif($word == "バルス"){
+                } elseif($word == "退会"){
                     Log::debug($request->events[0]['source']['groupId']);
                     //グループID取得
                     $room_id = $request->events[0]['source']['groupId'];

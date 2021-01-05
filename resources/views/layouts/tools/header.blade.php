@@ -28,6 +28,7 @@
     <link href="/css/common.css" rel="stylesheet">
     <link href="/css/tools/tools.css" rel="stylesheet">
     <link href="/css/tools/header.css" rel="stylesheet">
+    <link href="/css/home/header.css" rel="stylesheet">
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="{{ asset('/js/loading.js') }}"></script>
@@ -37,10 +38,21 @@
 <body>
     <header>
         <div class="container">
-            <button id="title_button" class="title_button" type="button" name="button"><h1 style="white-space: nowrap;">Development Laboratory</h1></button>
+            <button id="title_button" class="title_button" type="button" name="button"><h1>Developer Blog</h1></button>
             <div class="footer_a">
                 <nav id="Header-Nav" class="header-nav">
-                    <a href="{{ config('url.url' )}}" class="nav-list">Blog</a>
+                    <div class="header_nav_title"><a href="{{ config('url.url' )}}" class="nav-list">Blog</a></div>   
+                    <div class="header_nav_title">
+                        <ul id="menu">
+                            <li><a class="nav-list" href="#">tools</a>
+                            <ul>
+                                <li><a class="nav-list" href="tools/calculator">進数変換ツール</a></li>
+                                <li><a class="nav-list" href="tools/anime">アニメ検索ツール</a></li>
+                                <li><a class="nav-list" href="tools/programGenerate">プログラム生成ツール</a></li>
+                            </ul>
+                            </li>
+                        </ul>
+                    </div>                 
                 </nav>
             </div>
             <!-- <div id="Hamburger" class="hamburger">

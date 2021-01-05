@@ -1,3 +1,8 @@
+.header_nav_title {
+  width: 140px;
+  text-align: center;
+}
+
 conten1header a {
     text-decoration: none;
 }
@@ -25,7 +30,7 @@ header .container {
     background-color: #337079;
 }
 .nav-list {
-    margin: 0 25px;
+    /* margin: 0 25px; */
     font-size: 25px;
     font-weight: bold;
     color: white;
@@ -73,7 +78,7 @@ header .container {
   height: 40px;
   margin: 0 auto;
   padding: 0;
-  margin-left: 20px;
+  /* margin-left: 20px; */
 }
 #menu li{
   position: relative;

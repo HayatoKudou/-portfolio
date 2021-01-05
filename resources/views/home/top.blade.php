@@ -40,7 +40,7 @@
     </div>
 
     <div class="col-md-3" id="2">
-        <div class="card" style="text-align: center;">
+        <div class="card" style="text-align: center; margin-right: 10px;">
             <div class="card-body">
                 <div class="side_bar">
                     <h5>画像認識Line Bot</h5>
