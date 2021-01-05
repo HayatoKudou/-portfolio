@@ -22,7 +22,7 @@ type Props = {
 
 const Code: React.FC<Props> = ({code, language}) => {
     const [copyButtontitle, setCopyButtontitle] = useState('Copy');
-    var after_code = code.replace('*send_space*', '').replace('*open_space*', '').replace('*result_space*', '').replace('*setResultCode_space*', '').trim();
+    var after_code = code.replace('*send_space*', '').replace('*open_space*', '').replace('*result_space*', '').replace('*setResultCode_space*', '').replace('*setErrorCode_space*', '').trim();
     after_code = after_code.replace(/^\s*\n/gm, '');
 
     function changeCopyButtontitle(){
@@ -31,13 +31,13 @@ const Code: React.FC<Props> = ({code, language}) => {
             setCopyButtontitle('Copy')
         }, 700);
     }
-    
+
     return (
         <div>
             <pre className="prettyprint linenums lang-js program_pre_form">
                 <code className="program_btn">
                     <p className="program_language_title">{language}</p>
-                    <p><button className="copy_btn" data-clipboard-text={after_code} onClick={() => changeCopyButtontitle()}>{copyButtontitle}</button></p>                    
+                    <p><button className="copy_btn" data-clipboard-text={after_code} onClick={() => changeCopyButtontitle()}>{copyButtontitle}</button></p>
                 </code>
                 <code>{after_code}</code>
             </pre>
@@ -48,6 +48,7 @@ const Code: React.FC<Props> = ({code, language}) => {
 const Result: React.FC<Props> = ({code, method}) => {
 
     const [resultCode, setResultCode] = useState([]);
+    const [errorCode, setErrorCode] = useState([]);
     const [copyButtontitle, setCopyButtontitle] = useState('Copy');
     const closure = `
     (function (data) {
@@ -55,7 +56,7 @@ const Result: React.FC<Props> = ({code, method}) => {
     }(result));`;
     //返り値取得の為即時関数をつける / 整形もする
     var after_code = code.replace('*send_space*', '').replace('*open_space*', '').replace('*result_space*', '');
-    var run_code = method === 'STR' ? code + closure : after_code.replace('*setResultCode_space*', 'setResultCode(result)');
+    var run_code = method === 'STR' ? code + closure : after_code.replace('*setResultCode_space*', 'setResultCode(result)').replace('*setErrorCode_space*', 'setErrorCode(errors)');
 
     function changeCopyButtontitle(){
         setCopyButtontitle('Copied');
@@ -75,17 +76,29 @@ const Result: React.FC<Props> = ({code, method}) => {
                     <code className="program_btn">
                         <button className="copy_btn" data-clipboard-text={resultCode} onClick={() => changeCopyButtontitle()}>{copyButtontitle}</button>
                     </code>
+                    {Object.keys(errorCode).map(key => {                        
+                        return(
+                            errorCode[key] != '' &&
+                            <div key={key}>
+                                <code className="program_error_code">{'>  '}</code>
+                                <code className="program_error_code">{errorCode[key]}</code>
+                            </div>
+                        )
+                    })}
                     {Array.isArray(resultCode) ?
                         Object.keys(resultCode).map(key => {
                             return(
                                 <div key={key}>
                                     <code className="program_result_code">{'>  '}</code>
                                     <code className="program_result_code">{resultCode[key]}</code>
-                                </div>                                
+                                </div>
                             )
                         })
                     :
-                        <code id="code1" className="prettyprint linenums lang-js">{resultCode}</code>
+                        <div>
+                            <code className="program_result_code">{'>  '}</code>
+                            <code className="program_result_code">{resultCode}</code> 
+                        </div>
                     }
                 </pre>
             </div>
@@ -115,6 +128,7 @@ const Main: React.FC = () => {
     const [option_property_responseText, setOptionResponseText] = useState(0);
     const [option_property_status, setOptionStatus] = useState(0);
     const [option_property_statusText, setOptionStatusText] = useState(0);
+    const [option_property_onerror, setOptionOnerror] = useState(0);
     const [option_method_abort, setOptionAbort] = useState(0);
     const [option_method_open, setOptionOpen] = useState(1);
     const [option_method_send, setOptionSend] = useState(1);
@@ -147,11 +161,18 @@ const Main: React.FC = () => {
                 setOptionContentType('Content-Type", "application/json;charset=UTF-8');
                 setOptionOnreadystatechangeFlag(1);
                 setOptionReadyState(0);
-                setOptionResponse(0);
+                setOptionResponse(1);
+                setOptionResponseText(0);
+                setOptionStatus(0);
+                setOptionStatusText(0);
+                setOptionOnerror(0);
                 setOptionAbort(0);
+                setOptionOpen(1);
+                setOptionSend(1);
+                setOptionGetAllResponseHeaders(0);
                 setHeaderCount(0);
-                setPropertyCount(1);
-                setMethodCount(0);
+                setPropertyCount(2);
+                setMethodCount(2);
                 setCode(source_code[defaultCode].replace(option_method, 'GET') + source_code['JavaScript_API_option_property_onreadystatechange']);
             } else if(option_arg === 'option_property_onreadystatechange'){
                 setCode(source_code[defaultCode].replace('GET', option_method) + source_code[CodeName]);
@@ -274,6 +295,17 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                     setOptionStatusText(1);
                 } else {
                     setOptionStatusText(0);
+                }
+            //oneerror
+            } else if(option_name === 'option_property_onerror'){
+                if(option_val == 0){
+                    setCode(code + source_code[CodeName]);
+                    setOptionOnerror(1);
+                    setPropertyCount(property_count+1);
+                } else {
+                    setCode(code.replace(source_code[CodeName], ''));
+                    setOptionOnerror(0);
+                    setPropertyCount(property_count-1);
                 }
             //abort
             } else if(option_name === 'option_method_abort'){
@@ -433,6 +465,12 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                                                 <p>HTTP サーバーから返ってきたレスポンス文字列が入った DOMString を返します。</p>
                                                 <p>XMLHTTPRequest.status とは異なり、("200 OK" のように) レスポンスメッセージの完全な文が含まれています。</p>
                                             </details>
+                                            <details className="program_accordion_title_details">
+                                                <summary className="program_accordion_title_summary">
+                                                    <CheckBox name="option_property_onerror" value={option_property_onerror} onClick={(e) => getOptionCode(e)} option="oneerror" state={option_property_onerror} />
+                                                </summary>
+                                                <p>XMLHttpRequestEventTarget.onerror は、エラーの為に XMLHttpRequest トランザクションが失敗した場合に呼び出される関数です。</p>
+                                            </details>
                                         </AccordionDetails>
                                     </Accordion>
                                     <Accordion>
@@ -469,9 +507,9 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                                                 <p>getAllResponseHeaders() メソッドは、すべてのレスポンスヘッダーを CRLF で区切った文字列として返し、レスポンスを受信していない場合は null を返します。ネットワークエラーが発生した場合は、空文字列が返されます。</p>
                                             </details>
                                         </AccordionDetails>
-                                    </Accordion>                                    
+                                    </Accordion>
                                     <div className="option_reset_button">
-                                        <input type="button" value="reset" name="option_api_reset" onClick={(e) => getOptionCode(e)} />
+                                        <input type="button" value="Reset" name="option_api_reset" onClick={(e) => getOptionCode(e)} />
                                     </div>
                                 </div>
                             }
@@ -479,26 +517,31 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                             {method == 'STR' &&
                                 <div className="program_option">
                                     <input type="text" className="program_str_text" name="option_str_text" value={option_str_text} onChange={(e) => getOptionCode(e)} />
-                                    <div className="program_str_title">
-                                        <Radio className="program_radio_form" name="option_str" value="substr" onClick={(e) => getOptionCode(e)} option="substr" state={option_str} />
-                                        <Tooltip detail="substr() メソッドは、文字列の一部を、指定した位置から後方向指定した文字数だけ返します。"/>
-                                    </div>
-                                    <div className="program_str_title">
-                                        <Radio className="program_radio_form" name="option_str" value="substring" onClick={(e) => getOptionCode(e)} option="substring" state={option_str} />
-                                        <Tooltip detail="substring() メソッドは string オブジェクトの開始・終了位置の間、または文字列の最後までの部分集合を返します。"/>
-                                    </div>
-                                    <div className="program_str_title">
-                                        <Radio className="program_radio_form" name="option_str" value="slice" onClick={(e) => getOptionCode(e)} option="slice" state={option_str} />
-                                        <Tooltip
-                                            detail="slice() メソッドは、start と end が配列の中の項目のインデックスを表している場合、"
-                                            detail2="start から end まで (end は含まれない) で選択された配列の一部の浅いコピーを新しい配列オブジェクトに作成して返します。元の配列は変更されません。"
-                                        />
-                                    </div>
-                                    <div className="program_str_title">
-                                        <Radio className="program_radio_form" name="option_str" value="split" onClick={(e) => getOptionCode(e)} option="split" state={option_str} />
-                                        <Tooltip detail="split() メソッドは、 String を指定した区切り文字列で分割することにより、文字列の配列に分割します。"/>
-                                    </div>
-                                    <input type="button" value="reset" name="option_str_reset" onClick={(e) => getOptionCode(e)} />
+                                    <details className="program_accordion_title_details">
+                                        <summary className="program_accordion_title_summary">
+                                            <Radio className="program_radio_form" name="option_str" value="substr" onClick={(e) => getOptionCode(e)} option="substr" state={option_str} />
+                                        </summary>
+                                        <p>substr() メソッドは、文字列の一部を、指定した位置から後方向指定した文字数だけ返します。</p>
+                                    </details>
+                                    <details className="program_accordion_title_details">
+                                        <summary className="program_accordion_title_summary">
+                                            <Radio className="program_radio_form" name="option_str" value="substring" onClick={(e) => getOptionCode(e)} option="substring" state={option_str} />
+                                        </summary>
+                                        <p>substring() メソッドは string オブジェクトの開始・終了位置の間、または文字列の最後までの部分集合を返します。</p>
+                                    </details>
+                                    <details className="program_accordion_title_details">
+                                        <summary className="program_accordion_title_summary">
+                                            <Radio className="program_radio_form" name="option_str" value="slice" onClick={(e) => getOptionCode(e)} option="slice" state={option_str} />
+                                        </summary>
+                                        <p>slice() メソッドは、start と end が配列の中の項目のインデックスを表している場合、start から end まで (end は含まれない) で選択された配列の一部の浅いコピーを新しい配列オブジェクトに作成して返します。元の配列は変更されません。</p>
+                                    </details>
+                                    <details className="program_accordion_title_details">
+                                        <summary className="program_accordion_title_summary">
+                                            <Radio className="program_radio_form" name="option_str" value="split" onClick={(e) => getOptionCode(e)} option="split" state={option_str} />
+                                        </summary>
+                                        <p>split() メソッドは、 String を指定した区切り文字列で分割することにより、文字列の配列に分割します。</p>
+                                    </details>
+                                    <input type="button" value="Reset" name="option_str_reset" onClick={(e) => getOptionCode(e)} />
                                 </div>
                             }
                         </div>

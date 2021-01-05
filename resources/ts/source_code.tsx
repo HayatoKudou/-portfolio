@@ -38,6 +38,13 @@ export var JavaScript_API_option_property_status: string = `
 export var JavaScript_API_option_property_statusText: string = `
             result.push(xhr.statusText);`;
 
+export var JavaScript_API_option_property_onerror: string = `
+xhr.onerror = function ( event ) {
+    var errors = [];
+    errors.push(event);
+    *setErrorCode_space*
+};`;
+
 export var JavaScript_API_option_method_abort: string = `
 if (OH_NOES_WE_NEED_TO_CANCEL_RIGHT_NOW_OR_ELSE) {
     xhr.abort();

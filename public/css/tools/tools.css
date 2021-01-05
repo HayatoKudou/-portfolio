@@ -220,6 +220,11 @@
     color: white;
 }
 
+.program_error_code {
+    display: inline;
+    color: red;
+}
+
 .program_readyState_table {
     font-size: 0.7vw;
 }
