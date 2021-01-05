@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
 
-                <div class="card-body">
+                <div class="card-body" style="min-height: 100vh;">
                     <ol class="breadcrumb" itemscope itemtype="https://schema.org/BreadcrumbList">
                       <li itemprop="itemListElement" itemscope
                           itemtype="https://schema.org/ListItem">
@@ -31,9 +31,7 @@
                         <meta itemprop="position" content="3" />
                       </li>
                     </ol>
-                    
                     <div id="programGenerate"></div>
-
                 </div>
             </div>
         </div>

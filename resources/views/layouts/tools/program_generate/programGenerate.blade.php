@@ -32,11 +32,13 @@
     <!-- ソースコード -->    
     <!-- <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script> -->
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+    <script>new ClipboardJS('.copy_btn');</script>
 
 </head>
 
 
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content">
+<main class="py-4" id="main_content" style="padding: 0px !important;">
     @yield('content')
 </main>
