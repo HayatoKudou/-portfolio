@@ -7,6 +7,8 @@ import {Radio} from './components/radioComponent';
 import {CheckBox} from './components/checkboxComponent';
 import {Tooltip} from './components/tooltipComponent';
 import {Table} from './components/tableComponent';
+import {Code} from './components/codeComponent';
+import {Result} from './components/resultComponent';
 
 import Accordion from '@material-ui/core/Accordion';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
@@ -14,112 +16,20 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
-type Props = {
-    code: string;
-    language?: string;
-    method?: string;
-}
-
-const Code: React.FC<Props> = ({code, language}) => {
-    const [copyButtontitle, setCopyButtontitle] = useState('Copy');
-    var after_code = code.replace('*send_space*', '').replace('*open_space*', '').replace('*result_space*', '').replace('*setResultCode_space*', '').replace('*setErrorCode_space*', '').trim();
-    after_code = after_code.replace(/^\s*\n/gm, '');
-
-    function changeCopyButtontitle(){
-        setCopyButtontitle('Copied');
-        setTimeout(() => {
-            setCopyButtontitle('Copy')
-        }, 700);
-    }
-
-    return (
-        <div>
-            <pre className="prettyprint linenums lang-js program_pre_form">
-                <code className="program_btn">
-                    <p className="program_language_title">{language}</p>
-                    <p><button className="copy_btn" data-clipboard-text={after_code} onClick={() => changeCopyButtontitle()}>{copyButtontitle}</button></p>
-                </code>
-                <code>{after_code}</code>
-            </pre>
-        </div>
-    )
-}
-
-const Result: React.FC<Props> = ({code, method}) => {
-
-    const [resultCode, setResultCode] = useState([]);
-    const [errorCode, setErrorCode] = useState([]);
-    const [copyButtontitle, setCopyButtontitle] = useState('Copy');
-    const closure = `
-    (function (data) {
-        return data;
-    }(result));`;
-    //返り値取得の為即時関数をつける / 整形もする
-    var after_code = code.replace('*send_space*', '').replace('*open_space*', '').replace('*result_space*', '');
-    var run_code = method === 'STR' ? code + closure : after_code.replace('*setResultCode_space*', 'setResultCode(result)').replace('*setErrorCode_space*', 'setErrorCode(errors)');
-
-    function changeCopyButtontitle(){
-        setCopyButtontitle('Copied');
-        setTimeout(() => {
-            setCopyButtontitle('Copy')
-        }, 700);
-    }
-
-    return (
-        <div className="row">
-            <div className="col-md-2">
-                <button className="program_run_button" onClick={() => setResultCode(eval(run_code))}>Run</button>
-                <button className="program_reset_button" onClick={() => setResultCode([])}>Reset</button>
-            </div>
-            <div className="col-md-10">
-                <pre className="prettyprint linenums lang-js program_result_form">
-                    <code className="program_btn">
-                        <button className="copy_btn" data-clipboard-text={resultCode} onClick={() => changeCopyButtontitle()}>{copyButtontitle}</button>
-                    </code>
-                    {Object.keys(errorCode).map(key => {                        
-                        return(
-                            errorCode[key] != '' &&
-                            <div key={key}>
-                                <code className="program_error_code">{'>  '}</code>
-                                <code className="program_error_code">{errorCode[key]}</code>
-                            </div>
-                        )
-                    })}
-                    {Array.isArray(resultCode) ?
-                        Object.keys(resultCode).map(key => {
-                            return(
-                                <div key={key}>
-                                    <code className="program_result_code">{'>  '}</code>
-                                    <code className="program_result_code">{resultCode[key]}</code>
-                                </div>
-                            )
-                        })
-                    :
-                        <div>
-                            <code className="program_result_code">{'>  '}</code>
-                            <code className="program_result_code">{resultCode}</code> 
-                        </div>
-                    }
-                </pre>
-            </div>
-        </div>
-    )
-}
-
 const Main: React.FC = () => {
 
     const [code, setCode] = useState(''); //基本ソースコード
     const [language, setLanguage] = useState('JavaScript');
-    const [method, setMethod] = useState('API');
+    const [method, setMethod] = useState('Ajax');
 
-    //APIオプション
+    //Ajaxオプション
     const [option_method, setOptionMethod] = useState('GET');
     const [options, setOptions] = useState('*result_space*');
     const [header_count, setHeaderCount] = useState(0);  //ヘッダー数
-    const [property_count, setPropertyCount] = useState(2);  //プロパティ数
-    const [method_count, setMethodCount] = useState(2);  //メソッド数
+    const [property_count, setPropertyCount] = useState(0);  //プロパティ数
+    const [method_count, setMethodCount] = useState(0);  //メソッド数
 
-    const [option_api_url, setOptionApiUrl] = useState('https://kudohayatoblog.com/api/api_endPoint');
+    const [option_ajax_url, setOptionApiUrl] = useState('https://kudohayatoblog.com/api/exmple');
     const [option_header_content_type_flag, setOptionContentTypeFlag] = useState(0);
     const [option_header_content_type, setOptionContentType] = useState('Content-Type", "application/json;charset=UTF-8');
     const [option_property_onreadystatechange, setOptionOnreadystatechangeFlag] = useState(1);
@@ -129,6 +39,7 @@ const Main: React.FC = () => {
     const [option_property_status, setOptionStatus] = useState(0);
     const [option_property_statusText, setOptionStatusText] = useState(0);
     const [option_property_onerror, setOptionOnerror] = useState(0);
+    const [option_property_onloadend, setOptionOnloadend] = useState(0);
     const [option_method_abort, setOptionAbort] = useState(0);
     const [option_method_open, setOptionOpen] = useState(1);
     const [option_method_send, setOptionSend] = useState(1);
@@ -139,10 +50,13 @@ const Main: React.FC = () => {
     const [option_str, setOptionStr] = useState('');
 
     //非同期処理で使うstateで管理できない者たち
-    var CodeName = 'JavaScript_API_Default'; //呼び出すモジュール名
+    var CodeName = 'JavaScript_Ajax_Default'; //呼び出すモジュール名
+    var defaultCode = '';
 
     window.onload = function() {
-        getDefaultCode('JavaScript', 'API', 'option_property_onreadystatechange');
+        setPropertyCount(2);
+        setMethodCount(2);
+        getDefaultCode('JavaScript', 'Ajax', 'option_property_onreadystatechange');
     };
 
     //基本コード
@@ -150,30 +64,37 @@ const Main: React.FC = () => {
         setLanguage(language_arg);
         setMethod(method_arg);
         CodeName = language_arg + '_' + method_arg + '_' + option_arg;
-        var defaultCode = language_arg + '_' + method_arg + '_' + 'Default';
+        defaultCode = language_arg + '_' + method_arg + '_' + 'Default';
 
-        if(method_arg == 'API'){
+        if(method_arg == 'Ajax'){
             if(option_arg === 'reset'){
                 setOptionMethod('GET');
-                setOptions('*result_space*');
-                setOptionApiUrl('https://kudohayatoblog.com/api/api_endPoint');
-                setOptionContentTypeFlag(0);
+                setOptionApiUrl('https://kudohayatoblog.com/api/exmple');
                 setOptionContentType('Content-Type", "application/json;charset=UTF-8');
-                setOptionOnreadystatechangeFlag(1);
-                setOptionReadyState(0);
-                setOptionResponse(1);
-                setOptionResponseText(0);
-                setOptionStatus(0);
-                setOptionStatusText(0);
-                setOptionOnerror(0);
-                setOptionAbort(0);
-                setOptionOpen(1);
-                setOptionSend(1);
-                setOptionGetAllResponseHeaders(0);
-                setHeaderCount(0);
-                setPropertyCount(2);
-                setMethodCount(2);
-                setCode(source_code[defaultCode].replace(option_method, 'GET') + source_code['JavaScript_API_option_property_onreadystatechange']);
+                if(language_arg === 'JavaScript'){
+                    setOptions('*result_space*');
+                    setOptionContentTypeFlag(0);                    
+                    setOptionOnreadystatechangeFlag(1);
+                    setOptionReadyState(0);
+                    setOptionResponse(1);
+                    setOptionResponseText(0);
+                    setOptionStatus(0);
+                    setOptionStatusText(0);
+                    setOptionOnerror(0);
+                    setOptionOnloadend(0);
+                    setOptionAbort(0);
+                    setOptionOpen(1);
+                    setOptionSend(1);
+                    setOptionGetAllResponseHeaders(0);
+                    setHeaderCount(0);
+                    setPropertyCount(2);
+                    setMethodCount(2);
+                    setCode(source_code[defaultCode].replace(option_method, 'GET') + source_code['JavaScript_Ajax_option_property_onreadystatechange']);
+                } else if(language_arg === 'PHP'){
+                    setPropertyCount(0);
+                    setMethodCount(0);
+                    setCode(source_code[defaultCode]);
+                }
             } else if(option_arg === 'option_property_onreadystatechange'){
                 setCode(source_code[defaultCode].replace('GET', option_method) + source_code[CodeName]);
             } else {
@@ -191,8 +112,8 @@ const Main: React.FC = () => {
         var option_val: any = option.target.value;
         var CodeName = language + '_' + method + '_' + option_name;
         var content_type_code =
-`xhr.send();
-xhr.setRequestHeader("${option_header_content_type}");`;
+`xhr.setRequestHeader("${option_header_content_type}");
+xhr.send();`;
         console.log(language + ': ' + method + ': ' + option_name + ': ' + option_val);
 
         function operation(type: string){
@@ -215,19 +136,19 @@ xhr.setRequestHeader("${option_header_content_type}");`;
             }
         }
 
-        /*APIオプション*/
-        if(method === 'API'){
+        /*Ajaxオプション*/
+        if(method === 'Ajax'){
             //get・post設定
             if(option_name ==='option_method'){
                 setOptionMethod(option_val);
                 setCode(code.replace(option_method, option_val)); //コード変換
             //URL設定
-            } else if(option_name === 'option_api_url'){
-                if ( option_api_url.length == 0 ) {
-                    setCode(code.replace('var url = "', 'var url = "' + option_val));
+            } else if(option_name === 'option_ajax_url'){
+                if ( option_ajax_url.length == 0 ) {
+                    setCode(code.replace('url = "', 'url = "' + option_val));
                     setOptionApiUrl(option_val);
                 } else {
-                    setCode(code.replace('var url = "' + option_api_url, 'var url = "' + option_val));
+                    setCode(code.replace('url = "' + option_ajax_url, 'url = "' + option_val));
                     setOptionApiUrl(option_val);
                 }
             //Content-Type表示設定
@@ -307,6 +228,17 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                     setOptionOnerror(0);
                     setPropertyCount(property_count-1);
                 }
+            //onloadend
+            } else if(option_name === 'option_property_onloadend'){
+                if(option_val == 0){
+                    setCode(code + source_code[CodeName]);
+                    setOptionOnloadend(1);
+                    setPropertyCount(property_count+1);
+                } else {
+                    setCode(code.replace(source_code[CodeName], ''));
+                    setOptionOnloadend(0);
+                    setPropertyCount(property_count-1);
+                }
             //abort
             } else if(option_name === 'option_method_abort'){
                 operation('method');
@@ -337,6 +269,7 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                     setCode(code.replace('xhr.send();', '*send_space*'));
                     setOptionSend(0);
                 }
+            //getAllResponseHeaders
             } else if(option_name === 'option_method_getAllResponseHeaders'){
                 operation('method');
                 if(option_val == 0){
@@ -348,9 +281,9 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                     setCode(code.replace(source_code[CodeName], ''));
                     setOptionGetAllResponseHeaders(0);
                 }
-            //APIオプションリセット
-            } else if(option_name === 'option_api_reset'){
-                getDefaultCode('JavaScript', 'API', 'reset');
+            //Ajaxオプションリセット
+            } else if(option_name === 'option_ajax_reset'){
+                getDefaultCode(language, 'Ajax', 'reset');
             } else {
 
             }
@@ -390,32 +323,42 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                 <div className="row">
                     <div className="col-md-3">
                         <span>【 言語 】</span><br/>
-                        <Radio name="language" value={language} onClick={(e) => getDefaultCode('JavaScript')} option="JavaScript" state={language} />
+                        <Radio name="language" value='JavaScript' onClick={(e) => getDefaultCode('JavaScript', method, 'reset')} option="JavaScript" state={language} /><br/>
+                        <Radio name="language" value='PHP' onClick={(e) => getDefaultCode('PHP', method, 'reset')} option="PHP" state={language} />
                     </div>
 
                     <div className="col-md-9">
                         <span>【 関数 】</span><br/>
                         <div className="program_scroll_form">
-                            <Radio name="method" value="API" onClick={() => getDefaultCode(language, 'API', 'reset')} option="API" state={method} />&nbsp;&nbsp;
-                            <Radio name="method" value="STR" onClick={() => getDefaultCode(language, 'STR')} option="文字列操作" state={method} />
-                            <br />
-                            {method == 'API' &&
+                            {language === 'JavaScript' ?
+                                <div>
+                                    <Radio name="method" value="Ajax" onClick={() => getDefaultCode(language, 'Ajax', 'reset')} option="Ajax" state={method} />&nbsp;&nbsp;
+                                    <Radio name="method" value="STR" onClick={() => getDefaultCode(language, 'STR')} option="文字列操作" state={method} />
+                                </div>
+                            : language === 'PHP' ?
+                                <Radio name="method" value="Ajax" onClick={() => getDefaultCode(language, 'Ajax', 'reset')} option="Ajax" state={method} />
+                            : ''
+                            }
+                            {/* {(method === 'Ajax' && language === 'JavaScript') && */}
+                            {method === 'Ajax' &&
                                 <div className="program_option">
                                     <Radio className="program_radio_form" name="option_method" value="GET" onClick={(e) => getOptionCode(e)} option="GET" state={option_method} />
                                     <Radio className="program_radio_form" name="option_method" value="POST" onClick={(e) => getOptionCode(e)} option="POST" state={option_method} />
-                                    <input className="program_option_input" type="text" name="option_api_url" value={option_api_url} onChange={(e) => getOptionCode(e)} />
+                                    <input className="program_option_input" type="text" name="option_ajax_url" value={option_ajax_url} onChange={(e) => getOptionCode(e)} />
                                     <Accordion>
                                         <AccordionSummary expandIcon={<ExpandMoreIcon />} className="program_accordion_summury">
                                             <Typography className="program_accordion_title">ヘッダー</Typography>
                                             <Typography className="program_accordion_option_count">{header_count}</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails className="program_accordion_title">
-                                            <div>
-                                                <CheckBox name="option_header_content_type_flag" value={option_header_content_type_flag} onClick={(e) => getOptionCode(e)} option="Content-Type" state={option_header_content_type_flag} /><br/>
-                                                {option_header_content_type_flag === 1 &&
-                                                    <input className="program_option_input" type="text" name="option_header_content_type" value={option_header_content_type} onChange={(e) => getOptionCode(e)}/>
-                                                }
-                                            </div>
+                                            {language === 'JavaScript' &&
+                                                <div>
+                                                    <CheckBox name="option_header_content_type_flag" value={option_header_content_type_flag} onClick={(e) => getOptionCode(e)} option="Content-Type" state={option_header_content_type_flag} /><br/>
+                                                    {option_header_content_type_flag === 1 &&
+                                                        <input className="program_option_input" type="text" name="option_header_content_type" value={option_header_content_type} onChange={(e) => getOptionCode(e)}/>
+                                                    }
+                                                </div>
+                                            }
                                         </AccordionDetails>
                                     </Accordion>
                                     <Accordion>
@@ -424,53 +367,61 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                                             <Typography className="program_accordion_option_count">{property_count}</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails className="program_accordion_title">
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_property_onreadystatechange" value={option_property_onreadystatechange} onClick={(e) => getOptionCode(e)} option="onreadystatechange" state={option_property_onreadystatechange} />
-                                                </summary>
-                                                <p>EventHandler で、 readyState 属性が変化するたびに呼び出されます。コールバックはユーザーインターフェイスのスレッドから呼び出されます。 XMLHttpRequest.onreadystatechange プロパティは、 readystatechange イベントが発生するたびに、つまり XMLHttpRequest の readyState が変化するたびに呼び出されるイベントハンドラーを保持します。</p>
-                                            </details>
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_property_readyState" value={option_property_readyState} onClick={(e) => getOptionCode(e)} option="readyState" state={option_property_readyState} />
-                                                </summary>
-                                                <p>XMLHttpRequest.readyState プロパティは XMLHttpRequest クライアントの状態を返します。XHR クライアントは次の状態のいずれかをとります。</p>
-                                                <Table />
-                                            </details>
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_property_response" value={option_property_response} onClick={(e) => getOptionCode(e)} option="response" state={option_property_response} />
-                                                </summary>
-                                                <p>response プロパティは、そのリクエストのresponseTypeによって、ArrayBuffer, Blob, Document, JavaScript Object, or DOMStringといったレスポンスのボディを返します。</p>
-                                            </details>
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_property_responseText" value={option_property_responseText} onClick={(e) => getOptionCode(e)} option="responseText" state={option_property_responseText} />
-                                                </summary>
-                                                <p>XMLHttpRequest.responseXML は読み取り専用のプロパティで、リクエストによって受け取った HTML または XML を含む Document、またはリクエストが成功しなかった場合、まだ送信されていない場合、データが XML または HTML として解釈できない場合は null を返します。</p>
-                                            </details>
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_property_status" value={option_property_status} onClick={(e) => getOptionCode(e)} option="status" state={option_property_status} />
-                                                    <Tooltip detail='ステータス番号を返します. (例えば "Not Found" を示す "404" か "OK" を示す "200" です)' />
-                                                </summary>
-                                                <p>XMLHttpRequest のレスポンスにおける数値の HTTP ステータスコードを返します。</p>
-                                                <p>リクエストが完了する前は、 status の値は 0 になります。 XMLHttpRequest がエラーになった場合も、ブラウザーはステータスとして 0 を返します。</p>
-                                            </details>
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_property_statusText" value={option_property_statusText} onClick={(e) => getOptionCode(e)} option="statusText" state={option_property_statusText} />
-                                                    <Tooltip detail='ステータステキストを返します. (例えば "Not Found" または "OK")' />
-                                                </summary>
-                                                <p>HTTP サーバーから返ってきたレスポンス文字列が入った DOMString を返します。</p>
-                                                <p>XMLHTTPRequest.status とは異なり、("200 OK" のように) レスポンスメッセージの完全な文が含まれています。</p>
-                                            </details>
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_property_onerror" value={option_property_onerror} onClick={(e) => getOptionCode(e)} option="oneerror" state={option_property_onerror} />
-                                                </summary>
-                                                <p>XMLHttpRequestEventTarget.onerror は、エラーの為に XMLHttpRequest トランザクションが失敗した場合に呼び出される関数です。</p>
-                                            </details>
+                                            {language === 'JavaScript' &&
+                                            <div>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_property_onreadystatechange" value={option_property_onreadystatechange} onClick={(e) => getOptionCode(e)} option="onreadystatechange" state={option_property_onreadystatechange} />
+                                                    </summary>
+                                                    <p>EventHandler で、 readyState 属性が変化するたびに呼び出されます。コールバックはユーザーインターフェイスのスレッドから呼び出されます。 XMLHttpRequest.onreadystatechange プロパティは、 readystatechange イベントが発生するたびに、つまり XMLHttpRequest の readyState が変化するたびに呼び出されるイベントハンドラーを保持します。</p>
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_property_readyState" value={option_property_readyState} onClick={(e) => getOptionCode(e)} option="readyState" state={option_property_readyState} />
+                                                    </summary>
+                                                    <p>XMLHttpRequest.readyState プロパティは XMLHttpRequest クライアントの状態を返します。XHR クライアントは次の状態のいずれかをとります。</p>
+                                                    <Table />
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_property_response" value={option_property_response} onClick={(e) => getOptionCode(e)} option="response" state={option_property_response} />
+                                                    </summary>
+                                                    <p>response プロパティは、そのリクエストのresponseTypeによって、ArrayBuffer, Blob, Document, JavaScript Object, or DOMStringといったレスポンスのボディを返します。</p>
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_property_responseText" value={option_property_responseText} onClick={(e) => getOptionCode(e)} option="responseText" state={option_property_responseText} />
+                                                    </summary>
+                                                    <p>XMLHttpRequest.responseXML は読み取り専用のプロパティで、リクエストによって受け取った HTML または XML を含む Document、またはリクエストが成功しなかった場合、まだ送信されていない場合、データが XML または HTML として解釈できない場合は null を返します。</p>
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_property_status" value={option_property_status} onClick={(e) => getOptionCode(e)} option="status" state={option_property_status} />
+                                                        <Tooltip detail='ステータス番号を返します. (例えば "Not Found" を示す "404" か "OK" を示す "200" です)' />
+                                                    </summary>
+                                                    <p>XMLHttpRequest のレスポンスにおける数値の HTTP ステータスコードを返します。リクエストが完了する前は、 status の値は 0 になります。 XMLHttpRequest がエラーになった場合も、ブラウザーはステータスとして 0 を返します。</p>
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_property_statusText" value={option_property_statusText} onClick={(e) => getOptionCode(e)} option="statusText" state={option_property_statusText} />
+                                                        <Tooltip detail='ステータステキストを返します. (例えば "Not Found" または "OK")' />
+                                                    </summary>
+                                                    <p>HTTP サーバーから返ってきたレスポンス文字列が入った DOMString を返します。XMLHTTPRequest.status とは異なり、("200 OK" のように) レスポンスメッセージの完全な文が含まれています。</p>
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_property_onerror" value={option_property_onerror} onClick={(e) => getOptionCode(e)} option="oneerror" state={option_property_onerror} />
+                                                    </summary>
+                                                    <p>XMLHttpRequestEventTarget.onerror は、エラーの為に XMLHttpRequest トランザクションが失敗した場合に呼び出される関数です。</p>
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_property_onloadend" value={option_property_onloadend} onClick={(e) => getOptionCode(e)} option="onloadend" state={option_property_onloadend} />
+                                                    </summary>
+                                                    <p>XMLHttpRequestEventTarget.onloadendは、ajax通信が成功か失敗に関わらず終了した時にloadendイベントが発生し、ここに設定したコールバック関数が呼び出されます。</p>
+                                                </details>
+                                            </div>
+                                            }
                                         </AccordionDetails>
                                     </Accordion>
                                     <Accordion>
@@ -479,37 +430,41 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                                         <Typography className="program_accordion_option_count">{method_count}</Typography>
                                         </AccordionSummary>
                                         <AccordionDetails className="program_accordion_title">
-                                             <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_method_open" value={option_method_open} onClick={(e) => getOptionCode(e)} option="open" state={option_method_open} />
-                                                </summary>
-                                                <p>新しく作成されたリクエストを初期化したり、既存のリクエストを再初期化したりします。</p>
-                                            </details>
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_method_send" value={option_method_send} onClick={(e) => getOptionCode(e)} option="send" state={option_method_send} />
-                                                </summary>
-                                                <p>リクエストをサーバーに送信します。リクエストが非同期の場合 (これが既定)、このメソッドはリクエストが送信されるとすぐに戻り、結果はイベントを用いて配信されます。リクエストが同期の場合、このメソッドはレスポンスが到着するまで戻りません。</p>
-                                                <p>send() はリクエストの本文を示す引数を一つ受け取ることができます。これは主に PUT のようなリクエストに使用されます。リクエストメソッドが GET 又は HEAD であれば、 body 引数は無視され、リクエストの本文は null に設定されます。</p>
-                                                <p>setRequestHeader() を使用して Accept ヘッダーを設定しなかった場合、 Accept ヘッダーは "*/*" 型 (任意の型) が送信されます。</p>
-                                            </details>
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_method_abort" value={option_method_abort} onClick={(e) => getOptionCode(e)} option="abort" state={option_method_abort} />
-                                                    <Tooltip detail="この例では、ある条件が発生したときに、 abort() を呼び出すことで転送を中止します。" />
-                                                </summary>
-                                                <p>abort イベントは、例えばプログラムが XMLHttpRequest.abort() を呼び出した時など、リクエストが中断されたときに発生します。</p>
-                                            </details>
-                                            <details className="program_accordion_title_details">
-                                                <summary className="program_accordion_title_summary">
-                                                    <CheckBox name="option_method_getAllResponseHeaders" value={option_method_getAllResponseHeaders} onClick={(e) => getOptionCode(e)} option="getAllResponseHeaders" state={option_method_getAllResponseHeaders} />
-                                                </summary>
-                                                <p>getAllResponseHeaders() メソッドは、すべてのレスポンスヘッダーを CRLF で区切った文字列として返し、レスポンスを受信していない場合は null を返します。ネットワークエラーが発生した場合は、空文字列が返されます。</p>
-                                            </details>
+                                        {language === 'JavaScript' &&
+                                            <div>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_method_open" value={option_method_open} onClick={(e) => getOptionCode(e)} option="open" state={option_method_open} />
+                                                    </summary>
+                                                    <p>新しく作成されたリクエストを初期化したり、既存のリクエストを再初期化したりします。</p>
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_method_send" value={option_method_send} onClick={(e) => getOptionCode(e)} option="send" state={option_method_send} />
+                                                    </summary>
+                                                    <p>リクエストをサーバーに送信します。リクエストが非同期の場合 (これが既定)、このメソッドはリクエストが送信されるとすぐに戻り、結果はイベントを用いて配信されます。リクエストが同期の場合、このメソッドはレスポンスが到着するまで戻りません。</p>
+                                                    <p>send() はリクエストの本文を示す引数を一つ受け取ることができます。これは主に PUT のようなリクエストに使用されます。リクエストメソッドが GET 又は HEAD であれば、 body 引数は無視され、リクエストの本文は null に設定されます。</p>
+                                                    <p>setRequestHeader() を使用して Accept ヘッダーを設定しなかった場合、 Accept ヘッダーは "*/*" 型 (任意の型) が送信されます。</p>
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_method_abort" value={option_method_abort} onClick={(e) => getOptionCode(e)} option="abort" state={option_method_abort} />
+                                                        <Tooltip detail="この例では、ある条件が発生したときに、 abort() を呼び出すことで転送を中止します。" />
+                                                    </summary>
+                                                    <p>abort イベントは、例えばプログラムが XMLHttpRequest.abort() を呼び出した時など、リクエストが中断されたときに発生します。</p>
+                                                </details>
+                                                <details className="program_accordion_title_details">
+                                                    <summary className="program_accordion_title_summary">
+                                                        <CheckBox name="option_method_getAllResponseHeaders" value={option_method_getAllResponseHeaders} onClick={(e) => getOptionCode(e)} option="getAllResponseHeaders" state={option_method_getAllResponseHeaders} />
+                                                    </summary>
+                                                    <p>getAllResponseHeaders() メソッドは、すべてのレスポンスヘッダーを CRLF で区切った文字列として返し、レスポンスを受信していない場合は null を返します。ネットワークエラーが発生した場合は、空文字列が返されます。</p>
+                                                </details>
+                                            </div>
+                                        }
                                         </AccordionDetails>
                                     </Accordion>
                                     <div className="option_reset_button">
-                                        <input type="button" value="Reset" name="option_api_reset" onClick={(e) => getOptionCode(e)} />
+                                        <input type="button" value="Reset" name="option_ajax_reset" onClick={(e) => getOptionCode(e)} />
                                     </div>
                                 </div>
                             }
@@ -517,30 +472,34 @@ xhr.setRequestHeader("${option_header_content_type}");`;
                             {method == 'STR' &&
                                 <div className="program_option">
                                     <input type="text" className="program_str_text" name="option_str_text" value={option_str_text} onChange={(e) => getOptionCode(e)} />
-                                    <details className="program_accordion_title_details">
-                                        <summary className="program_accordion_title_summary">
-                                            <Radio className="program_radio_form" name="option_str" value="substr" onClick={(e) => getOptionCode(e)} option="substr" state={option_str} />
-                                        </summary>
-                                        <p>substr() メソッドは、文字列の一部を、指定した位置から後方向指定した文字数だけ返します。</p>
-                                    </details>
-                                    <details className="program_accordion_title_details">
-                                        <summary className="program_accordion_title_summary">
-                                            <Radio className="program_radio_form" name="option_str" value="substring" onClick={(e) => getOptionCode(e)} option="substring" state={option_str} />
-                                        </summary>
-                                        <p>substring() メソッドは string オブジェクトの開始・終了位置の間、または文字列の最後までの部分集合を返します。</p>
-                                    </details>
-                                    <details className="program_accordion_title_details">
-                                        <summary className="program_accordion_title_summary">
-                                            <Radio className="program_radio_form" name="option_str" value="slice" onClick={(e) => getOptionCode(e)} option="slice" state={option_str} />
-                                        </summary>
-                                        <p>slice() メソッドは、start と end が配列の中の項目のインデックスを表している場合、start から end まで (end は含まれない) で選択された配列の一部の浅いコピーを新しい配列オブジェクトに作成して返します。元の配列は変更されません。</p>
-                                    </details>
-                                    <details className="program_accordion_title_details">
-                                        <summary className="program_accordion_title_summary">
-                                            <Radio className="program_radio_form" name="option_str" value="split" onClick={(e) => getOptionCode(e)} option="split" state={option_str} />
-                                        </summary>
-                                        <p>split() メソッドは、 String を指定した区切り文字列で分割することにより、文字列の配列に分割します。</p>
-                                    </details>
+                                    {language === 'JavaScript' &&
+                                        <div>
+                                            <details className="program_accordion_title_details">
+                                                <summary className="program_accordion_title_summary">
+                                                    <Radio className="program_radio_form" name="option_str" value="substr" onClick={(e) => getOptionCode(e)} option="substr" state={option_str} />
+                                                </summary>
+                                                <p>substr() メソッドは、文字列の一部を、指定した位置から後方向指定した文字数だけ返します。</p>
+                                            </details>
+                                            <details className="program_accordion_title_details">
+                                                <summary className="program_accordion_title_summary">
+                                                    <Radio className="program_radio_form" name="option_str" value="substring" onClick={(e) => getOptionCode(e)} option="substring" state={option_str} />
+                                                </summary>
+                                                <p>substring() メソッドは string オブジェクトの開始・終了位置の間、または文字列の最後までの部分集合を返します。</p>
+                                            </details>
+                                            <details className="program_accordion_title_details">
+                                                <summary className="program_accordion_title_summary">
+                                                    <Radio className="program_radio_form" name="option_str" value="slice" onClick={(e) => getOptionCode(e)} option="slice" state={option_str} />
+                                                </summary>
+                                                <p>slice() メソッドは、start と end が配列の中の項目のインデックスを表している場合、start から end まで (end は含まれない) で選択された配列の一部の浅いコピーを新しい配列オブジェクトに作成して返します。元の配列は変更されません。</p>
+                                            </details>
+                                            <details className="program_accordion_title_details">
+                                                <summary className="program_accordion_title_summary">
+                                                    <Radio className="program_radio_form" name="option_str" value="split" onClick={(e) => getOptionCode(e)} option="split" state={option_str} />
+                                                </summary>
+                                                <p>split() メソッドは、 String を指定した区切り文字列で分割することにより、文字列の配列に分割します。</p>
+                                            </details>
+                                        </div>
+                                    }
                                     <input type="button" value="Reset" name="option_str_reset" onClick={(e) => getOptionCode(e)} />
                                 </div>
                             }
@@ -551,7 +510,7 @@ xhr.setRequestHeader("${option_header_content_type}");`;
             <div className="col-md-7 program_code_form">
                 <div className="program_code_form_sub">
                     <Code code={code} language={language}></Code>
-                    <Result code={code} language={language} method={method}></Result>
+                    <Result code={code} method={method} language={language} ></Result>
                 </div>
             </div>
         </div>

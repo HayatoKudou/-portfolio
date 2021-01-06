@@ -46,9 +46,9 @@
                         <ul id="menu">
                             <li><a class="nav-list" href="#">tools</a>
                             <ul>
-                                <li><a class="nav-list" href="tools/calculator">進数変換ツール</a></li>
-                                <li><a class="nav-list" href="tools/anime">アニメ検索ツール</a></li>
-                                <li><a class="nav-list" href="tools/programGenerate">プログラム生成ツール</a></li>
+                                <li><a class="nav-list" href="/tools/calculator">進数変換ツール</a></li>
+                                <li><a class="nav-list" href="/tools/anime">アニメ検索ツール</a></li>
+                                <li><a class="nav-list" href="/tools/programGenerate">プログラム生成ツール</a></li>
                             </ul>
                             </li>
                         </ul>

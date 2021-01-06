@@ -26,5 +26,6 @@ Route::post('/line/webhook', 'Line\LineController@webhook')->name('line.webhook'
 
 Route::resource('search', 'AmazonController');
 
-Route::get('api_endPoint', 'tools\ProgramGenerateController@get_api_endPoint');
-Route::post('api_endPoint', 'tools\ProgramGenerateController@post_api_endPoint');
+Route::get('exmple', 'tools\ProgramGenerateController@get_api_endPoint');
+Route::post('exmple', 'tools\ProgramGenerateController@post_api_endPoint');
+Route::post('run_php', 'tools\ProgramGenerateController@run_php');

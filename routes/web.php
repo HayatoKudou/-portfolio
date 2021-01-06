@@ -36,8 +36,6 @@ Route::group(['prefix' => 'tools'], function() {
     Route::get('/anime', 'tools\AnimeController@top');
     Route::post('/anime_search', 'tools\AnimeController@anime_search');
     Route::post('/showDetail', 'tools\AnimeController@anime_detail');
-    Route::get('/css_generate', 'tools\ProgramGenerateController@css_generate');
-    Route::get('/js_generate', 'tools\ProgramGenerateController@js_generate');
     Route::get('/programGenerate', 'tools\ProgramGenerateController@programGenerate');
 });
 

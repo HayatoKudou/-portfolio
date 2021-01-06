@@ -59,10 +59,6 @@ class MainController extends Controller
         return $result_data;
     }
 
-    public function maintenance(){
-        return redirect()->back()->withErrors('メンテナンス中です。申し訳ございません。');
-    }
-
     public function main(){
         //更新日時取得
         $update_date = $this->getUpdateDate();
