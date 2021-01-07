@@ -18,6 +18,8 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const Main: React.FC = () => {
 
+    // const [conosleClassName, setConosleClassName] = useState('');
+
     const [code, setCode] = useState(''); //基本ソースコード
     const [language, setLanguage] = useState('JavaScript');
     const [method, setMethod] = useState('Ajax');
@@ -508,7 +510,7 @@ xhr.send();`;
                 </div>
             </div>
             <div className="col-md-7 program_code_form">
-                <div className="program_code_form_sub">
+                <div className="program_code_form_sub" id="program_code_form_sub">
                     <Code code={code} language={language}></Code>
                     <Result code={code} method={method} language={language} ></Result>
                 </div>
@@ -527,4 +529,13 @@ const App: React.FC = () => {
 
 if (document.getElementById('programGenerate')) {
     ReactDOM.render(<App />, document.getElementById('programGenerate'));
+    // async function readDom() {
+    //     ReactDOM.render(<App />, document.getElementById('programGenerate'));
+    // }
+    // readDom().then(() => {
+    //     const elm = document.getElementById('program_code_form_sub');
+    //     if(elm !== null){
+    //         elm.classList.add('program_code_form_sub');
+    //     }
+    // });
 }

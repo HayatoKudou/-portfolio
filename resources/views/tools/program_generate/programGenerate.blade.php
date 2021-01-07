@@ -38,3 +38,16 @@
     </div>
 </div>
 @endsection
+
+<!-- <script>
+window.addEventListener('DOMContentLoaded', function(){
+    console.log('test1')
+    window.addEventListener('scroll', function(){
+        console.log('test2')
+        const elm = document.getElementById('program_code_form_sub');
+        if(elm !== null){
+            elm.classList.add('program_code_form_sub');
+        }
+    });
+});
+</script> -->

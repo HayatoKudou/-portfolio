@@ -169,6 +169,7 @@
     position: fixed;
     width: 55%;
     top: 80px;
+    z-index: 1;
 }
 
 .option_reset_button{
