@@ -8,7 +8,12 @@ type Props = {
 
 export const Code: React.FC<Props> = ({code, language}) => {
     const [copyButtontitle, setCopyButtontitle] = useState('Copy');
-    var after_code = code.replace('*send_space*', '').replace('*open_space*', '').replace('*result_space*', '').replace('*setResultCode_space*', '').replace('*setOnloadendCode_space*', '').replace('*setErrorCode_space*', '').trim();
+    var after_code = '';
+    if(language === 'JavaScript'){
+        after_code = code.replace('*send_space*', '').replace('*open_space*', '').replace('*result_space*', '').replace('*setResultCode_space*', '').replace('*setOnloadendCode_space*', '').replace('*setErrorCode_space*', '').trim();
+    } else if(language === 'PHP'){
+        after_code = code.replace('*options*', '').trim();
+    }
     after_code = after_code.replace(/^\s*\n/gm, '');
 
     function changeCopyButtontitle(){
