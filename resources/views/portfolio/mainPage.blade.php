@@ -50,14 +50,18 @@
 
                     <div class="row self_info_container">
                         <div class="col-md-6 my_picture">
-                            <img src="{{ asset('img/pic.jpeg') }}" alt="">
+                            <img src="{{ asset('img/profile_2.jpg') }}" alt="">
                         </div>
                         <div class="col-md-6 self_introduction">
                             <h4 class="title">自己紹介</h4>
-                            <div class="sentence">
-                                <p>はじめまして。私は都内にある受託系の会社でWebエンジニアとして働いています。                                    
-                                    <br>メイン言語はPHPでLaravelを使用することが多いです。
-                                    <br>担当箇所は、詳細設計・実装・テスト・保守で、少人数での0→1開発が多いです。
+                            <div class="sentence" style="font-size: 16px;">
+                                <p>はじめまして。私は都内にある受託系企業でwebエンジニアをしています。
+                                    <br>
+                                    <br>メイン言語はPHPでLaravel・Reactを使用することが多いです。
+                                    <br>担当箇所は、詳細設計・実装・テスト・保守で、
+                                    <br>これまでwebサイト・HRTech・認証基盤などの開発に携わり、
+                                    <br>少人数でのスクラッチ開発、アジャイル開発をしてきました。
+                                    <br>
                                     <br>最近はSPAのサイトを作ってみたく、プライベートでReactなどのフロント言語を勉強中です。
                                 </p>
                             </div>
@@ -86,7 +90,7 @@
                                         <td>実務経験</td>
                                         <td></td>
                                     </tr>
-                                    <tr>                                        
+                                    <tr>
                                         <td>
                                             <span style="margin-left: 30px;">PHP</span>
                                             <div class="cp_tooltip" style="float: right;">

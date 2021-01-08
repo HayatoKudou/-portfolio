@@ -14,3 +14,13 @@ const mix = require('laravel-mix');
 mix.react('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .ts('resources/ts/app.js', 'public/js');
+
+// mix.browserSync({
+//     proxy: {
+//         target: "https://kudohayatoblog.com/",
+//     },
+//     https: true,
+//     files: [
+//         './resources/views/tools/program_generate/programGenerate.blade.php',
+//     ],
+// });

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Log;
 
 class Analysis extends Model
 {
@@ -16,16 +17,24 @@ class Analysis extends Model
     ];
 
     //アクセスカウント
-    public static function count($url){
+    public static function count($url){        
         $today = date('Ymd');
-        $double_check = self::where('date', $today)->where('url', $url)->exists();
+        $double_check = Analysis::where('date', $today)->where('url', $url)->exists();
         if($double_check){
-            $analysis_model = self::where('date', $today)->where('url', $url)->increment('count',1);
-        } else {
-            $analysis_model = new self;
+            // $analysis_model = Analysis::where('date', $today)->where('url', $url)->increment('count',1);
+            $analysis_model = Analysis::where('date', $today)->where('url', $url)->first();
             $analysis_model->fill([
                 'url' => $url,
                 'date' => $today,
+                'count' => $analysis_model->count + 1,
+            ]);
+            $analysis_model->save();
+        } else {
+            $analysis_model = new Analysis;
+            $analysis_model->fill([
+                'url' => $url,
+                'date' => $today,
+                'count' => 1,
             ]);
             $analysis_model->save();
         }

@@ -89,7 +89,6 @@ class ImagRecognitionController extends Controller
                 //     ] );
 
                 $result = json_decode( $json, true );
-                Log::debug($result);
 
                 //文字データ検出
                 if(isset($result['responses'][0]['fullTextAnnotation']['text'])){
