@@ -50,7 +50,7 @@
 
                     <div class="row self_info_container">
                         <div class="col-md-6 my_picture">
-                            <img src="{{ asset('img/pic.jpeg') }}" alt="">
+                            <img src="{{ asset('img/profile_2.jpg') }}" alt="">
                         </div>
                         <div class="col-md-6 self_introduction">
                             <h4 class="title">自己紹介</h4>
