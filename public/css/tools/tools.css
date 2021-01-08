@@ -284,6 +284,10 @@ details[open].program_accordion_title_details summary::before {
 .program_curl_setopt_details {
     font-size: 13px;
 }
+
+.program_input_form {
+    margin-top: 25px;
+}
   
 
 @media screen and (max-width: 600px) {
