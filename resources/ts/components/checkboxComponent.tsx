@@ -3,10 +3,10 @@ import { useState } from 'react';
 
 type Props = {
     className?: string;
-    name: string;
-    value: any;
-    onClick: any;
-    option: string;
+    name?: string;
+    value?: any;
+    onClick?: any;
+    option?: string;
     state?: any;
     disabled?: boolean;
 }

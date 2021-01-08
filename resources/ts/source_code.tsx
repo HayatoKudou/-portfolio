@@ -87,15 +87,26 @@ var result = str.split(',');`;
 export var PHP_Ajax_Default: string = 
 `$url = "https://kudohayatoblog.com/api/exmple";
 $curl = curl_init($url);
-curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'GET');
-curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-*options*
+*method*
+*curl_setopts*
+*curl_error*
+*curl_errno*
 $responce = curl_exec($curl);
 curl_close($curl);
 `;
 
+export var PHP_Ajax_option_method: string = 
+`curl_setopt($curl,CURLOPT_POST, TRUE);`;
+
+export var PHP_Ajax_CURLOPT_BINARYTRANSFER: string = 
+`curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);`;
+
 export var PHP_Ajax_option_curl_error: string = 
 `if(curl_exec($curl) === false){
     $responce = curl_error($curl);
-}
-`;
+}`;
+
+export var PHP_Ajax_option_curl_errno: string = 
+`if(curl_errno($curl)){
+    $responce = curl_error($curl);
+}`;

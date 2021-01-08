@@ -17,11 +17,14 @@ class ProgramGenerateController extends Controller
 
     public function run_php(Request $request){
         $result = '';        
+        $responce = '';        
 $run_code = <<<EOD
 { $request->run_code }
 \$result = json_decode( \$responce, true );
 EOD;
         eval($run_code);
+        // Log::debug('responce: ' . $responce);
+        // Log::debug('result: ' . $result);
         return $result;
     }
 
