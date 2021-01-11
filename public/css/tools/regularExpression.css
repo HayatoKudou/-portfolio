@@ -1,0 +1,52 @@
+.input_str {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.input_regular_expression {
+    /* width: 90%;
+    margin: 0 auto; */
+}
+
+.input_regular_expression_title {
+    font: inherit;
+    text-align: center;
+    margin: 20px 0px 0px 0px;
+}
+
+.input_regular_expression summary {
+    outline: none;
+    height: 50px;
+    line-height: 50px;
+}
+
+.example_regularExpression_explanation {
+    padding: 0 20px 0 20px;
+}
+
+.example_regularExpression_explanation ul{
+    border: solid 2px;
+    border-color: #86cdd4;
+}
+
+.regularExpression_detail {
+    width: 90%;
+}
+
+.regularExpression_detail p{
+    display: inline;
+}
+
+.input_regular_expression summary::before {
+    /* margin-right: 200px; */
+}
+
+.regular_expression_pattren_button {
+    font-size: 13px;
+    margin: 3px;
+}
+
+.option_flag_input_form label {
+    display: block;
+    height: 30px;
+}

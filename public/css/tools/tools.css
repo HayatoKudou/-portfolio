@@ -262,18 +262,18 @@
     height: 30px;
 }
 
-details.program_accordion_title_details summary::-webkit-details-marker {
+details summary::-webkit-details-marker {
     display: none;
 }
 
-details.program_accordion_title_details summary::before {
+details summary::before {
     font-family: FontAwesome;
     content: '\f067';
     margin-right: 30px;
     float: right;
 }
 
-details[open].program_accordion_title_details summary::before {
+details[open] summary::before {
     content: '\f068';
 }
 

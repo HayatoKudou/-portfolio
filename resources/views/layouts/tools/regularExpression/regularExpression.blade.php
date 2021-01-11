@@ -28,6 +28,7 @@
     <link href="/css/common.css" rel="stylesheet">
     <link href="/css/tools/tools.css" rel="stylesheet">
     <link href="/css/tools/header.css" rel="stylesheet">
+    <link href="/css/tools/regularExpression.css" rel="stylesheet">
 
 </head>
 
