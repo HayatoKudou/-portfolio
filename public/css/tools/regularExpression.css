@@ -1,6 +1,6 @@
 .input_str {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .input_regular_expression {
@@ -22,6 +22,7 @@
 
 .example_regularExpression_explanation {
     padding: 0 20px 0 20px;
+    font-size: 13px;
 }
 
 .example_regularExpression_explanation ul{
@@ -41,12 +42,21 @@
     /* margin-right: 200px; */
 }
 
-.regular_expression_pattren_button {
+.regular_expression_pattren_button_form button {
     font-size: 13px;
     margin: 3px;
 }
 
 .option_flag_input_form label {
     display: block;
-    height: 30px;
+    height: 20px;
+}
+
+.regularExpression_detail_display {
+    font-size: 12px;
+}
+
+.result_form {
+    width: 100%;
+    margin-top: 30px;
 }

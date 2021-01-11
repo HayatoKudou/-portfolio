@@ -19,7 +19,6 @@ const Main: React.FC = () => {
 
     const [example_regularExpression_postalCode, setExample_regularExpression_postalCode] = useState(false);
     const [example_regularExpression_emailAddress, setExample_regularExpression_emailAddress] = useState(false);
-    const [example_regularExpression_url, setExample_regularExpression_url] = useState(false);
 
     //オプションフラグ
     const [option_flag, set_option_flag] = useState('');
@@ -28,16 +27,17 @@ const Main: React.FC = () => {
     const [option_flag_m, set_option_flag_m] = useState(false);
 
     //正規表現実行
-    function run_regular_expression(customRegularEexpression: string){        
-        // const regexp = input_str.match(customRegularEexpression);
+    function run_regular_expression(customRegularEexpression: string, str: string = ''){
         const regexp = new RegExp(customRegularEexpression, option_flag);
-        const matchStr = input_str.match(regexp);
+        const matchStr = str == '' ? input_str.match(regexp) : str.match(regexp);
         console.log(regexp);
         console.log(matchStr);
         if(matchStr !== null){
             matchStr.forEach(value =>
                 setResult(value)
             )
+        } else {
+            setResult('');
         }
     }
 
@@ -50,6 +50,8 @@ const Main: React.FC = () => {
         if(name === 'input_str'){
             customRegularEexpression = custom_regular_expression;
             setInputStr(value);
+            run_regular_expression(customRegularEexpression, value);
+            return;
         } else if(name === 'custom_regular_expression'){
             customRegularEexpression = value;
             setCustomRegularRxpression(value);
@@ -58,13 +60,9 @@ const Main: React.FC = () => {
             setCustomRegularRxpression(customRegularEexpression);
             setExample_regularExpression_postalCode(checked);
         } else if(name === 'example_regularExpression_emailAddress'){
-            customRegularEexpression = checked === true ? '\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*' : '';
+            customRegularEexpression = checked === true ? '^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}' : '';
             setCustomRegularRxpression(customRegularEexpression);
             setExample_regularExpression_emailAddress(checked);
-        } else if(name === 'example_regularExpression_url'){
-            customRegularEexpression = checked === true ? 'https?://([\w-]+\.)+[\w-]+(/[\w- .?%&=]*)?' : '';
-            setCustomRegularRxpression(customRegularEexpression);
-            setExample_regularExpression_url(checked);
         }
 
         //オプションフラグ
@@ -81,21 +79,12 @@ const Main: React.FC = () => {
 
         // console.log(name + ': ' + value);
         // console.log(input_str + ': ' + customRegularEexpression);
-
         run_regular_expression(customRegularEexpression);
     }
 
     function set_regular_expression_button(target_name: string){
-        if(target_name === 'pattern_/'){
-            customRegularEexpression = custom_regular_expression + '/';
-            setCustomRegularRxpression(custom_regular_expression + '/');
-        } else if(target_name === 'pattern_^'){
-            customRegularEexpression = custom_regular_expression + '^';
-            setCustomRegularRxpression(custom_regular_expression + '^');
-        } else if(target_name === 'pattern_$'){
-            customRegularEexpression = custom_regular_expression + '$';
-            setCustomRegularRxpression(custom_regular_expression + '$');
-        }
+        customRegularEexpression = custom_regular_expression + target_name;
+        setCustomRegularRxpression(custom_regular_expression + target_name);
         run_regular_expression(customRegularEexpression);
     }
 
@@ -108,10 +97,16 @@ const Main: React.FC = () => {
                 <div className="row input_regular_expression">
                     <div className="col-md-5">
                         <p className="input_regular_expression_title">正規表現パターン</p>
-                        <div>
-                            <Button className="regular_expression_pattren_button" variant="outlined" size="small" color="primary" name="pattern_/" onClick={() => set_regular_expression_button('pattern_/')}>\: 次の文字をエスケープ</Button>
-                            <Button className="regular_expression_pattren_button" variant="outlined" size="small" color="primary" name="pattern_^" onClick={() => set_regular_expression_button('pattern_^')}>\: 行の先頭にマッチ</Button>
-                            <Button className="regular_expression_pattren_button" variant="outlined" size="small" color="primary" name="pattern_$" onClick={() => set_regular_expression_button('pattern_$')}>\: 行の末尾にマッチ</Button>
+                        <div className="regular_expression_pattren_button_form">
+                            <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('/')}>\: 次の文字をエスケープ</Button>
+                            <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('^')}>^: 行の先頭にマッチ</Button>
+                            <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('$')}>$: 行の末尾にマッチ</Button>
+                            <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[A-Za-z]')}>[A-Za-z]: アルファベット</Button>
+                            <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[ぁ-ん]')}>[ぁ-ん]: ひらがな</Button>
+                            <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[ァ-ヴ]')}>[ァ-ヴ]: カタカナ</Button>
+                            <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('ABC')}>ABC: 「ABC」という文字列にマッチ</Button>
+                            <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[ABC]')}>[ABC]: A,B,Cのいずれか１文字にマッチ</Button>
+                            <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[^ABC]')}>[^ABC]: A,B,C以外のいずれか１文字にマッチ</Button>
                         </div>
                         <div className="option_flag_input_form">
                             <p className="input_regular_expression_title">オプションフラグ</p>
@@ -135,63 +130,44 @@ const Main: React.FC = () => {
                         <details>
                             <summary>
                                 <label className="regularExpression_detail row">
-                                    <div className="col-md-5">
+                                    <div className="col-md-4">
                                         <Checkbox name="example_regularExpression_postalCode" color="default" checked={example_regularExpression_postalCode} onClick={(e) => set_regular_expression(e)} />
                                         <p>郵便番号</p>
                                     </div>
-                                    <div className="col-md-7"><p>{'[0-9]{3}-[0-9]{4}'}</p></div>
+                                    <div className="col-md-8 regularExpression_detail_display"><p>{'[0-9]{3}-[0-9]{4}'}</p></div>
                                 </label>
                             </summary>
                             <div className="example_regularExpression_explanation">
                                 <ul>
-                                    <li>[0-9]は0から9の半角数字が一つあることを意味します。</li>
-                                    <li>{3}は直前の[0-9]のパターンが３回繰り返されることを意味します</li>
-                                    <li>-はハイフンがあることを意味します</li>
+                                    <li>{'[0-9]は0から9の半角数字が一つあることを意味します。'}</li>
+                                    <li>{'{3}は直前の[0-9]のパターンが３回繰り返されることを意味します'}</li>
+                                    <li>{'-はハイフンがあることを意味します'}</li>
                                 </ul>
                             </div>
                         </details>
-
                         <details>
                             <summary>
                                 <label className="regularExpression_detail row">
-                                    <div className="col-md-5">
+                                    <div className="col-md-4">
                                         <Checkbox name="example_regularExpression_emailAddress" color="default" checked={example_regularExpression_emailAddress} onClick={(e) => set_regular_expression(e)} />
                                         <p>Emailアドレス</p>
                                     </div>
-                                    <div className="col-md-7"><p>{'\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*'}</p></div>
+                                    <div className="col-md-8 regularExpression_detail_display"><p>{'^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\.[A-Za-z0-9]{1,}'}</p></div>
                                 </label>
                             </summary>
                             <div className="example_regularExpression_explanation">
                                 <ul>
-                                    <li>\w+は大文字小文字の英数字アンダーバーが１文字以上あることを意味します</li>
-                                    <li>([-+.]\w+)*は-,+,.から一文字([-+.])と大文字小文字の英数字アンダーバー(\w)１文字以上(+)によるセット(([-+.]\w+))が0個以上あること(*)を意味しています。</li>
-                                    <li>@は@マークがあることを意味しています</li>
-                                    <li>\.はドットがあることを意味しています</li>
-                                </ul>
-                            </div>
-                        </details>
-
-                        <details>
-                            <summary>
-                                <label className="regularExpression_detail row">
-                                    <div className="col-md-5">
-                                        <Checkbox name="example_regularExpression_url" color="default" checked={example_regularExpression_url} onClick={(e) => set_regular_expression(e)} />
-                                        <p>URL</p>
-                                    </div>
-                                    <div className="col-md-7"><p>{'https?://([\w-]+\.)+[\w-]+(/[\w- .?%&=]*)?'}</p></div>
-                                </label>
-                            </summary>
-                            <div className="example_regularExpression_explanation">
-                                <ul>
-                                    <li>https?はsが0または1文字あることを意味しますしたがってhttpsでもhttpでも良いということです。(http|https)のような書き方もできます</li>
-                                    <li>[\w]は大文字小文字の英数字アンダーバーから１文字ということを意味しています</li>
-                                    <li>(/[\w-.?%&=]*)?は/と大文字小文字の英数字アンダーバー(\w)または-,?,%,&,=の中から0文字以上のセット(/[\w- .?%&=]*)が0または1組あることを意味します</li>
+                                    <li>{'^[A-Za-z0-9]{1}は、アルファベット小文字/大文字/数字を許可しています。'}</li>
+                                    <li>{'[A-Za-z0-9_.-]*は、アルファベット小文字/大文字/数字/アンダースコア/ピリオド/ハイフンを許可しています。(0文字以上)'}</li>
+                                    <li>{'@{1}は、連続してはいけないことを意味しています。'}</li>
+                                    <li>{'[A-Za-z0-9_.-]{1,}は、アルファベット小文字/大文字/数字/アンダースコア/ピリオド/ハイフンを許可しています。(1文字以上)'}</li>
+                                    <li>{'\.[A-Za-z0-9]{1,}$は、アルファベット小文字/大文字/数字を許可しています。(1文字以上)'}</li>
                                 </ul>
                             </div>
                         </details>
                     </div>
                 </div>
-            <TextField className="input_str" label="結果" rows={4} variant="outlined" multiline value={result} />
+            <TextField className="result_form" label="結果" rows={4} variant="outlined" multiline value={result} />
         </div>
     )
 }
