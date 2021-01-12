@@ -161,13 +161,6 @@
     padding-left: 0px;
 }
 
-
-
-
-
-
-
-
 .readmore-content{
     position: relative;
     overflow: hidden;
@@ -229,4 +222,14 @@
 /*チェック時グラデーション等を削除*/
 .readmore-check:checked ~ .readmore-content::before {
     display: none;
+}
+
+/* スマホ用 */
+@media screen and (max-width: 600px) {
+    .regularExpression_detail {
+        display: block;
+    }
+    .regularExpression_detail_display {
+        display: none;
+    }
 }
