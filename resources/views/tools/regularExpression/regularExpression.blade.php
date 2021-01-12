@@ -4,7 +4,7 @@
 @section('content')
 <div class="main_container" id="main_container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" style="padding-right: 0px;">
             <div class="card">
 
                 <div class="card-body" style="min-height: 100vh;">
@@ -26,7 +26,7 @@
                       <li itemprop="itemListElement" itemscope
                           itemtype="https://schema.org/ListItem">
                         <a itemprop="item" href="/tools/regularExpression">
-                            <span itemprop="name">正規表現生成ツール</span>
+                            <span itemprop="name">正規表現ツール</span>
                         </a>
                         <meta itemprop="position" content="3" />
                       </li>

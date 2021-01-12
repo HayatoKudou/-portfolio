@@ -93,11 +93,11 @@
                                     <tr>
                                         <td>
                                             <span style="margin-left: 30px;">PHP</span>
-                                            <div class="cp_tooltip" style="float: right;">
+                                            <!-- <div class="cp_tooltip" style="float: right;">
                                                 <i class="fas fa-info-circle"></i>
                                                 <span class="cp_tooltiptext">メイン言語で、フレームワークで主に使用しています。<br>
                                                 </span>
-                                            </div>
+                                            </div> -->
                                         </td>
                                         <td>１年〜３年</td>
                                         <td>★★★☆☆</td>
@@ -105,11 +105,11 @@
                                     <tr>
                                         <td>
                                             <span style="margin-left: 30px;">JavaScript</span>
-                                            <div class="cp_tooltip" style="float: right;">
+                                            <!-- <div class="cp_tooltip" style="float: right;">
                                                 <i class="fas fa-info-circle"></i>
                                                 <span class="cp_tooltiptext">ブラウザの内部処理・非同期通信などで使用することが多いです。<br>
                                                 最近はReactやNode.jsなどサーバーサイドで使用する機会が増えてきました。</span>
-                                            </div>
+                                            </div> -->
                                         </td>
                                         <td>１年〜３年</td>
                                         <td>★★★☆☆</td>
@@ -149,11 +149,11 @@
                                     <tr>
                                         <td>
                                             <span style="margin-left: 30px;">React</span>
-                                            <div class="cp_tooltip" style="float: right;">
+                                            <!-- <div class="cp_tooltip" style="float: right;">
                                                 <i class="fas fa-info-circle"></i>
                                                 <span class="cp_tooltiptext">Reduxと併せてFluxで実装することが多いです。<br>
                                                 最近になってHooksの便利さに気付き、色々と触っています。</span>
-                                            </div>
+                                            </div> -->
                                         </td>
                                         <td>１年〜３年</td>
                                         <td>★★★☆☆</td>

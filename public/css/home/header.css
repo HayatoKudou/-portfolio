@@ -8,23 +8,26 @@ conten1header a {
 }
 
 header {
-    background-color: #337079;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    color: #fafafa;
-    position: sticky;
-    top: 0;
-    z-index: 2;
+  background-color: #337079;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: #fafafa;
+  position: fixed;
+  top: 0;
+  z-index: 3;
+  width: 100%;
 }
 
 header .container {
+    margin-left: 70px;
     display: flex;
     justify-content: end;
     align-items: center;
-    margin: 0 100px;
-    height: 90px;
+    /* margin: 0 100px; */
+    height: 70px;
 }
+
 .header-nav {
     display: flex;
     background-color: #337079;

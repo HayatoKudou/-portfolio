@@ -2,7 +2,8 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height:100%;">
 <head>
     <meta charset="utf-8">
-    <title>正規表現生成ツール</title>
+    <title>正規表現ツール</title>
+    <link rel="icon" href="{{ asset('img/javascript.svg') }}" type="image/svg+xml">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- CSRF Token -->
@@ -18,10 +19,12 @@
     <!--アイコン-->
     <script src="https://kit.fontawesome.com/4146f9dc55.js" crossorigin="anonymous"></script>
 
-
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <!-- 引用符 -->
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
 
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
@@ -34,6 +37,6 @@
 
 
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content" style="padding: 0px !important;">
+<main class="py-4" id="main_content" style="padding: 70px 0 0 0!important;">
     @yield('content')
 </main>

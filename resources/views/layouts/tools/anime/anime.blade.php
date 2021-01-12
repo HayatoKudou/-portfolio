@@ -6,6 +6,6 @@
 
 
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content">
+<main class="py-4" id="main_content" style="padding: 70px 0 0 0!important;">
     @yield('content')
 </main>
