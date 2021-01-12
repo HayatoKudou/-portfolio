@@ -2,9 +2,11 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height:100%;">
 <head>
     <meta charset="utf-8">
-    <title>正規表現ツール</title>
+    <title>正規表現生成・テストツール-JavaScript</title>
     <link rel="icon" href="{{ asset('img/javascript.svg') }}" type="image/svg+xml">
+    <!-- <link rel="icon" href="{{ asset('img/favicon.ico') }}"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword" content="js,javascript,正規表現ツール">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -37,6 +39,6 @@
 
 
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content" class="main_content">
+<main class="py-4" id="main_content">
     @yield('content')
 </main>

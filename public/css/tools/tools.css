@@ -1,4 +1,4 @@
-.main_content {
+#main_content {
     padding: 70px 0 0 0!important;
 }
 
@@ -295,7 +295,7 @@ details[open] summary::before {
   
 
 @media screen and (max-width: 600px) {
-    .main_content {
+    #main_content {
         padding: 0 0 0 0!important;
     }
     .output{

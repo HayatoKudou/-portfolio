@@ -109,7 +109,7 @@ const Main: React.FC = () => {
     }
 
     return(
-        <div className="main_content">
+        <div>
             <TextField type="search" className="input_str" label="文字列を入力" variant="outlined" size="small" name="input_str"
                 InputLabelProps={{style: {fontSize: 17, paddingTop: 2}}}
                 onChange={(e) => set_regular_expression(e)} 

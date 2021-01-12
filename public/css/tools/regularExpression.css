@@ -228,6 +228,7 @@
 @media screen and (max-width: 600px) {
     .regularExpression_detail {
         display: block;
+        margin-left: 15px;
     }
     .regularExpression_detail_display {
         display: none;
