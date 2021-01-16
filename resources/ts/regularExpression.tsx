@@ -3,11 +3,19 @@ import { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import {CheckBox} from './components/checkboxComponent';
-import {Tooltip} from './components/tooltipComponent';
 
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 
 const Main: React.FC = () => {
 
@@ -21,13 +29,14 @@ const Main: React.FC = () => {
     const [example_regularExpression_postalCode, setExample_regularExpression_postalCode] = useState(false);
     const [example_regularExpression_emailAddress, setExample_regularExpression_emailAddress] = useState(false);
     const [example_regularExpression_phoneNumber, setExample_regularExpression_phoneNumber] = useState(false);
+    const [example_regularExpression_day, setExample_regularExpression_day] = useState(false);
 
     //オプションフラグ
     const [option_flag, set_option_flag] = useState('');
     const [option_flag_g, set_option_flag_g] = useState(false);
     const [option_flag_i, set_option_flag_i] = useState(false);
     const [option_flag_m, set_option_flag_m] = useState(false);
-    const [option_flag_dot, set_option_flag_dot] = useState(false);    
+    const [option_flag_dot, set_option_flag_dot] = useState(false);
 
     //正規表現実行
     function run_regular_expression(customRegularEexpression: string, str: string = ''): void {
@@ -49,7 +58,7 @@ const Main: React.FC = () => {
         var value: string = e.target.value;
         var name: string = e.target.name;
         var checked: boolean = e.target.checked;
-        
+
         customRegularEexpression = custom_regular_expression;
         optionFlag = option_flag;
 
@@ -72,7 +81,11 @@ const Main: React.FC = () => {
             customRegularEexpression = checked === true ? custom_regular_expression + '^\\d{1,4}-\\d{1,4}-\\d{3,4}$' : custom_regular_expression.replace('^\\d{1,4}-\\d{1,4}-\\d{3,4}$', '');
             setCustomRegularRxpression(customRegularEexpression);
             setExample_regularExpression_phoneNumber(checked);
-        }        
+        } else if(name === 'example_regularExpression_day'){
+            customRegularEexpression = checked === true ? custom_regular_expression + '\\d{4}/\\d{1,2}/\\d{1,2}' : custom_regular_expression.replace('\\d{4}/\\d{1,2}/\\d{1,2}', '');
+            setCustomRegularRxpression(customRegularEexpression);
+            setExample_regularExpression_day(checked);
+        }
 
         //オプションフラグ
         else if(name === 'option_flag_g'){
@@ -91,7 +104,7 @@ const Main: React.FC = () => {
             optionFlag = checked === true ? option_flag + '.' : option_flag.replace('.', '');
             set_option_flag(optionFlag);
             set_option_flag_dot(checked);
-        }                
+        }
 
         // console.log(name + ': ' + value);
         // console.log(input_str + ': ' + customRegularEexpression);
@@ -104,19 +117,51 @@ const Main: React.FC = () => {
         run_regular_expression(customRegularEexpression);
     }
 
+    function input_delete(inputName: string){
+        if(inputName === 'input_str'){
+            setInputStr('');
+        } else if(inputName === 'custom_regular_expression'){
+            setCustomRegularRxpression('');
+        } else if(inputName === 'result'){
+            setResult('');
+        }
+    }
+
     const styles = {
         resize:{'fontSize': '16px'},
     }
 
     return(
         <div>
-            <TextField type="search" className="input_str" label="文字列を入力" variant="outlined" size="small" name="input_str"
+            <TextField className="input_str" label="検証対象文字列" variant="outlined" size="small" name="input_str"
+                InputProps={{endAdornment:
+                    <div className="input_icon">
+                        <IconButton className="copy_btn" data-clipboard-text={input_str}>
+                            <FileCopyOutlinedIcon fontSize="small" className="copy_icon" />
+                        </IconButton>
+                        <IconButton onClick={() => input_delete('input_str')}>
+                            <BackspaceOutlinedIcon fontSize="small" className="copy_icon" />
+                        </IconButton>
+                    </div>
+                }}
                 InputLabelProps={{style: {fontSize: 17, paddingTop: 2}}}
-                onChange={(e) => set_regular_expression(e)} 
+                onChange={(e) => set_regular_expression(e)}
+                value={input_str}
             />
-            <TextField type="search" className="input_str" label="正規表現を入力" variant="outlined" size="small" name="custom_regular_expression"
+            <TextField className="input_str" label="正規表現" variant="outlined" size="small" name="custom_regular_expression"
+                InputProps={{endAdornment:
+                    <div className="input_icon">
+                        <IconButton className="copy_btn" data-clipboard-text={custom_regular_expression}>
+                            <FileCopyOutlinedIcon fontSize="small" className="copy_icon" />
+                        </IconButton>
+                        <IconButton onClick={() => input_delete('custom_regular_expression')}>
+                            <BackspaceOutlinedIcon fontSize="small" className="copy_icon" />
+                        </IconButton>
+                    </div>
+                }}
                 InputLabelProps={{style: {fontSize: 17, paddingTop: 2}}}
-                onChange={(e) => set_regular_expression(e)} value={custom_regular_expression} 
+                onChange={(e) => set_regular_expression(e)}
+                value={custom_regular_expression}
             />
                 <div className="row input_regular_expression">
                     <div className="col-md-6">
@@ -128,11 +173,6 @@ const Main: React.FC = () => {
                                     <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('/')}>\: 次の文字をエスケープ</Button>
                                     <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('^')}>^: 行の先頭にマッチ</Button>
                                     <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('$')}>$: 行の末尾にマッチ</Button>
-                                </div>
-                                <div className="regular_expression_pattren_button_group">
-                                    <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[A-Za-z]')}>[A-Za-z]: アルファベット</Button>
-                                    <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[ぁ-ん]')}>[ぁ-ん]: ひらがな</Button>
-                                    <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[ァ-ヴ]')}>[ァ-ヴ]: カタカナ</Button>
                                 </div>
                                 <div className="regular_expression_pattren_button_group">
                                     <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('*')}>*: 直前の文字の0回以上の繰り返しにマッチ</Button>
@@ -180,64 +220,110 @@ const Main: React.FC = () => {
                     </div>
 
                     <div className="col-md-6 exmple_form">
-                        <p className="input_regular_expression_title">【 代表的な正規表現例 】</p>
-                        <details>
-                            <summary>
-                                <label className="regularExpression_detail row">
-                                    <div className="col-md-4">
-                                        <Checkbox name="example_regularExpression_postalCode" color="default" checked={example_regularExpression_postalCode} onClick={(e) => set_regular_expression(e)} size="small" />
-                                        <p>郵便番号</p>
-                                    </div>
-                                    <div className="col-md-8 regularExpression_detail_display"><p>{'[0-9]{3}-[0-9]{4}'}</p></div>
-                                </label>
-                            </summary>
-                            <div className="example_regularExpression_explanation">
-                                <ul>
-                                    <li>{'[0-9]は0から9の半角数字が一つあることを許可しています。'}</li>
-                                    <li>{'{3}は直前の[0-9]のパターンが３回繰り返されることを許可しています。'}</li>
-                                    <li>{'-はハイフンがあることを許可しています。'}</li>
-                                </ul>
+                        <div>
+                            <p className="input_regular_expression_title">【 パターン例 】</p>
+                            <div className="regular_expression_pattren_button_form">
+                                <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[A-Za-z]')}>[A-Za-z]: アルファベット</Button>
+                                <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[ぁ-ん]')}>[ぁ-ん]: 全角ひらがな</Button>
+                                <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('[ァ-ヴ]')}>[ァ-ンヴー]: 全角カタカナ</Button>
+                                <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('^[0-9]*$')}>^[0-9]*$: 半角数値のみ</Button>
+                                <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('^[a-zA-Z]*$')}>^[a-zA-Z]*$: 半角英字のみ</Button>
+                                <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('^[0-9a-zA-Z]*$')}>^[0-9a-zA-Z]*$: 半角英数字のみ</Button>
+                                <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('^([0-9]{5,})$')}>{'^([0-9]{5,})$'}: 5文字以上の半角英数字</Button>
+                                <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('^([0-9]{0,5})$')}>{'^([0-9]{0,5})$'}: 5文字以内の半角英数字</Button>
+                                <Button variant="outlined" size="small" color="primary" onClick={() => set_regular_expression_button('^([a-zA-Z0-9]{5,10})$')}>{'^([a-zA-Z0-9]{5,10})$'}: 5文字以上10文字以内の半角英数字</Button>
                             </div>
-                        </details>
-                        <details>
-                            <summary>
-                                <label className="regularExpression_detail row">
-                                    <div className="col-md-4">
-                                        <Checkbox name="example_regularExpression_phoneNumber" color="default" checked={example_regularExpression_phoneNumber} onClick={(e) => set_regular_expression(e)} size="small" />
-                                        <p>電話番号</p>
-                                    </div>
-                                    <div className="col-md-8 regularExpression_detail_display"><p>{'^\\d{1,4}-\\d{1,4}-\\d{3,4}$'}</p></div>
-                                </label>
-                            </summary>
-                            <div className="example_regularExpression_explanation">
-                                <ul>
-                                    <li>{'半角ハイフンを含んだ1〜4桁・1〜4桁・3〜4桁の半角数字を許可しています。'}</li>
-                                </ul>
-                            </div>
-                        </details>
-                        <details>
-                            <summary>
-                                <label className="regularExpression_detail row">
-                                    <div className="col-md-4">
-                                        <Checkbox name="example_regularExpression_emailAddress" color="default" checked={example_regularExpression_emailAddress} onClick={(e) => set_regular_expression(e)} size="small" />
-                                        <p>Emailアドレス</p>
-                                    </div>
-                                    <div className="col-md-8 regularExpression_detail_display"><p>{'^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\\.[A-Za-z0-9]{1,}'}</p></div>
-                                </label>
-                            </summary>
-                            <div className="example_regularExpression_explanation">
-                                <ul>
-                                    <li>{'^[A-Za-z0-9]{1}は、アルファベット小文字/大文字/数字を許可しています。'}</li>
-                                    <li>{'[A-Za-z0-9_.-]*は、アルファベット小文字/大文字/数字/アンダースコア/ピリオド/ハイフンを許可しています。(0文字以上)'}</li>
-                                    <li>{'@{1}は、連続してはいけないことを許可しています。'}</li>
-                                    <li>{'[A-Za-z0-9_.-]{1,}は、アルファベット小文字/大文字/数字/アンダースコア/ピリオド/ハイフンを許可しています。(1文字以上)'}</li>
-                                    <li>{'\\.[A-Za-z0-9]{1,}$は、アルファベット小文字/大文字/数字を許可しています。(1文字以上)'}</li>
-                                </ul>
-                            </div>
-                        </details>
+                        </div>
+                        <div>
+                            <p className="input_regular_expression_title">【 代表的な正規表現例 】</p>
+                            <details>
+                                <summary>
+                                    <label className="regularExpression_detail row">
+                                        <div className="col-md-4">
+                                            <Checkbox name="example_regularExpression_postalCode" color="default" checked={example_regularExpression_postalCode} onClick={(e) => set_regular_expression(e)} size="small" />
+                                            <p>郵便番号</p>
+                                        </div>
+                                        <div className="col-md-8 regularExpression_detail_display"><p>{'[0-9]{3}-[0-9]{4}'}</p></div>
+                                    </label>
+                                </summary>
+                                <div className="example_regularExpression_explanation">
+                                    <ul>
+                                        <li>{'[0-9]は0から9の半角数字が一つあることを意味しています。'}</li>
+                                        <li>{'{3}は直前の[0-9]のパターンが３回繰り返されることを意味しています。'}</li>
+                                        <li>{'-はハイフンがあることを意味しています。'}</li>
+                                    </ul>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>
+                                    <label className="regularExpression_detail row">
+                                        <div className="col-md-4">
+                                            <Checkbox name="example_regularExpression_phoneNumber" color="default" checked={example_regularExpression_phoneNumber} onClick={(e) => set_regular_expression(e)} size="small" />
+                                            <p>電話番号</p>
+                                        </div>
+                                        <div className="col-md-8 regularExpression_detail_display"><p>{'^\\d{1,4}-\\d{1,4}-\\d{3,4}$'}</p></div>
+                                    </label>
+                                </summary>
+                                <div className="example_regularExpression_explanation">
+                                    <ul>
+                                        <li>{'半角ハイフンを含んだ1〜4桁・1〜4桁・3〜4桁の半角数字を意味しています。'}</li>
+                                    </ul>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>
+                                    <label className="regularExpression_detail row">
+                                        <div className="col-md-4">
+                                            <Checkbox name="example_regularExpression_day" color="default" checked={example_regularExpression_day} onClick={(e) => set_regular_expression(e)} size="small" />
+                                            <p>日付</p>
+                                        </div>
+                                        <div className="col-md-8 regularExpression_detail_display"><p>{'\\d{4}/\\d{1,2}/\\d{1,2}'}</p></div>
+                                    </label>
+                                </summary>
+                                <div className="example_regularExpression_explanation">
+                                    <ul>
+                                        <li>{'\\d{4}は、数字４桁であることを意味しています。'}。</li>
+                                        <li>{'\\d{1,2}は、数字1桁~2桁であること。'}。</li>
+                                        <li>※フォーマットは"yyyy/m/d"のみとします。</li>
+                                    </ul>
+                                </div>
+                            </details>
+                            <details>
+                                <summary>
+                                    <label className="regularExpression_detail row">
+                                        <div className="col-md-4">
+                                            <Checkbox name="example_regularExpression_emailAddress" color="default" checked={example_regularExpression_emailAddress} onClick={(e) => set_regular_expression(e)} size="small" />
+                                            <p>Emailアドレス</p>
+                                        </div>
+                                        <div className="col-md-8 regularExpression_detail_display"><p>{'^[A-Za-z0-9]{1}[A-Za-z0-9_.-]*@{1}[A-Za-z0-9_.-]{1,}\\.[A-Za-z0-9]{1,}'}</p></div>
+                                    </label>
+                                </summary>
+                                <div className="example_regularExpression_explanation">
+                                    <ul>
+                                        <li>{'^[A-Za-z0-9]{1}は、アルファベット小文字/大文字/数字を意味しています。'}</li>
+                                        <li>{'[A-Za-z0-9_.-]*は、アルファベット小文字/大文字/数字/アンダースコア/ピリオド/ハイフンを意味しています。(0文字以上)'}</li>
+                                        <li>{'@{1}は、連続してはいけないことを意味しています。'}</li>
+                                        <li>{'[A-Za-z0-9_.-]{1,}は、アルファベット小文字/大文字/数字/アンダースコア/ピリオド/ハイフンを意味しています。(1文字以上)'}</li>
+                                        <li>{'\\.[A-Za-z0-9]{1,}$は、アルファベット小文字/大文字/数字を意味しています。(1文字以上)'}</li>
+                                    </ul>
+                                </div>
+                            </details>
+                        </div>
                     </div>
                 </div>
-            <TextField className="result_form" label="結果" rows={5} variant="outlined" multiline value={result} />
+
+            <TextField className="result_form" label="結果" rows={5} variant="outlined" multiline value={result}
+                InputProps={{endAdornment:
+                    <div className="input_icon">
+                        <IconButton className="copy_btn" data-clipboard-text={result}>
+                            <FileCopyOutlinedIcon className="copy_icon" />
+                        </IconButton>
+                        <IconButton onClick={() => input_delete('result')}>
+                            <BackspaceOutlinedIcon className="copy_icon" />
+                        </IconButton>
+                    </div>
+                }}
+            />
 
             <div className="box_form">
                 <span className="box-title">ツール説明</span>
@@ -252,9 +338,9 @@ const Main: React.FC = () => {
                 </p>
                 <blockquote>
                     <p>■参考リンク</p>
-                    <cite>引用：<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions">正規表現 - JavaScript | MDN</a></cite>
-                    <cite>引用：<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp - JavaScript | MDN</a></cite>
-                    <cite>引用：<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/match">String.prototype.match() - MDN</a></cite>
+                    <cite>引用：<a target="_blank" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions">正規表現 - JavaScript | MDN</a></cite>
+                    <cite>引用：<a target="_blank" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp - JavaScript | MDN</a></cite>
+                    <cite>引用：<a target="_blank" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/match">String.prototype.match() - MDN</a></cite>
                 </blockquote>
             </div>
 
@@ -266,7 +352,7 @@ const Main: React.FC = () => {
                     <li>高度な検索が必要な場合はオプションフラグを選択。</li>
                 </ul>
             </div>
-            
+
         </div>
     )
 }

@@ -35,6 +35,10 @@
     <link href="/css/tools/header.css" rel="stylesheet">
     <link href="/css/tools/regularExpression.css" rel="stylesheet">
 
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
+    <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
+    <script>new ClipboardJS('.copy_btn');</script>
+
 </head>
 
 
