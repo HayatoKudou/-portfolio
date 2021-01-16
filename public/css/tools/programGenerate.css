@@ -1,0 +1,10 @@
+.copy_btn {
+    float: right;
+    cursor: pointer;
+    color: #98fb98 !important;
+    background-color: #696666;
+}
+
+.copy_btn .pln{
+    color: #98fb98 !important;
+}

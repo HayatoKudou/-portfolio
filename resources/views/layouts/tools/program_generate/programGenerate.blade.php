@@ -28,8 +28,9 @@
     <link href="/css/common.css" rel="stylesheet">
     <link href="/css/tools/tools.css" rel="stylesheet">
     <link href="/css/tools/header.css" rel="stylesheet">
+    <link href="/css/tools/programGenerate.css" rel="stylesheet">
 
-    <!-- ソースコード -->    
+    <!-- ソースコード -->
     <!-- <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script> -->
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js?skin=desert"></script>
     <script src="https://unpkg.com/clipboard@2/dist/clipboard.min.js"></script>
@@ -39,6 +40,6 @@
 
 
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content" style="padding: 0px !important;">
+<main class="py-4" id="main_content">
     @yield('content')
 </main>

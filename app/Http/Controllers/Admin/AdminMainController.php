@@ -55,11 +55,15 @@ class AdminMainController extends Controller
         $notice_model->fill([
             'date' => $request->notice_date,
             'notice_content' => $request->notice_content,
+            'url_flg' => 0,
+            'url' => '',
         ]);
         $notice_model->save();
         $result = $this->getTwitterData();
         $notice_data = Notice::getNoticeData();
-        return view('home.admin.top',["result" => $result, "notice_data" => $notice_data]);
+        $today_access_data = Analysis::getTodayAccessCount();
+        $all_access_data = Analysis::getAllAccessCount();
+        return view('home.admin.top',["result" => $result, "notice_data" => $notice_data, "today_access_data" => $today_access_data, "all_access_data" => $all_access_data]);
     }
 
     public function notice_delete(Request $request){

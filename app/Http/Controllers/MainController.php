@@ -62,9 +62,6 @@ class MainController extends Controller
     public function main(){
         //更新日時取得
         $update_date = $this->getUpdateDate();
-        //閲覧数のカウント
-        $url = url()->current();
-        Analysis::count($url);
         return view('portfolio.mainPage',['update_date' => $update_date]);
     }
 
@@ -103,9 +100,6 @@ class MainController extends Controller
             $result = $this->getTwitterData();
             $this->getQiitaData();
             $notice_data = Notice::getNoticeData();
-            //閲覧数のカウント
-            $url = url()->current();
-            Analysis::count($url);
             DB::commit();
             return view('home.top',["result" => $result, "notice_data" => $notice_data]);
 

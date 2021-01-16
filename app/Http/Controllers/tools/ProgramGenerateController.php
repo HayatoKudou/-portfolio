@@ -10,8 +10,6 @@ use Log;
 class ProgramGenerateController extends Controller
 {
     public function programGenerate(){
-        $url = url()->current();
-        Analysis::count($url);
         return view('tools.program_generate.programGenerate');
     }
 
@@ -23,9 +21,11 @@ $run_code = <<<EOD
 \$result = json_decode( \$responce, true );
 EOD;
         eval($run_code);
-        // Log::debug('responce: ' . $responce);
-        // Log::debug('result: ' . $result);
         return $result;
+    }
+
+    public function regularExpression(Request $request){
+        return view('tools.regularExpression.regularExpression');
     }
 
     public function get_api_endPoint(){

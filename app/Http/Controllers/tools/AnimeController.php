@@ -16,8 +16,6 @@ class AnimeController extends Controller
     }
 
     public function top(){
-        $url = url()->current();
-        Analysis::count($url);
         return view('tools.anime.top');
     }
 

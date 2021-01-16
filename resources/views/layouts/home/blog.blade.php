@@ -2,7 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="height:100%;">
 
 <!-- <main class="py-4"> -->
-<main class="py-4" id="main_content">
+<main class="py-4" id="main_content" style="padding: 70px 0 0 0!important;">
     @yield('blog_content')
 </main>
 

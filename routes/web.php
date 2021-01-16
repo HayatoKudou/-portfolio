@@ -37,6 +37,7 @@ Route::group(['prefix' => 'tools'], function() {
     Route::post('/anime_search', 'tools\AnimeController@anime_search');
     Route::post('/showDetail', 'tools\AnimeController@anime_detail');
     Route::get('/programGenerate', 'tools\ProgramGenerateController@programGenerate');
+    Route::get('/regularExpression', 'tools\ProgramGenerateController@regularExpression');
 });
 
 Route::get('/image_analysis', 'image_analysis@chooce_image')->name('image_analysis');
