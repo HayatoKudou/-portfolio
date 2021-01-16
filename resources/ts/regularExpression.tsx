@@ -3,11 +3,19 @@ import { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 import {CheckBox} from './components/checkboxComponent';
-import {Tooltip} from './components/tooltipComponent';
 
 import TextField from '@material-ui/core/TextField';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
+import Tooltip from '@material-ui/core/Tooltip';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+
+import FileCopyOutlinedIcon from '@material-ui/icons/FileCopyOutlined';
+import BackspaceOutlinedIcon from '@material-ui/icons/BackspaceOutlined';
 
 const Main: React.FC = () => {
 
@@ -109,19 +117,51 @@ const Main: React.FC = () => {
         run_regular_expression(customRegularEexpression);
     }
 
+    function input_delete(inputName: string){
+        if(inputName === 'input_str'){
+            setInputStr('');
+        } else if(inputName === 'custom_regular_expression'){
+            setCustomRegularRxpression('');
+        } else if(inputName === 'result'){
+            setResult('');
+        }
+    }
+
     const styles = {
         resize:{'fontSize': '16px'},
     }
 
     return(
         <div>
-            <TextField type="search" className="input_str" label="文字列を入力" variant="outlined" size="small" name="input_str"
+            <TextField className="input_str" label="検証対象文字列" variant="outlined" size="small" name="input_str"
+                InputProps={{endAdornment:
+                    <div className="input_icon">
+                        <IconButton className="copy_btn" data-clipboard-text={input_str}>
+                            <FileCopyOutlinedIcon fontSize="small" className="copy_icon" />
+                        </IconButton>
+                        <IconButton onClick={() => input_delete('input_str')}>
+                            <BackspaceOutlinedIcon fontSize="small" className="copy_icon" />
+                        </IconButton>
+                    </div>
+                }}
                 InputLabelProps={{style: {fontSize: 17, paddingTop: 2}}}
                 onChange={(e) => set_regular_expression(e)}
+                value={input_str}
             />
-            <TextField type="search" className="input_str" label="正規表現を入力" variant="outlined" size="small" name="custom_regular_expression"
+            <TextField className="input_str" label="正規表現" variant="outlined" size="small" name="custom_regular_expression"
+                InputProps={{endAdornment:
+                    <div className="input_icon">
+                        <IconButton className="copy_btn" data-clipboard-text={custom_regular_expression}>
+                            <FileCopyOutlinedIcon fontSize="small" className="copy_icon" />
+                        </IconButton>
+                        <IconButton onClick={() => input_delete('custom_regular_expression')}>
+                            <BackspaceOutlinedIcon fontSize="small" className="copy_icon" />
+                        </IconButton>
+                    </div>
+                }}
                 InputLabelProps={{style: {fontSize: 17, paddingTop: 2}}}
-                onChange={(e) => set_regular_expression(e)} value={custom_regular_expression}
+                onChange={(e) => set_regular_expression(e)}
+                value={custom_regular_expression}
             />
                 <div className="row input_regular_expression">
                     <div className="col-md-6">
@@ -271,7 +311,19 @@ const Main: React.FC = () => {
                         </div>
                     </div>
                 </div>
-            <TextField className="result_form" label="結果" rows={5} variant="outlined" multiline value={result} />
+
+            <TextField className="result_form" label="結果" rows={5} variant="outlined" multiline value={result}
+                InputProps={{endAdornment:
+                    <div className="input_icon">
+                        <IconButton className="copy_btn" data-clipboard-text={result}>
+                            <FileCopyOutlinedIcon className="copy_icon" />
+                        </IconButton>
+                        <IconButton onClick={() => input_delete('result')}>
+                            <BackspaceOutlinedIcon className="copy_icon" />
+                        </IconButton>
+                    </div>
+                }}
+            />
 
             <div className="box_form">
                 <span className="box-title">ツール説明</span>
@@ -286,9 +338,9 @@ const Main: React.FC = () => {
                 </p>
                 <blockquote>
                     <p>■参考リンク</p>
-                    <cite>引用：<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions">正規表現 - JavaScript | MDN</a></cite>
-                    <cite>引用：<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp - JavaScript | MDN</a></cite>
-                    <cite>引用：<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/match">String.prototype.match() - MDN</a></cite>
+                    <cite>引用：<a target="_blank" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions">正規表現 - JavaScript | MDN</a></cite>
+                    <cite>引用：<a target="_blank" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/RegExp">RegExp - JavaScript | MDN</a></cite>
+                    <cite>引用：<a target="_blank" href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/match">String.prototype.match() - MDN</a></cite>
                 </blockquote>
             </div>
 

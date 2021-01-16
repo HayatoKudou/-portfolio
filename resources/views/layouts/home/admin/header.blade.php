@@ -41,17 +41,16 @@
             <div class="footer_a">
                 <nav id="Header-Nav" class="header-nav">
                     <a href="#1" class="nav-list">お知らせ</a>
-                    <a href="#2" class="nav-list">Twitter投稿</a>
+                    <!-- <a href="#2" class="nav-list">Twitter投稿</a> -->
                     <a href="{{ config('url.url' )}}" class="nav-list">portfolio</a>
                     <a href="{{ config('url.url' )}}admin/notice_post" class="nav-list">投稿</a>
                     <ul id="menu">
                       <li><a class="nav-list" href="#">tools</a>
                         <ul>
-                            <li><a class="nav-list" href="tools/calculator">進数変換ツール</a></li>
-                            <li><a class="nav-list" href="tools/css_generate">CSS変換ツール</a></li>
-                            <li><a class="nav-list" href="tools/js_generate">JS変換ツール</a></li>
-                            <li><a class="nav-list" href="tools/programGenerate">プログラム生成ツール</a></li>
-                            <li><a class="nav-list" href="tools/anime">アニメ検索ツール</a></li>
+                                <li><a class="nav-list" href="/tools/regularExpression">正規表現ツール</a></li>
+                                <li><a class="nav-list" href="/tools/programGenerate">プログラム生成ツール</a></li>                                
+                                <li><a class="nav-list" href="/tools/calculator">進数変換ツール</a></li>
+                                <li><a class="nav-list" href="/tools/anime">アニメ検索ツール</a></li>
                         </ul>
                       </li>
                     </ul>

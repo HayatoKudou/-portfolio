@@ -115,19 +115,8 @@
 }
 
 .program_btn {
-    padding-right: 20px;    
+    padding-right: 20px;
     display: flow-root; /* 要素の回り込み回避 */
-}
-
-.copy_btn {
-    float: right;
-    cursor: pointer;
-    color: #98fb98 !important;
-    background-color: #696666;
-}
-
-.copy_btn .pln{
-    color: #98fb98 !important;
 }
 
 .result_copy_btn {
@@ -170,7 +159,7 @@
 }
 
 .program_code_form {
-    z-index: 1;    
+    z-index: 1;
 }
 
 .program_code_form_sub {
@@ -192,7 +181,7 @@
     padding-left: 0px;
 }
 
-.program_accordion_summury {    
+.program_accordion_summury {
     height: 40px;
     min-height: 40px;
 }
@@ -202,7 +191,7 @@
     padding-right: 20px;
 }
 
-.program_accordion_title {    
+.program_accordion_title {
     display: block;
     font-size: 18px;
     float: left;
@@ -292,7 +281,7 @@ details[open] summary::before {
 .program_input_form {
     margin-top: 25px;
 }
-  
+
 
 @media screen and (max-width: 600px) {
     #main_content {

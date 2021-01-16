@@ -13,19 +13,20 @@
 }
 
 .input_regular_expression_title {
-    font-size: 18px;
+    font-size: 16px;
     font-family: serif;
     text-align: center;
-    margin: 20px 0px 5px 0px;
+    margin: 20px 0px 0px 0px;
 }
 
 .input_regular_expression summary {
     outline: none;
-    height: 50px;
-    line-height: 50px;
+    height: 25px;
+    line-height: 25px;
 }
 
 .example_regularExpression_explanation {
+    margin-top: 10px;
     padding: 0 20px 0 20px;
     font-size: 13px;
 }
@@ -38,7 +39,7 @@
 
 .regularExpression_detail {
     width: 90%;
-    font-size: 17px;
+    font-size: 16px;
     cursor: pointer;
 }
 
@@ -81,6 +82,10 @@
 }
 
 .regularExpression_detail_display p {
+    font-size: 0.7rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
     position: absolute;
     top: 50%;
     z-index: 0;
@@ -116,7 +121,7 @@
     font-weight: bold;
 }
 .box_form p {
-    margin: 0; 
+    margin: 0;
     padding: 0;
     font-size: 16px;
 }
@@ -164,7 +169,7 @@
 .readmore-content{
     position: relative;
     overflow: hidden;
-    height: 250px;
+    height: 200px;
 }
 .readmore-content::before {
     display: block;
@@ -222,6 +227,28 @@
 /*チェック時グラデーション等を削除*/
 .readmore-check:checked ~ .readmore-content::before {
     display: none;
+}
+
+.regularExpression_detail .MuiButtonBase-root {
+    padding-top: 5px;
+}
+
+.option_flag_input_form .MuiButtonBase-root {
+    padding-top: 5px;
+}
+
+.input_icon {
+    display: inherit;
+}
+
+.input_icon button {
+    max-height: 40px;
+    outline: none;
+    padding: 5px;
+}
+
+.copy_icon {
+    cursor: pointer;
 }
 
 /* スマホ用 */
