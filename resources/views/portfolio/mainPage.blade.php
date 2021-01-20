@@ -86,13 +86,8 @@
                                 </div>
                                 <table class="skill_table">
                                     <tr>
-                                        <td>技術</td>
-                                        <td>実務経験</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
                                         <td>
-                                            <span style="margin-left: 30px;">PHP</span>
+                                            <span>PHP</span>
                                             <!-- <div class="cp_tooltip" style="float: right;">
                                                 <i class="fas fa-info-circle"></i>
                                                 <span class="cp_tooltiptext">メイン言語で、フレームワークで主に使用しています。<br>
@@ -104,7 +99,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <span style="margin-left: 30px;">JavaScript</span>
+                                            <span>JavaScript</span>
                                             <!-- <div class="cp_tooltip" style="float: right;">
                                                 <i class="fas fa-info-circle"></i>
                                                 <span class="cp_tooltiptext">ブラウザの内部処理・非同期通信などで使用することが多いです。<br>
@@ -124,6 +119,11 @@
                                         <td>１年〜３年</td>
                                         <td>★☆☆☆☆</td>
                                     </tr>
+                                    <tr>
+                                        <td>TypeScript</td>
+                                        <td>１年未満</td>
+                                        <td>★☆☆☆☆</td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>
@@ -135,11 +135,6 @@
                                 </div>
                                 <table class="skill_table">
                                     <tr>
-                                        <td>技術</td>
-                                        <td>実務経験</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
                                          <td>
                                             <span>Laravel</span>
                                         </td>
@@ -148,7 +143,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <span style="margin-left: 30px;">React</span>
+                                            <span>React</span>
                                             <!-- <div class="cp_tooltip" style="float: right;">
                                                 <i class="fas fa-info-circle"></i>
                                                 <span class="cp_tooltiptext">Reduxと併せてFluxで実装することが多いです。<br>
@@ -186,11 +181,6 @@
                                 </div>
                                 <table class="skill_table">
                                     <tr>
-                                        <td>技術</td>
-                                        <td>実務経験</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
                                         <td>MySql</td>
                                         <td>１年〜３年</td>
                                         <td>★★☆☆☆</td>
@@ -206,11 +196,6 @@
                                     <h4><i class="fas fa-server"></i>その他ツール</h4>
                                 </div>
                                 <table class="skill_table">
-                                    <tr>
-                                        <td>技術</td>
-                                        <td>実務経験</td>
-                                        <td></td>
-                                    </tr>
                                     <tr>
                                         <td>Git/GitHub</td>
                                         <td>１年〜３年</td>

@@ -47,7 +47,7 @@
                     <img src="https://qr-official.line.me/sid/M/800wasae.png">
                     <!-- <h5>Twitter投稿</h5> -->
                     @foreach ($result as $tweet)
-                    <blockquote class="twitter-tweet" style="width: 90%;">
+                    <blockquote class="twitter-tweet" style="width: 70%;">
                         <a href="https://twitter.com/React_Laravel_/status/{{ $tweet->id }}"></a>
                     </blockquote>
                     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>

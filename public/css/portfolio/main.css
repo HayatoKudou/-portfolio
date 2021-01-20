@@ -39,7 +39,7 @@
     }
 
     .skill_container{
-        margin: 30px;
+        margin: 20px;
     }
 
     .skill_container_name{
@@ -55,6 +55,7 @@
     }
 
     .skill_table{
+        font-size: 17px;
         width:100%;
     }
 
